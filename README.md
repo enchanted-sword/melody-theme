@@ -1,2 +1,2 @@
 # melody-theme
-melody theme for tumblr
+melody is a simple, sleek theme for tumblr
