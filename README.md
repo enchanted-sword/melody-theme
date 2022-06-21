@@ -2,6 +2,10 @@
 ![Theme Example](example0.png)
 
 melody is a sleek, simple theme for tumblr that is easily editable to suit your needs. It uses a series of simple flex containers that even a novice in web design can easily work with, and all the code is contained within one `html` file.
+
+## Installation
+Simply copy the contents of `main.html` into the custom theme html section on the blog customization page
+
 ## Basic customization
 Without touching the code, you can still customize your page to a degree by changing your background color, title color, and accent color, as well as adding a header image.
 ### Background Color
