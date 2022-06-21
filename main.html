@@ -44,6 +44,10 @@
 				color: #5746c4;
 			}
 			
+			blockquote {
+			    margin: 0px;
+			}
+			
 			.material-symbols-outlined {
 				font-variation-settings:
 				'FILL' 0,
@@ -114,7 +118,7 @@
 				justify-content: center;
 				text-align: center;
 			    margin: auto;
-				padding: 0;
+				padding: 0px;
 			    list-style-type: none;
 			}
 			
@@ -123,6 +127,26 @@
 			    margin-left: 12px;
 				margin-right: 12px;
 			    
+			}
+			
+			ul.tag {
+				display: flex;
+				flex-flow: row wrap;
+				justify-content: flex-start;
+				text-align: center;
+			    margin: 0px;
+				padding: 8px;
+			    list-style-type: none;
+			}
+			
+			li.tag {
+			    display: block;
+			    margin-left: 4px;
+				margin-right: 4px;
+			}
+			
+			a.tag {
+				text-decoration: none;
 			}
 			
 			.sidebar {
@@ -214,10 +238,22 @@
 				border-radius: 12px;
 				color: black;
 				width: 516px;
-				padding: 12px 8px 8px 8px;
+				padding: 8px 8px 8px 8px;
 				margin-left: auto;
 				margin-right: auto;
 				margin-bottom: none;
+			}
+			
+			.card {
+				margin: 0px;
+				padding: 0px;
+				display: block;
+			}
+			
+			.spacer {
+				display: block;
+				margin: 0px;
+				height: 1px;
 			}
 			
 			input {
@@ -266,12 +302,42 @@
 			}
 			
 			.tmblr-full {
+			    margin: 0px;
+			    padding: 0px;
 			    text-align: center;
 				border-radius: 4px;
 			}
 			
+			.npf_row {
+			    width: 516px;
+			    flex-flow: row wrap;
+			    margin: 0px;
+			}
+			
+			img.npf-col {
+			    width: 248px;
+			}
+			
 			.image {
 			    border-radius: 8px;
+			    width: 516px;
+			}
+			
+			.video-card {
+			    width: 516px;
+				text-align: center;
+			}
+			
+			iframe.video {
+			    width: 516px;
+			}
+			
+			.tumblr_video_container {
+			    width: 516px;
+			}
+			
+			.vjs-big-play-button {
+			    border-radius: 8px;    
 			}
 			
 			.quote-body {
@@ -280,11 +346,40 @@
 			}
 			
 			.album-art {
-			    height: 480px;
-			    width: 480px;
-			    margin: auto;
+			    position: relative;
+			}
+			
+			img.album-art {
+			    width: 516px;
+			    height: auto;
 			    border-radius: 8px;
-			    background-image: url({AlbumArtURL});
+			    
+			}
+			
+			.tags {
+				position: absolute;
+				top: 8px;
+				left: 8px;
+			    background-color: rgba(255, 255, 255, 0.4);
+			    border-radius: 8px;
+			    padding: 4px;
+			}
+			
+			.track-name {
+				font-size: 20px;
+				margin: 6px 0px 6px 0px;
+			}
+			
+			.artist {
+			    margin: 6px 0px 6px 0px;
+			}
+			
+			.album {
+			    margin: 6px 0px 6px 0px;
+			}
+			
+			.audio-player {
+			    width: 516px;
 			}
 			
 			.chat {
@@ -300,13 +395,11 @@
 			.ask {
 			    background-color: rgba({RGBBackgroundColor}, 0.2);
 			    border-radius: 8px;
+				padding: 8px;
 			}
 			
 			.asker {
-				text-decoration: none;
-			}
-			
-			.answerer {
+				padding: 0px;
 				text-decoration: none;
 			}
 			
@@ -315,8 +408,11 @@
 			}
 			
 			.footer {
+				display: flex;
+				flex-flow: column nowrap;
+				justify-content: flex-start;
 			    width: 516px;
-			    height: 32px;
+				height: auto;
 			    text-align: left;
 				background-color: #ffffff;
 				border-radius: 12px;
@@ -325,6 +421,15 @@
 				padding: 8px;
 				margin: none auto 8px auto;
 				vertical-align: middle;
+			}
+			
+			.footer-card {
+				min-height: 24px;
+			}
+			
+			.tag-card {
+				display: block;
+				text-align: left;
 			}
 			
 			.note-count {
@@ -436,213 +541,244 @@
 				<div class="post-container">
 					{block:Posts}
 						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
-							{block:RebloggedFrom} <!-- reblog header-->
+							{block:RebloggedFrom}
 								<div class="reblog-header">
 									<a href="{ReblogParentURL}" class="style-text" style="text-decoration: none; padding: 0px; margin: 0px; height: 24px;"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M12.8.2c-.4-.4-.8-.2-.8.4v2H2c-2 0-2 2-2 2v5s0 1 1 1 1-1 1-1v-4c0-1 .5-1 1-1h9v2c0 .6.3.7.8.4L17 3.6 12.8.2zM4.2 17.9c.5.4.8.2.8-.3v-2h10c2 0 2-2 2-2v-5s0-1-1-1-1 1-1 1v4c0 1-.5 1-1 1H5v-2c0-.6-.3-.7-.8-.4L0 14.6l4.2 3.3z"></path></svg></a><a href="{ReblogParentURL}" class="style-text" style="text-decoration: none; padding-left: 8px;"><b>{ReblogParentName}</b></a>
 								</div></a>
 							{/block:RebloggedFrom}
 							{block:NotReblog}
-								<div class="post-body {block:Chat}invis{/block:Chat}"> <!-- post body -->
-									<div class="post-header {block:Chat}invis{/block:Chat}">
+								<div class="post-body not-rb {block:Chat}invis{/block:Chat}">
+									<div class="post-header not-rb {block:Answer}null {/block:Answer}{block:Chat}invis{/block:Chat}">
 										<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
 									</div>
-										{block:Text}
-											<div class="post-card text">
-												{block:Title}<h1>{Title}</h1>{/block:Title}
-												{Body}
-											</div>
-										{/block:Text}
-									    {block:Photo}
+									{block:Text}
+										<div class="post-card text not-rb">
+											{block:Title}<h1>{Title}</h1>{/block:Title}
+											{Body}
+										</div>
+									{/block:Text}
+									{block:Photo}
+										<div class="post-body photo not-rb">
 											<div class="post-card photo">
 												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
 												{block:Caption}{Caption}{/block:Caption}
 											</div>
-										{/block:Photo}
-										{block:Panorama}
-											<div class="post-card panorama">
-												<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+										</div>
+									{/block:Photo}
+									{block:Video}
+										<div class="post-card video not-rb">
+											<div class="video-card">{Video-500}</div>
+											{block:Caption}{Caption}{/block:Caption}
+										</div>
+									{/block:Video}
+									{block:Panorama}
+										<div class="post-card panorama not-rb">
+											<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+											{block:Caption}{Caption}{/block:Caption}
+										</div>
+									{/block:Panorama}
+									{block:Photoset} 
+										<div class="post-card photoset not-rb">
+											{block:Photos}
+												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
 												{block:Caption}{Caption}{/block:Caption}
+											{/block:Photos}
+										</div>
+									{/block:Photoset}
+									{block:Quote}
+										<div class="post-card quote not-rb">
+											<div class="quote-body">
+												<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
+												{block:Source}- {Source}{/block:Source}
 											</div>
-										{/block:Panorama}
-										{block:Photoset} 
-											<div class="post-card photoset">
-												{block:Photos}
-													<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-													{block:Caption}{Caption}{/block:Caption}
-												{/block:Photos}
-											</div>
-										{/block:Photoset}
-										{block:Quote}
-											<div class="post-card quote">
-												<div class="quote-body">
-													<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
-													{block:Source}- {Source}{/block:Source}
+										</div>
+									{/block:Quote}	
+									{block:Link}
+										<div class="post-card link not-rb">
+											<a {Target} href="{URL}">
+												{block:Thumbnail}
+													<img src="{Thumbnail-HighRes}">
+												{/block:Thumbnail}
+												{block:Host}
+													{Host}
+												{/block:Host}
+												{Name}</h2>
+												{block:Excerpt}
+													{Excerpt}
+												{/block:Excerpt}
+												{block:Author}
+													{Author}
+												{/block:Author}
+											</a>
+											{block:Description}
+												{Description}
+											{/block:Description}
+										</div>
+									{/block:Link}
+									{block:Chat}
+										<div class="post-card invis not-rb">
+										    <h1 style="z-index: 72;">chat posts are stupid. nobody has ever used a chat post.</h1>
+										    <span>if you beg to differ, contribute at the theme's <a href="https://github.com/enchanted-sword/melody-theme">repository</a>.</span>
+										</div>
+									{/block:Chat}
+									{block:Audio}
+										<div class="post-card audio not-rb">
+											<div class="album-art">
+												{block:AlbumArt}<img class="album-art" src="{AlbumArtURL}">{/block:AlbumArt}
+												<div class="tags">
+													{block:TrackName}<p class="track-name">{TrackName}</p>{/block:TrackName}
+													{block:Artist}<p class="artist">{Artist}</p>{/block:Artist}
+													{block:Album}<p class="album"><b>{Album}</b></p>{/block:Album}
 												</div>
 											</div>
-										{/block:Quote}
-										{block:Link}
-											<div class="post-card link">
-												<a {Target} href="{URL}">
-													{block:Thumbnail}
-														<img src="{Thumbnail-HighRes}">
-													{/block:Thumbnail}
-													{block:Host}
-														{Host}
-													{/block:Host}
-													{Name}</h2>
-													{block:Excerpt}
-														{Excerpt}
-													{/block:Excerpt}
-													{block:Author}
-														{Author}
-													{/block:Author}
-												</a>
-												{block:Description}
-													{Description}
-												{/block:Description}
+											<span class="ap">{AudioPlayer}</span>
+										</div>
+									{/block:Audio}
+									{block:Answer}
+										<div class="post-body answer not-rb">
+											<div class="post-card answer not-rb">
+												<div class="ask">
+													<div class="post-header asker not-rb">
+														<img src="{AskerPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text" style="text-decoration: none; margin-left: 8px;"><b>{Asker}</b> asked:</span>
+													</div>
+													<div class="ask-question">
+														{Question}
+													</div>
+												</div>
+												<div class="response">
+													<div class="post-header answerer not-rb">
+														<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
+													</div>
+													<div class="ask-reply">
+														{Answer}
+													</div>
+												</div>
 											</div>
-										{/block:Link}
-										{block:Chat}
-										    <div class="post-card invis">
-										        <h1 style="z-index: 72;">chat posts are stupid. nobody has ever used a chat post.</h1>
-											    <span>if you beg to differ, contribute at the theme's <a href="https://github.com/enchanted-sword/melody-theme">repository</a>.</span>
-										    </div>
-										{/block:Chat}
-										{block:Audio}
-											<div class="post-card audio">
-												{block:AlbumArt}
-													<div class="album-art" style="background-image: url({AlbumArtURL});">
-														{block:TrackName}{TrackName}{/block:TrackName}
-														{block:Artist}{Artist}{/block:Artist}
-														{block:Album}{Album}{/block:Album}
-												{/block:AlbumArt}
-												{AudioPlayer}
-											</div>
-										{/block:Audio}
+										</div>
+									{/block:Answer}
 								</div>
 							{/block:NotReblog}
-							{block:isOriginalEntry}
-								<div class="post-body {block:Chat}invis{/block:Chat}"> <!-- post body -->
-									<div class="post-header {block:Chat}invis{/block:Chat}">
-										{block:isActive}
-											<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Username}</b></a>
-										{/block:isActive}
-										{block:isDeactivated}
-											<span style="color: {AccentColor}"><b>{Username}</b></span><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">deactivated</span>
-										{block:isDeactivated}
-									</div>
-										{block:Text}
-											<div class="post-card text">
-												{block:Title}<h1>{Title}</h1>{/block:Title}
-												{Body}
-											</div>
-										{/block:Text}
-									    {block:Photo}
-											<div class="post-card photo">
-												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-												{block:Caption}{Caption}{/block:Caption}
-											</div>
-										{/block:Photo}
-										{block:Panorama}
-											<div class="post-card panorama">
-												<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
-												{block:Caption}{Caption}{/block:Caption}
-											</div>
-										{/block:Panorama}
-										{block:Photoset} 
-											<div class="post-card photoset">
-												{block:Photos}
+							{block:Reblogs}
+								{block:isOriginalEntry}
+									<div class="post-body rb {block:NotReblog}null {/block:NotReblog}{block:Chat}invis {/block:Chat}{block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
+										<div class="post-header rb {block:Answer}null {/block:Answer}{block:Chat}invis{/block:Chat}">
+											{block:IsActive}
+												<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Username}</b></a>
+											{/block:IsActive}
+											{block:IsDeactivated}
+												<span style="color: {AccentColor}"><b>{Username}</b></span><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">deactivated</span>
+											{/block:IsDeactivated}
+										</div>
+										<div class="card rb">
+											{block:Text}
+												<div class="post-card text rb">
+													{block:Title}<h1>{Title}</h1>{/block:Title}
+													{Body}
+												</div>
+											{/block:Text}
+											{block:Photo}
+												<div class="post-card photo rb">
 													<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+													{block:Caption}{Body}{/block:Caption}
+												</div>
+											{/block:Photo}
+											{block:Video}
+												<div class="post-card video rb">
+													<div class="video-card">{Video-500}</div>
 													{block:Caption}{Caption}{/block:Caption}
-												{/block:Photos}
-											</div>
-										{/block:Photoset}
-										{block:Quote}
-											<div class="post-card quote">
-												<div class="quote-body">
-													<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
-													{block:Source}- {Source}{/block:Source}
 												</div>
-											</div>
-										{/block:Quote}
-										{block:Link}
-											<div class="post-card link">
-												<a {Target} href="{URL}">
-													{block:Thumbnail}
-														<img src="{Thumbnail-HighRes}">
-													{/block:Thumbnail}
-													{block:Host}
-														{Host}
-													{/block:Host}
-													{Name}</h2>
-													{block:Excerpt}
-														{Excerpt}
-													{/block:Excerpt}
-													{block:Author}
-														{Author}
-													{/block:Author}
-												</a>
-												{block:Description}
-													{Description}
-												{/block:Description}
-											</div>
-										{/block:Link}
-										{block:Chat}
-										    <div class="post-card invis">
-										        <h1 style="z-index: 72;">chat posts are stupid. nobody has ever used a chat post.</h1>
-											    <span>if you beg to differ, contribute at the theme's <a href="https://github.com/enchanted-sword/melody-theme">repository</a>.</span>
-										    </div>
-										{/block:Chat}
-										{block:Audio}
-											<div class="post-card audio">
-												{block:AlbumArt}
-													<div class="album-art" style="background-image: url({AlbumArtURL});">
-														{block:TrackName}{TrackName}{/block:TrackName}
-														{block:Artist}{Artist}{/block:Artist}
-														{block:Album}{Album}{/block:Album}
-												{/block:AlbumArt}
-												{AudioPlayer}
-											</div>
-										{/block:Audio}
-										{block:Video}
-											<div class="post-card video">
-												<img class="image" src="{VideoURL-500}">
-												<p style="text-align: right; color: #a0a0a0; font-size: 8px;">{PlayCountWithLabel}</p>
-												{block:Caption}{Caption}{/block:Caption}
-											</div>
-										{/block:Video}
-								</div>
-							{/block:isOriginalEntry}
-							{block:Answer} <!-- answer posts (don't ask why they have to be handled separately from every other post type) -->
-								<div class="post-body">
-									<div class="post-card answer">
-										<div class="ask">
-											<div class="post-header">
-												<img src="{AskerPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text" style="text-decoration: none; margin-left: 8px;"><b>{Asker}</b> asked:</span>
-											</div>
-											<div style="padding-left: 8px;">
-												{Question}
-											</div>
+											{/block:Video}
+											{block:Panorama}
+												<div class="post-card panorama rb">
+													<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+													{block:Caption}{Caption}{/block:Caption}
+												</div>
+											{/block:Panorama}
+											{block:Photoset} 
+												<div class="post-card photoset rb">
+													{block:Photos}
+														<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+														{block:Caption}{Caption}{/block:Caption}
+													{/block:Photos}
+												</div>
+											{/block:Photoset}
+											{block:Quote}
+												<div class="post-card quote rb">
+													<div class="quote-body">
+														<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
+														{block:Source}- {Source}{/block:Source}
+													</div>
+												</div>
+											{/block:Quote}	
+											{block:Link}
+												<div class="post-card link rb">
+													<a {Target} href="{URL}">
+														{block:Thumbnail}
+															<img src="{Thumbnail-HighRes}">
+														{/block:Thumbnail}
+														{block:Host}
+															{Host}
+														{/block:Host}
+														{Name}</h2>
+														{block:Excerpt}
+															{Excerpt}
+														{/block:Excerpt}
+														{block:Author}
+															{Author}
+														{/block:Author}
+													</a>
+													{block:Description}
+														{Description}
+													{/block:Description}
+												</div>
+											{/block:Link}
+											{block:Chat}
+												<div class="post-card invis rb">
+													<h1 style="z-index: 72;">chat posts are stupid. nobody has ever used a chat post.</h1>
+													<span>if you beg to differ, contribute at the theme's <a href="https://github.com/enchanted-sword/melody-theme">repository</a>.</span>
+												</div>
+											{/block:Chat}
+											{block:Audio}
+												<div class="post-card audio rb">
+													<div class="album-art">
+														{block:AlbumArt}<img class="album-art" src="{AlbumArtURL}">{/block:AlbumArt}
+														<div class="tags">
+															{block:TrackName}<p class="track-name">{TrackName}</p>{/block:TrackName}
+															{block:Artist}<p class="artist">{Artist}</p>{/block:Artist}
+															{block:Album}<p class="album"><b>{Album}</b></p>{/block:Album}
+														</div>
+													</div>
+													<span class="ap">{AudioPlayer}</span>
+												</div>
+											{/block:Audio}
+											{block:Answer}
+													<div class="post-card answer rb">
+														<div class="ask">
+															<div class="post-header asker rb">
+																<img src="{AskerPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text" style="text-decoration: none; margin-left: 8px;"><b>{Asker}</b> asked:</span>
+															</div>
+															<div class="ask-question">
+																{Question}
+															</div>
+														</div>
+														{block:Answerer}
+															<div class="response">
+																<div class="post-header answerer rb">
+																	<img src="{AnswererPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text"><b>{Answerer}</b></span>
+																</div>
+																<div class="ask-reply">
+																	{Answer}
+																</div>
+															</div>
+														{/block:Answerer}
+													</div>
+											{/block:Answer}
 										</div>
-										<div class="response">
-											{block:Answerer}
-												<div class="post-header" style="padding-left: 0px;">
-														<img src="{AnswererPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text"><b>{Answerer}</b></span>
-												</div>
-												<div>
-													{Answer}
-												</div>
-											{/block:Answerer}
-											<div class="replies {block:Answerer}null{/block:Answerer}">
-												{Replies}
-											</div>
-										</div>
+										<div class="spacer"></div>
 									</div>
-								</div>
-							{/block:Answer}
-							{block:Reblogs} <!-- subsequent reblogs in a reblog chain -->
-								<div class="post-body">
-									<div class="post-header">
+								{/block:isOriginalEntry}
+								<div class="post-body rb {block:isOriginalEntry}null{/block:isOriginalEntry}">
+									<div class="post-header rb">
 										{block:IsActive}
 											<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Username}</b></a>
 										{/block:IsActive}
@@ -650,23 +786,36 @@
 											<span style="color: {AccentColor}"><b>{Username}</b></span><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">deactivated</span>
 										{/block:IsDeactivated}
 									</div>
-									<div class="post-card">
-										<div style="display: block; padding: 0px; margin: 0px;">{Body}</div>
+									<div class="post-card rb">
+										<div class="card">{Body}</div>
 									</div>
 								</div>
 							{/block:Reblogs}
-							<div class="footer" {block:Chat}style="display: none;"{/block:Chat}>
-							    {block:NoteCount}
-    							    <span class="style-text note-count" style="color: {AccentColor}">
-    							        <span class="note-count">
-											<a href="{Permalink}" style="text-decoration: none;"><b>{NoteCountWithLabel}</b></a>
+							<div class="footer" style="height: auto;" {block:Chat}style="display: none;"{/block:Chat}>
+								<div class="footer-card">
+									{block:NoteCount}
+										<span class="style-text note-count" style="color: {AccentColor}">
+											<span class="note-count">
+												<a href="{Permalink}" style="text-decoration: none;"><b>{NoteCountWithLabel}</b></a>
+											</span>
 										</span>
-    							    </span>
-    					        {/block:NoteCount}
-    					        <div class="footer-content">
-    					            <span class="like-rb">{LikeButton size="24" color="grey"}</span>
-    					            <span class="like-rb">{ReblogButton size="24" color="grey"}</span>          
-    					        </div>
+									{/block:NoteCount}
+									<div class="footer-content">
+										<span class="like-rb">{LikeButton size="24" color="grey"}</span>
+										<span class="like-rb">{ReblogButton size="24" color="grey"}</span>          
+									</div>
+								</div>
+								{block:HasTags}
+									<div class="tag-card">
+										<ul class="tag">
+											{block:Tags}
+												<li class="tag">
+													<a class="tag" style="color: #a0a0a0;" href="{TagURL}">#{Tag}</a>
+												</li>
+											{/block:Tags}
+										</ul>
+									</div>
+								{/block:HasTags}
 							</div>
 							{block:PostNotes}
 							    <div class="post-notes">
