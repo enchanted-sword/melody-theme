@@ -75,7 +75,7 @@
 			
 			img.header {
 			    border-radius: 8px;
-			    height: 360px;
+			    height: 100%;
 			    max-width: auto;
 			}
 			
@@ -317,9 +317,12 @@
 				padding: 4px;
 				padding-left: 8px;
 				border: none;
-				background-color: {TitleColor};
-				opacity: 0.2;
+				background-color: rgba({RGBTitleColor},0.4);
 				border-radius: 8px;
+			}
+			
+			audio {
+			    width: 516px;
 			}
 			
 			.img {
@@ -354,6 +357,7 @@
 			}
 			
 			.tmblr-full {
+			    height: auto;
 			    margin: 0px;
 			    padding: 0px;
 			    text-align: center;
@@ -432,6 +436,10 @@
 			
 			.audio-player {
 			    width: 516px;
+			}
+			
+			.tumblr_audio_player {
+			    height: 85px !important;
 			}
 			
 			.chat {
@@ -564,7 +572,7 @@
 						<div id="search">
 							<form action="/search" method="get">
 								<input class="style-text" type="text" name="q" value="{SearchQuery}" placeholder="search..." style="color: {BackgroundColor};"/>
-								<input class="style-text" style="margin-left: 8px;" type="submit" value="go"/>
+								<input class="style-text" style="margin-left: 8px; color: {BackgroundColor};" type="submit" value="go"/>
 							</form>
 						</div>
 						<div class="pfp">
@@ -706,15 +714,8 @@
 									{/block:Chat}
 									{block:Audio}
 										<div class="post-card audio not-rb">
-											<div class="album-art">
-												{block:AlbumArt}<img class="album-art" src="{AlbumArtURL}">{/block:AlbumArt}
-												<div class="tags">
-													{block:TrackName}<p class="track-name">{TrackName}</p>{/block:TrackName}
-													{block:Artist}<p class="artist">{Artist}</p>{/block:Artist}
-													{block:Album}<p class="album"><b>{Album}</b></p>{/block:Album}
-												</div>
-											</div>
-											<span class="ap">{AudioPlayer}</span>
+											<div class="card" style="padding: auto;">{AudioEmbed-500}</div>
+											<div class="card">{block:Caption}{Body}{/block:Caption}</div>
 										</div>
 									{/block:Audio}
 									{block:Answer}
@@ -823,15 +824,7 @@
 											{/block:Chat}
 											{block:Audio}
 												<div class="post-card audio rb">
-													<div class="album-art">
-														{block:AlbumArt}<img class="album-art" src="{AlbumArtURL}">{/block:AlbumArt}
-														<div class="tags">
-															{block:TrackName}<p class="track-name">{TrackName}</p>{/block:TrackName}
-															{block:Artist}<p class="artist">{Artist}</p>{/block:Artist}
-															{block:Album}<p class="album"><b>{Album}</b></p>{/block:Album}
-														</div>
-													</div>
-													<div class="ap">{AudioPlayer}</div>
+													<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
 													<div class="card">{block:Caption}{Body}{/block:Caption}</div>
 												</div>
 											{/block:Audio}
