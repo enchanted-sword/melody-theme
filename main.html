@@ -240,7 +240,7 @@
 				justify-content: flex-start;
 				align-items: center;
 				text-align: left;
-				background-color: none;
+				background-color: rgba(0,0,0,0);
 				border-radius: 12px;
 				line-height: 24px;
 				height: 32px;
@@ -661,7 +661,10 @@
 							{block:NotReblog}
 								<div class="post-body not-rb {block:Chat}invis{/block:Chat}">
 									<div class="post-header not-rb {block:Answer}null {/block:Answer}{block:Chat}invis{/block:Chat}">
-										<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
+										<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
+										<a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
+										<span style="width:480px;"></span>
+										<a style="text-align: right; color: #ffffff; width: 24px;" href="https://www.tumblr.com/blog/view/{Name}/{PostID}">⨀</a>
 									</div>
 									{block:Text}
 										<div class="post-card text not-rb">
@@ -752,7 +755,10 @@
 												</div>
 												<div class="response">
 													<div class="post-header answerer not-rb">
-														<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
+														<img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
+														<a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
+														<span style="width: 480px;></span>
+														<a style="text-align: right; color: #ffffff; margin-right: 8px;" href="https://www.tumblr.com/blog/view/{Name}/{PostID}">⨀</a>
 													</div>
 													<div class="ask-reply">
 														{Answer}
@@ -861,8 +867,11 @@
 														</div>
 														{block:Answerer}
 															<div class="response">
-																<div class="post-header answerer rb">
-																	<img src="{AnswererPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text"><b>{Answerer}</b></span>
+																<div class="post-header answerer rb" style="padding-left: 0px;">
+																	<img src="{AnswererPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
+																	<span class="post-avatar style-text"><b>{Answerer}</b></span>
+																	<span style="width:480px;"></span>
+																	<a style="text-align: right; color: #ffffff; margin-right: 8px;" href="https://www.tumblr.com/blog/view/{Name}/{PostID}">⨀</a>
 																</div>
 																<div class="ask-reply">
 																	{Answer}
