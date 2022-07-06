@@ -28,5 +28,6 @@ Used for:
 - The note count in the post footer
 
 Avoid white, and other similarly light colors, unless you plan on modifying the hard-coded post colors. Additionally, it is reccomended, but not necessary to chose a different color from the title color.
+
 ###Header Image
 The header image that displays at the top of the page will display your header image at its original aspect ratio, scaled down to 360px in height. If you're looking to have the header take up the full width of the page without modifying the code, use an an image with an 11 : 2 aspect ratio (assuming a 1080p display).
