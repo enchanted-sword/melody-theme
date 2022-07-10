@@ -592,15 +592,19 @@
 			<div class="navbar style-text">
 				<ul class="nav">	
 					<li class="nav"><a href="/">home</a></li>
-					<li class="nav"><a href="/submit">{SubmitLabel}</a></li>
-					<li class="nav"><a href="/ask">{AskLabel}</a></li>
+					{block:SubmissionsEnabled}
+						<li class="nav"><a href="/submit">{SubmitLabel}</a></li>
+					{/block:SubmissionsEnabled} 
+					{block:AskEnabled}
+						<li class="nav"><a href="/ask">{AskLabel}</a></li>
+					{/block:AskEnabled}
 					<li class="nav"><a href="/archive">archive</a></li>
 					<li class="nav"><a href="{RSS}">RSS</a></li>
 					{block:HasPages}
-							    {block:Pages}
-							        <li class="nav"><a href="{URL}">{Label}</a>
-							    {/block:Pages}
-							{/block:HasPages}
+						{block:Pages}
+					        <li class="nav"><a href="{URL}">{Label}</a>
+					    {/block:Pages}
+					{/block:HasPages}
 				</ul>
 			</div>
 			<div class="main-body">
@@ -621,12 +625,16 @@
 					<div class="nav-sidebar style-text">
 						<ul class="nav">	
 							<li class="nav"><a href="/">home</a></li>
-							<li class="nav"><a href="/submit">{SubmitLabel}</a></li>
-							<li class="nav"><a href="/ask">{AskLabel}</a></li>
+							{block:SubmissionsEnabled}
+								<li class="nav"><a href="/submit">{SubmitLabel}</a></li>
+							{/block:SubmissionsEnabled} 
+							{block:AskEnabled}
+								<li class="nav"><a href="/ask">{AskLabel}</a></li>
+							{/block:AskEnabled}
 							<li class="nav"><a href="/archive">archive</a></li>
 							<li class="nav"><a href="{RSS}">RSS</a></li>
 							{block:HasPages}
-							    {block:Pages}
+								{block:Pages}
 							        <li class="nav"><a href="{URL}">{Label}</a>
 							    {/block:Pages}
 							{/block:HasPages}
