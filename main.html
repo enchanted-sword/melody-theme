@@ -246,7 +246,7 @@
 				line-height: 24px;
 				height: 32px;
 				width: 516px;
-				padding: 8px 8px 0px 8px;
+				padding: 12px 8px 0px 8px;
 				margin: none auto 8px auto;
 			}
 			
@@ -316,8 +316,7 @@
 				width: auto;
 				margin: auto;
 				margin-bottom: 12px;
-				padding: 4px;
-				padding-left: 8px;
+				padding: 4px 8px 4px 8px;
 				border: none;
 				background-color: rgba({RGBTitleColor},0.4);
 				border-radius: 8px;
@@ -347,10 +346,6 @@
 			img.avatar {
 			    width: 24px;
 			    height: 24px;
-			}
-			
-			a.action {
-			    text-decoration: none;
 			}
 			
 			.post-avatar {
@@ -388,6 +383,10 @@
 			
 			iframe.video {
 			    width: 516px;
+			}
+			
+			a.tumblelog, span.action, a.source_tumblelog {
+			    text-decoration: none;
 			}
 			
 			.tumblr_video_container {
@@ -525,6 +524,7 @@
 			    list-style-type: none;
 			    padding: 0px;
 			    margin: 0px;
+			    text-decoration: none;
 			}
 			
 			.note {
@@ -677,10 +677,9 @@
 				    {/block:TagPage}
 					{block:Posts}
 						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}{block:Photo}nul{block:NotReblog}-{/block:NotReblog}{block:Reblogs}{block:isOriginalEntry}-{/block:isOriginalEntry}{/block:Reblogs}l {/block:Photo}">
+						    <a href="https://www.tumblr.com/blog/view/{Name}/{PostID}"><div class="blog-view"></div></a>
 							{block:RebloggedFrom}
-							    <a href="https://www.tumblr.com/blog/view/{Name}/{PostID}">
-							        <div class="blog-view"></div></a>
-								<div class="reblog-header">
+							    <div class="reblog-header">
 									<a href="{ReblogParentURL}" class="style-text" style="text-decoration: none; padding: 0px; margin: 0px; height: 24px;"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M12.8.2c-.4-.4-.8-.2-.8.4v2H2c-2 0-2 2-2 2v5s0 1 1 1 1-1 1-1v-4c0-1 .5-1 1-1h9v2c0 .6.3.7.8.4L17 3.6 12.8.2zM4.2 17.9c.5.4.8.2.8-.3v-2h10c2 0 2-2 2-2v-5s0-1-1-1-1 1-1 1v4c0 1-.5 1-1 1H5v-2c0-.6-.3-.7-.8-.4L0 14.6l4.2 3.3z"></path></svg></a>
 									<a href="{ReblogParentURL}" class="style-text preview-link" style="text-decoration: none; padding-left: 8px;"><b>{ReblogParentName}</b></a>
 									<div class="follow-card style-text hidden" style=" margin-top: 48px; z-index: 1440; background-color: {BackgroundColor}">
@@ -828,7 +827,7 @@
 											{block:Video}
 												<div class="post-card video rb">
 													<div class="video-card">{Video-500}</div>
-													{block:Caption}{Caption}{/block:Caption}
+													{block:Caption}{Body}{/block:Caption}
 												</div>
 											{/block:Video}
 											{block:Panorama}
