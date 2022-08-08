@@ -19,6 +19,13 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Oxygen&family=Source+Code+Pro&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="color:Visited Links" content="#373F6B"/>
+		<meta name="color:Page Header Text" content="#fff"/>
+		<meta name="if:Dark Theme" content="0"/>
+		<meta name="if:Show Following" content="0"/>
+		<meta name="select:Header Style" content="max-" title="Maintain aspect ratio">
+        <meta name="select:Header Style" content="" title="Stretch to fit">
 		<style>
 			body {
 				font-size: 14px;
@@ -37,6 +44,10 @@
 			
 			a:link {
 				color: {AccentColor};
+			}
+			
+			a:visited {
+			    color: {color:Visited Links};
 			}
 			
 			p:empty {
@@ -85,7 +96,7 @@
 			img.header {
 			    border-radius: 8px;
 			    height: 100%;
-			    max-width: auto;
+			    {select:Header Style}width: 100%;
 			}
 			
 			.theme-source {
@@ -234,7 +245,7 @@
 				justify-content: flex-start;
 				align-items: center;
 				text-align: left;
-				background-color: #ffffff;
+				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
 				border-radius: 8px;
 				height: 32px;
 				width: 516px;
@@ -266,15 +277,15 @@
 			.day-header {
 			    text-align: center;
 			    font-size: 24px;
-			    color: white;
+			    color: {color:Page Header Text};
 			}
 			
 			.post {
 			    position: relative;
 			    text-align: left;
-				color: black;
+				color: {block:IfDarkTheme}#d8d4cf{/block:IfDarkTheme}{block:IfNotDarkTheme}black{/block:IfNotDarkTheme};
 				border-radius: 8px;
-				background: rgba(255, 255, 255, 0.2);
+				background: {block:IfDarkTheme}rgba(24, 26, 27, 0.2){/block:IfDarkTheme}{block:IfNotDarkTheme}rgba(255, 255, 255, 0.2){/block:IfNotDarkTheme};
 				width: 532px;
 				padding: 8px;
 				margin-left: auto;
@@ -284,9 +295,10 @@
 			}
 			
 			.post-body {
-				background-color: #ffffff;
+				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
 				border-radius: 8px;
 				padding: 0px;
+				margin-bottom: 2px;
 				width: 532px;
 			}
 			
@@ -297,7 +309,6 @@
 				text-align: left;
 				background-color: none;
 				border-radius: 12px;
-				color: black;
 				width: 516px;
 				padding: 8px 8px 8px 8px;
 				margin-left: auto;
@@ -497,7 +508,7 @@
 			    width: 516px;
 				height: auto;
 			    text-align: left;
-				background-color: #ffffff;
+				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
 				border-radius: 12px;
 				height: 32px;
 				width: 516px;
@@ -603,6 +614,7 @@
 			    border-radius: 8px;
 			}
 			
+			{CustomCSS}
 		</style>
 	</head>
 	<body>
@@ -700,7 +712,7 @@
 						<div class="post day-header">
 							<h1 class="day-header">searching for "{SearchQuery}"</h1>
 							<h1 class="day-header" style="font-size: 20px;">{SearchResultCount} posts found</h1>
-							<h1 style="color: white; font-size: 14px; text-align: center;">looking for tagged posts? try checking the #{SearchQuery} <a href="{BlogURL}tagged/{SearchQuery}">tag page</a></h1>
+							<h1 class="day-header font-size: 14px;">looking for tagged posts? try checking the #{SearchQuery} <a href="{BlogURL}tagged/{SearchQuery}">tag page</a></h1>
 						</div>
 					{/block:SearchPage}
 					{block:Posts}
@@ -954,7 +966,7 @@
 								</div>
 							{/block:Reblogs}
 							{block:RebloggedFrom}
-								<div class="post-body rb-schrodinger {block:Reblogs}null{/block:Reblogs}">
+								<div class="post-body rb-schrodinger {block:Reblogs}null {/block:Reblogs}">
 								{block:Photo}
 									<div class="post-header rb-schrodinger">
 											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"></a>
@@ -1055,23 +1067,25 @@
 					    {/block:DayPagination}
 					{/block:DayPage}
 				</div>
-				{block:Following}
-					<div class="following nul{block:Followed}-{/block:Followed}l">
-						<div class="follow-card style-text">
-							<h2 style="font-size: 20px; text-align: center;">following</h2>
-						</div>
-						{block:Followed}
-							<div class="follow-card style-text">
-								<div class="follow-header">
-									<img class="avatar" style="width: 32px; height: 32px;" src="{FollowedPortraitURL-48}"><a class="follow-url" href="{FollowedURL}">{FollowedName}</a>
-								</div>
-								<div class="card">
-									{FollowedTitle}
-								</div>
-							</div>
-						{/block:Followed}
-					</div>
-				{/block:Following}
+				{block:IfShowFollowing}
+				    {block:Following}
+    					<div class="following nul{block:Followed}-{/block:Followed}l">
+    						<div class="follow-card style-text">
+    							<h2 style="font-size: 20px; text-align: center;">following</h2>
+    						</div>
+    						{block:Followed}
+    							<div class="follow-card style-text">
+    								<div class="follow-header">
+    									<img class="avatar" style="width: 32px; height: 32px;" src="{FollowedPortraitURL-48}"><a class="follow-url" href="{FollowedURL}">{FollowedName}</a>
+    								</div>
+    								<div class="card">
+    									{FollowedTitle}
+    								</div>
+    							</div>
+    						{/block:Followed}
+    					</div>
+			    	{/block:Following}
+			    {/block:IfShowFollowing}
 			</div>
 		</div>
 	</body>
