@@ -28,23 +28,32 @@
 			}
 			
 			h1 {
-				font-size: 28;
+				font-size: 28px;
 			}
 			
 			h2 {
-			 font-size: 20;
+			 font-size: 20px;
 			}
 			
 			a:link {
 				color: {AccentColor};
 			}
 			
-			a:visited {
-				color: #5746c4;
+			p:empty {
+				margin: 0px;
 			}
 			
 			blockquote {
 			    margin: 0px;
+			}
+			
+			.post_media_photo {
+				margin-top: 8px;
+				border-radius: 8px;
+			}
+			
+			.tmblr-iframe--unified-controls {
+			    display: none !important;
 			}
 			
 			.material-symbols-outlined {
@@ -250,6 +259,10 @@
 				margin: none auto 8px auto;
 			}
 			
+			.post-header.answerer {
+			padding: 8px 0px 0px 0px;
+			}
+			
 			.day-header {
 			    text-align: center;
 			    font-size: 24px;
@@ -445,6 +458,14 @@
 			
 			.chat {
 			    background-image: url(https://c.tenor.com/y3wsa-cvISEAAAAC/mlp-mlpfim.gif);
+			}
+			
+			.html_photoset {
+				display: flex;
+			}
+			
+			iframe.photoset {
+				margin: auto;
 			}
 			
 			.invis {
@@ -675,8 +696,15 @@
                             <h1 class="day-header">#{Tag}</h1>
     				    </div>
 				    {/block:TagPage}
+					{block:SearchPage}
+						<div class="post day-header">
+							<h1 class="day-header">searching for "{SearchQuery}"</h1>
+							<h1 class="day-header" style="font-size: 20px;">{SearchResultCount} posts found</h1>
+							<h1 style="color: white; font-size: 14px; text-align: center;">looking for tagged posts? try checking the #{SearchQuery} <a href="{BlogURL}tagged/{SearchQuery}">tag page</a></h1>
+						</div>
+					{/block:SearchPage}
 					{block:Posts}
-						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}{block:Photo}nul{block:NotReblog}-{/block:NotReblog}{block:Reblogs}{block:isOriginalEntry}-{/block:isOriginalEntry}{/block:Reblogs}l {/block:Photo}">
+						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
 						    <a href="https://www.tumblr.com/blog/view/{Name}/{PostID}"><div class="blog-view"></div></a>
 							{block:RebloggedFrom}
 							    <div class="reblog-header">
@@ -801,7 +829,7 @@
 							{/block:NotReblog}
 							{block:Reblogs}
 								{block:isOriginalEntry}
-									<div class="post-body rb {block:NotReblog}null {/block:NotReblog}{block:Chat}invis {/block:Chat}{block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
+									<div class="post-body rb {block:Chat}invis {/block:Chat}{block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
 										<div class="post-header rb {block:Answer}null {/block:Answer}{block:Chat}invis{/block:Chat}">
 											{block:IsActive}
 												<a href="{Permalink}" style="text-decoration: none;"><img src="{PortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"></a>
@@ -838,7 +866,8 @@
 											{/block:Panorama}
 											{block:Photoset} 
 												<div class="post-card photoset rb">
-												    {Photoset}
+													{Photoset-500}
+													{block:Caption}{Body}{/block:Caption}
 												</div>
 											{/block:Photoset}
 											{block:Quote}
@@ -884,27 +913,27 @@
 												</div>
 											{/block:Audio}
 											{block:Answer}
-													<div class="post-card answer rb">
-														<div class="ask">
-															<div class="post-header asker rb">
-																<img src="{AskerPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text" style="text-decoration: none; margin-left: 8px;"><b>{Asker}</b> asked:</span>
+												<div class="post-card answer rb">
+													<div class="ask">
+														<div class="post-header asker rb">
+															<img src="{AskerPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text" style="text-decoration: none; margin-left: 8px;"><b>{Asker}</b> asked:</span>
+														</div>
+														<div class="ask-question">
+															{Question}
+														</div>
+													</div>
+													{block:Answerer}
+														<div class="response">
+															<div class="post-header answerer rb" style="padding-left: 0px;">
+																<img src="{AnswererPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
+																<span class="post-avatar style-text"><b>{Answerer}</b></span>
 															</div>
-															<div class="ask-question">
-																{Question}
+															<div class="ask-reply">
+																{Answer}
 															</div>
 														</div>
-														{block:Answerer}
-															<div class="response">
-																<div class="post-header answerer rb" style="padding-left: 0px;">
-																	<img src="{AnswererPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
-																	<span class="post-avatar style-text"><b>{Answerer}</b></span>
-																</div>
-																<div class="ask-reply">
-																	{Answer}
-																</div>
-															</div>
-														{/block:Answerer}
-													</div>
+													{/block:Answerer}
+												</div>
 											{/block:Answer}
 										</div>
 										<div class="spacer"></div>
@@ -924,6 +953,45 @@
 									</div>
 								</div>
 							{/block:Reblogs}
+							{block:RebloggedFrom}
+								<div class="post-body rb-schrodinger {block:Reblogs}null{/block:Reblogs}">
+								{block:Photo}
+									<div class="post-header rb-schrodinger">
+											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"></a>
+											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
+									</div>
+										<div class="post-body photo rb-schrodinger">
+											<div class="post-card photo">
+												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+												{block:Caption}{Caption}{/block:Caption}
+											</div>
+										</div>
+									{/block:Photo}
+									{block:Answer}
+										<div class="post-body answer rb-scrodinger">
+											<div class="post-card answer rb-scrodinger">
+												<div class="ask">
+													<div class="post-header asker rb-scrodinger">
+														<img src="{AskerPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text" style="text-decoration: none; margin-left: 8px;"><b>{Asker}</b> asked:</span>
+													</div>
+													<div class="ask-question">
+														{Question}
+													</div>
+												</div>
+												<div class="response">
+													<div class="post-header answerer rb-scrodinger">
+														<img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
+														<a href="{ReblogRootURL}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{ReblogRootName}</b></a>
+													</div>
+													<div class="ask-reply">
+														{Answer}
+													</div>
+												</div>
+											</div>
+										</div>
+									{/block:Answer}
+								</div>
+							{/block:RebloggedFrom}
 							<div class="footer" style="height: auto;" {block:Chat}style="display: none;"{/block:Chat}>
 								<div class="footer-card">
 									{block:NoteCount}
