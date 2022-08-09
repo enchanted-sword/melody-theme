@@ -731,6 +731,43 @@
 										</div>
 									</div>
 								</div>
+								<div class="post-body rb-schrodinger {block:Reblogs}{block:isOriginalEntry}null {/block:isOriginalEntry}{/block:Reblogs}">
+								{block:Photo}
+									<div class="post-header rb-schrodinger">
+											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"></a>
+											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
+									</div>
+										<div class="post-body photo rb-schrodinger">
+											<div class="post-card photo">
+												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+												{Caption}
+											</div>
+										</div>
+									{/block:Photo}
+									{block:Answer}
+										<div class="post-body answer rb-scrodinger">
+											<div class="post-card answer rb-scrodinger">
+												<div class="ask">
+													<div class="post-header asker rb-scrodinger">
+														<img src="{AskerPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text" style="text-decoration: none; margin-left: 8px;"><b>{Asker}</b> asked:</span>
+													</div>
+													<div class="ask-question">
+														{Question}
+													</div>
+												</div>
+												<div class="response">
+													<div class="post-header answerer rb-scrodinger">
+														<img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
+														<a href="{ReblogRootURL}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{ReblogRootName}</b></a>
+													</div>
+													<div class="ask-reply">
+														{Answer}
+													</div>
+												</div>
+											</div>
+										</div>
+									{/block:Answer}
+								</div>
 							{/block:RebloggedFrom}
 							{block:NotReblog}
 								<div class="post-body not-rb {block:Chat}invis{/block:Chat}">
@@ -965,45 +1002,6 @@
 									</div>
 								</div>
 							{/block:Reblogs}
-							{block:RebloggedFrom}
-								<div class="post-body rb-schrodinger {block:Reblogs}null {/block:Reblogs}">
-								{block:Photo}
-									<div class="post-header rb-schrodinger">
-											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"></a>
-											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
-									</div>
-										<div class="post-body photo rb-schrodinger">
-											<div class="post-card photo">
-												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-												{block:Caption}{Caption}{/block:Caption}
-											</div>
-										</div>
-									{/block:Photo}
-									{block:Answer}
-										<div class="post-body answer rb-scrodinger">
-											<div class="post-card answer rb-scrodinger">
-												<div class="ask">
-													<div class="post-header asker rb-scrodinger">
-														<img src="{AskerPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"><span class="post-avatar style-text" style="text-decoration: none; margin-left: 8px;"><b>{Asker}</b> asked:</span>
-													</div>
-													<div class="ask-question">
-														{Question}
-													</div>
-												</div>
-												<div class="response">
-													<div class="post-header answerer rb-scrodinger">
-														<img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
-														<a href="{ReblogRootURL}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{ReblogRootName}</b></a>
-													</div>
-													<div class="ask-reply">
-														{Answer}
-													</div>
-												</div>
-											</div>
-										</div>
-									{/block:Answer}
-								</div>
-							{/block:RebloggedFrom}
 							<div class="footer" style="height: auto;" {block:Chat}style="display: none;"{/block:Chat}>
 								<div class="footer-card">
 									{block:NoteCount}
