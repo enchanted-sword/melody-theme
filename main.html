@@ -63,7 +63,7 @@
 				border-radius: 8px;
 			}
 			
-			.tmblr-iframe--unified-controls {
+			.tmblr-iframe--unified-controls, .tmblr-iframe--follow-teaser{
 			    display: none !important;
 			}
 			
@@ -201,15 +201,14 @@
 			}
 			
 			.following {
-				display: flex;
-			    flex-flow: column nowrap;
+				display: grid;
 			    justify-content: center;
 				width: auto;
-				height: 100%;
+				max-height: 6400px;
 			}
 			
 			.follow-card {
-				width: 240px;
+				width: 328px;
 				border: solid 3px {TitleColor};
 				border-radius: 12px;
 				margin: 8px 0px 8px 0px;
@@ -548,7 +547,7 @@
 			    margin-top: 8px;
 			    width: 516px;
 			    height: 100%;
-			    background: #ffffff;
+			    background: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
 			    border-radius: 12px;
 			}
 			
@@ -612,6 +611,12 @@
 			
 			video {
 			    border-radius: 8px;
+			}
+			
+			.popup-card {
+				margin: 48px 0px 0px 8px;
+				z-index: 1440;
+				background-color: {BackgroundColor};
 			}
 			
 			{CustomCSS}
@@ -722,7 +727,7 @@
 							    <div class="reblog-header">
 									<a href="{ReblogParentURL}" class="style-text" style="text-decoration: none; padding: 0px; margin: 0px; height: 24px;"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M12.8.2c-.4-.4-.8-.2-.8.4v2H2c-2 0-2 2-2 2v5s0 1 1 1 1-1 1-1v-4c0-1 .5-1 1-1h9v2c0 .6.3.7.8.4L17 3.6 12.8.2zM4.2 17.9c.5.4.8.2.8-.3v-2h10c2 0 2-2 2-2v-5s0-1-1-1-1 1-1 1v4c0 1-.5 1-1 1H5v-2c0-.6-.3-.7-.8-.4L0 14.6l4.2 3.3z"></path></svg></a>
 									<a href="{ReblogParentURL}" class="style-text preview-link" style="text-decoration: none; padding-left: 8px;"><b>{ReblogParentName}</b></a>
-									<div class="follow-card style-text hidden" style=" margin-top: 48px; z-index: 1440; background-color: {BackgroundColor}">
+									<div class="follow-card style-text hidden popup-card">
 										<div class="follow-header">
 											<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogParentPortraitURL-48}"><a class="follow-url" href="{ReblogParentURL}">{ReblogParentName}</a>
 										</div>
@@ -734,8 +739,16 @@
 								<div class="post-body rb-schrodinger {block:Reblogs}{block:isOriginalEntry}null {/block:isOriginalEntry}{/block:Reblogs}">
 								{block:Photo}
 									<div class="post-header rb-schrodinger">
-											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"></a>
-											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
+										<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;"></a>
+										<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
+										<div class="follow-card style-text hidden popup-card">
+											<div class="follow-header">
+												<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
+											</div>
+											<div class="card style-text" style="color: {TitleColor}">
+												{ReblogRootTitle}
+											</div>
+										</div>
 									</div>
 										<div class="post-body photo rb-schrodinger">
 											<div class="post-card photo">
@@ -758,7 +771,15 @@
 												<div class="response">
 													<div class="post-header answerer rb-scrodinger">
 														<img src="{ReblogRootPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
-														<a href="{ReblogRootURL}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{ReblogRootName}</b></a>
+														<a href="{ReblogRootURL}" class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;"><b>{ReblogRootName}</b></a>
+														<div class="follow-card style-text hidden popup-card">
+															<div class="follow-header">
+																<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
+															</div>
+															<div class="card style-text" style="color: {TitleColor}">
+																{ReblogRootTitle}
+															</div>
+														</div>
 													</div>
 													<div class="ask-reply">
 														{Answer}
@@ -1065,12 +1086,12 @@
 					    {/block:DayPagination}
 					{/block:DayPage}
 				</div>
-				{block:IfShowFollowing}
-				    {block:Following}
-    					<div class="following nul{block:Followed}-{/block:Followed}l">
-    						<div class="follow-card style-text">
-    							<h2 style="font-size: 20px; text-align: center;">following</h2>
-    						</div>
+				<div class="following">
+					<div class="follow-card style-text" style="height: 60px; {block:IfNotShowFollowing}color: rgba(0,0,0,0); border-color: rgba(0,0,0,0); {/block:IfNotShowFollowing}">
+    					<h2 style="{block:IfShowFollowing}font-size: 20px; text-align: center; {/block:IfShowFollowing}">{/block:IfShowFollowing}following{/block:IfShowFollowing}</h2>
+    				</div>
+					{block:IfShowFollowing}
+						{block:Following}
     						{block:Followed}
     							<div class="follow-card style-text">
     								<div class="follow-header">
@@ -1080,10 +1101,10 @@
     									{FollowedTitle}
     								</div>
     							</div>
-    						{/block:Followed}
-    					</div>
-			    	{/block:Following}
-			    {/block:IfShowFollowing}
+    						{/block:Followed}	
+						{/block:Following}
+					{/block:IfShowFollowing}
+				</div>
 			</div>
 		</div>
 	</body>
