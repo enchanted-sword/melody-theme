@@ -8,7 +8,7 @@
 		https://github.com/enchanted-sword/melody-theme
 		-->
 		
-		<title>{Title}</title>
+		<title>{block:ShowTitle}{Title}{/block:ShowTitle}{block:HideTitle}{Name}{/block:HideTitle} {block:PermalinkPage}{block:PostSummary}- {PostSummary}{/block:PostSummary}{/block:PermalinkPage}{block:DayPage}- {DayOfMonth} {ShortMonth} {Year}{/block:DayPage}</title>
 		<link rel="shortcut icon" href="{Favicon}">
         <link rel="apple-touch-icon-precomposed" href="{PortraitURL-128}">
         <link rel="alternate" type="application/rss+xml" href="{RSS}">
@@ -24,6 +24,8 @@
 		<meta name="color:Page Header Text" content="#fff"/>
 		<meta name="if:Dark Theme" content="0"/>
 		<meta name="if:Show Following" content="0"/>
+		<meta name="if:Show Total Page Count" content="0"/>
+		<meta name="if:Show Blog Members" content="0"/>
 		<meta name="select:Header Style" content="max-" title="Maintain aspect ratio">
         <meta name="select:Header Style" content="" title="Stretch to fit">
 		<style>
@@ -32,6 +34,10 @@
 				color: {TitleColor};				
 				font-family: 'Oxygen', 'Helvetica', 'Arial', sans-serif;
 				background-color: {BackgroundColor};
+			}
+			
+			.tr {
+				text-transform: lowercase;
 			}
 			
 			h1 {
@@ -87,7 +93,7 @@
 			    align-items: center;
 				width: auto;
 				border-radius: 8px;
-				height: 360px;
+				height: auto;
 				color: white;
 				text-align: center;
 				padding: 4px;
@@ -95,7 +101,7 @@
 			
 			img.header {
 			    border-radius: 8px;
-			    height: 100%;
+			    height: 360px;
 			    {select:Header Style}width: 100%;
 			}
 			
@@ -284,7 +290,7 @@
 			    text-align: left;
 				color: {block:IfDarkTheme}#d8d4cf{/block:IfDarkTheme}{block:IfNotDarkTheme}black{/block:IfNotDarkTheme};
 				border-radius: 8px;
-				background: {block:IfDarkTheme}rgba(24, 26, 27, 0.2){/block:IfDarkTheme}{block:IfNotDarkTheme}rgba(255, 255, 255, 0.2){/block:IfNotDarkTheme};
+				background: {block:IfDarkTheme}rgba(24, 26, 27, 0.4){/block:IfDarkTheme}{block:IfNotDarkTheme}rgba(255, 255, 255, 0.2){/block:IfNotDarkTheme};
 				width: 532px;
 				padding: 8px;
 				margin-left: auto;
@@ -333,7 +339,12 @@
 				text-align: center;
 			}
 			
-			input {
+			form.search {
+				display: flex;
+				align-content: center;
+			}
+			
+			input.style-text {
 				text-align: left;
 				font-size: 20px;
 				width: auto;
@@ -343,6 +354,31 @@
 				border: none;
 				background-color: rgba({RGBTitleColor},0.4);
 				border-radius: 8px;
+				transition: background-color 1s;
+				transition-timing-function: linear;
+			}
+			
+			input.style-text:focus {
+			    background-color: rgba({RGBTitleColor},0.8);
+			    border: none;
+			}
+			
+			button.style-text {
+				text-align: left;
+				font-size: 20px;
+				width: auto;
+				margin: auto;
+				margin-bottom: 12px;
+				padding: 4px 8px 4px 8px;
+				border: none;
+				background-color: rgba({RGBTitleColor},0.4);
+				border-radius: 8px;
+				transition: background-color 1s;
+				transition-timing-function: linear;
+			}
+			
+			button.style-text:hover {
+			    background-color: rgba({RGBTitleColor},0.8);
 			}
 			
 			audio {
@@ -358,7 +394,18 @@
 				width: 128px;
 				height: 128px;
 				border: solid 3px {TitleColor};
-				border-radius: 8px;
+			}
+			
+			.square {
+			    border-radius: 8px;
+			}
+			
+			img.square {
+			    border-radius: 4px;
+			}
+			
+			.circle {
+			    border-radius: 50%;
 			}
 			
 			.avatar {
@@ -625,19 +672,21 @@
 	<body>
 		<div>
 			<div class="header">
-			    <img class="header" src="{HeaderImage}">
+			    {block:ShowHeaderImage} 
+			        <img class="header" src="{HeaderImage}">
+			    {/block:ShowHeaderImage} 
 			</div>
 			<div class="navbar style-text">
 				<ul class="nav">	
-					<li class="nav"><a href="/">home</a></li>
+					<li class="nav tr"><a href="/">{lang:Home}</a></li>
 					{block:SubmissionsEnabled}
 						<li class="nav"><a href="/submit">{SubmitLabel}</a></li>
 					{/block:SubmissionsEnabled} 
 					{block:AskEnabled}
 						<li class="nav"><a href="/ask">{AskLabel}</a></li>
 					{/block:AskEnabled}
-					<li class="nav"><a href="/archive">archive</a></li>
-					<li class="nav"><a href="{RSS}">RSS</a></li>
+					<li class="nav tr"><a href="/archive">{lang:Archive}</a></li>
+					<li class="nav"><a href="{RSS}">{lang:RSS}</a></li>
 					{block:HasPages}
 						{block:Pages}
 					        <li class="nav"><a href="{URL}">{Label}</a>
@@ -649,28 +698,32 @@
 				<div class="sidebar">
 					<div class="user-card style-text">
 						<div id="search">
-							<form action="/search" method="get">
-								<input class="style-text" type="text" name="q" value="{SearchQuery}" placeholder="search..." style="color: {BackgroundColor};"/>
-								<input class="style-text" style="margin-left: 8px; color: {BackgroundColor};" type="submit" value="go"/>
+							<form class="search" action="/search" method="get">
+								<input class="style-text tr" type="text" name="q" value="{SearchQuery}" placeholder="{lang:Search}..." style="color: {BackgroundColor}; height: 29px;"/>
+								<button name="submit" class="style-text" style="margin-left: 8px; color: {BackgroundColor};" type="submit" value="value">
+									<span class="material-symbols-outlined" style="color: {BackgroundColor};">search</span>
+								</button>
 							</form>
 						</div>
-						<div class="pfp">
-							<img src="{PortraitURL-128}">
-						</div>
-						<h1>{Title}</h1>
-						<h2>{Description}</h2>
+						{block:ShowAvatar}
+						    <div class="pfp {AvatarShape}">
+							    <img class="{AvatarShape}" src="{PortraitURL-128}">
+					    	</div>
+						{/block:ShowAvatar}
+						{block:ShowTitle}<h1>{Title}</h1>{/block:ShowTitle}
+						{block:ShowDescription}<h2>{Description}</h2>{/block:ShowDescription}
 					</div>
 					<div class="nav-sidebar style-text">
 						<ul class="nav">	
-							<li class="nav"><a href="/">home</a></li>
+							<li class="nav tr"><a href="/">{lang:Home}</a></li>
 							{block:SubmissionsEnabled}
 								<li class="nav"><a href="/submit">{SubmitLabel}</a></li>
 							{/block:SubmissionsEnabled} 
 							{block:AskEnabled}
 								<li class="nav"><a href="/ask">{AskLabel}</a></li>
 							{/block:AskEnabled}
-							<li class="nav"><a href="/archive">archive</a></li>
-							<li class="nav"><a href="{RSS}">RSS</a></li>
+							<li class="nav tr"><a href="/archive">{lang:Archive}</a></li>
+							<li class="nav"><a href="{RSS}">{lang:RSS}</a></li>
 							{block:HasPages}
 								{block:Pages}
 							        <li class="nav"><a href="{URL}">{Label}</a>
@@ -682,9 +735,12 @@
 							<div class="nav-sidebar style-text">
 								<ul class="nav">
 									{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-outlined">chevron_left</span></a></li>{/block:PreviousPage}
-									<li class="nav">{CurrentPage}
+									<li class="nav">{CurrentPage}</li>
 									{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextPage}
 								</ul>
+								{block:IfShowTotalPageCount}
+							        <span class="style-text tr" style="font-size: 12px;">{lang:Page CurrentPage of TotalPages}</span>
+							    {/block:IfShowTotalPageCount}
 							</div>
 					{/block:Pagination}
 					{block:DayPage}
@@ -692,12 +748,32 @@
 					        <div class="nav-sidebar style-text">
 								<ul class="nav">
 									{block:PreviousDayPage}<li class="nav"><a href="{PreviousDayPage}"><span class="material-symbols-outlined">chevron_left</span</a></li>{/block:PreviousDayPage}
-									<li class="nav">{DayOfMonth} {ShortMonth} {Year}
+									<li class="nav">
+									    {DayOfMonth} {ShortMonth} {Year}
+									</li>
 									{block:NextDayPage}<li class="nav"><a href="{NextDayPage}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextDayPage}
 								</ul>
+								{block:IfShowTotalPageCount}
+							        <span class="style-text tr" style="font-size: 12px;">{lang:Page CurrentPage of TotalPages}</span>
+							    {/block:IfShowTotalPageCount}
 							</div>
 					    {/block:DayPagination}
 					{/block:DayPage}
+					{block:PermalinkPage}
+					    {block:PermalinkPagination}
+					        <div class="nav-sidebar style-text">
+							    <ul class="nav">
+							        {block:PreviousPost}<li class="nav"><a href="{PreviousPost}"><span class="material-symbols-outlined">chevron_left</span></a></li>{/block:PreviousPost}
+									<li class="nav">
+									    {block:PostSummary}
+									        {PostSummary}
+									    {/block:PostSummary}
+									</li>
+									{block:NextPost}<li class="nav"><a href="{NextPost}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextPost}
+							    </ul>
+					    	</div>
+						{/block:PermalinkPagination}
+					{/block:PermalinkPage}
 					<span class="theme-source">
 			        <b><a style="text-decoration: none;" href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a style="text-decoration: none;" href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
 			    </span>
@@ -715,9 +791,8 @@
 				    {/block:TagPage}
 					{block:SearchPage}
 						<div class="post day-header">
-							<h1 class="day-header">searching for "{SearchQuery}"</h1>
-							<h1 class="day-header" style="font-size: 20px;">{SearchResultCount} posts found</h1>
-							<h1 class="day-header font-size: 14px;">looking for tagged posts? try checking the #{SearchQuery} <a href="{BlogURL}tagged/{SearchQuery}">tag page</a></h1>
+							<h1 class="day-header tr">{lang:Found SearchResultCount results for SearchQuery}</h1>
+							<h1 class="day-header tr" style="font-size: 14px;"><a href="{BlogURL}tagged/{SearchQuery}">{lang:Posts} {lang:Tagged} #{SearchQuery}</a></h1>
 						</div>
 					{/block:SearchPage}
 					{block:Posts}
@@ -906,7 +981,7 @@
 												<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{Permalink}"><b>{Username}</b></a>
 											{/block:IsActive}
 											{block:IsDeactivated}
-												<b>{Username}</b><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">deactivated</span></a>
+												<b>{Username}</b><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">{block:English}deactivated{/block:English}</span></a>
 											{/block:IsDeactivated}
 										</div>
 										<div class="card rb">
@@ -1041,9 +1116,16 @@
     									        {24HourWithZero}:{Minutes} | <a class="date-time" href="{BlogURL}day/{Year}/{MonthNumberWithZero}/{DayOfMonthWithZero}">{DayOfMonth} {ShortMonth} {Year}</a>
     									    </span>
 									    {/block:Date}
-										<span class="like-rb">{LikeButton size="24" color="grey"}</span>
-										<span class="like-rb">{ReblogButton size="24" color="grey"}</span>  
-										
+										<span class="like-rb">
+											<a href="https://www.tumblr.com/blog/view/{Name}/{PostID}">
+												<svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#00cf35"><path d="M12.8.2c-.4-.4-.8-.2-.8.4v2H2c-2 0-2 2-2 2v5s0 1 1 1 1-1 1-1v-4c0-1 .5-1 1-1h9v2c0 .6.3.7.8.4L17 3.6 12.8.2zM4.2 17.9c.5.4.8.2.8-.3v-2h10c2 0 2-2 2-2v-5s0-1-1-1-1 1-1 1v4c0 1-.5 1-1 1H5v-2c0-.6-.3-.7-.8-.4L0 14.6l4.2 3.3z"></path></svg>
+											</a>
+										</span>  
+										<span class="like-rb">
+											<a href="https://www.tumblr.com/blog/view/{Name}/{PostID}">
+												<span class="material-symbols-outlined" style="color: #ff4930;">favorite</span>
+											</a>
+										</span>
 									</div>
 								</div>
 								{block:HasTags}
@@ -1069,9 +1151,12 @@
 							<div class="nav-sidebar style-text" style="margin: 0px auto 8px auto;">
 								<ul class="nav">
 									{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-outlined">chevron_left</span></a></li>{/block:PreviousPage}
-									<li class="nav">{CurrentPage}
+									<li class="nav">{CurrentPage}</li>
 									{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextPage}
 								</ul>
+								{block:IfShowTotalPageCount}
+							        <span class="style-text" style="font-size: 12px;">page {CurrentPage} of {TotalPages}</span>
+							    {/block:IfShowTotalPageCount}
 							</div>
 					{/block:Pagination}
 					{block:DayPage}
@@ -1079,16 +1164,42 @@
 					        <div class="nav-sidebar style-text" style="margin: 0px auto 8px auto;">
 								<ul class="nav">
 									{block:PreviousDayPage}<li class="nav"><a href="{PreviousDayPage}"><span class="material-symbols-outlined">chevron_left</span</a></li>{/block:PreviousDayPage}
-									<li class="nav">{DayOfMonth} {ShortMonth} {Year}
+									<li class="nav">
+									    {DayOfMonth} {ShortMonth} {Year}
+                                    </li>
 									{block:NextDayPage}<li class="nav"><a href="{NextDayPage}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextDayPage}
 								</ul>
+								{block:IfShowTotalPageCount}
+							        <span class="style-text tr" style="font-size: 12px;">{lang:Page CurrentPage of TotalPages}</span>
+							    {/block:IfShowTotalPageCount}
 							</div>
 					    {/block:DayPagination}
 					{/block:DayPage}
 				</div>
+				{block:IfShowBlogMembers}
+					{block:GroupMembers} 
+						<div class="following">
+							<div class="follow-card style text" style="height: 60px;">
+								<h2 class="tr {block:IfNotShowBlogMembers}null {/block:IfNotShowBlogMembers}" style="font-size 20px; text-align: center;">{lang:Group members}</h2>
+							</div>
+							{block:GroupMember}
+								<div class="follow-card style-text">
+										<div class="follow-header">
+											<img class="avatar" style="width: 32px; height: 32px;" src="{GroupMemberPortraitURL-48}"><a class="follow-url" href="{GroupMemberURL}">{GroupMemberName}</a>
+										</div>
+										<div class="card">
+											{GroupMemberTitle}
+										</div>
+									</div>
+							{/block:GroupMember}
+						</div>
+					{/block:GroupMembers} 
+				{block:IfShowBlogMembers}
 				<div class="following">
 					<div class="follow-card style-text" style="height: 60px; {block:IfNotShowFollowing}color: rgba(0,0,0,0); border-color: rgba(0,0,0,0); {/block:IfNotShowFollowing}">
-    					<h2 style="{block:IfShowFollowing}font-size: 20px; text-align: center; {/block:IfShowFollowing}">{/block:IfShowFollowing}following{/block:IfShowFollowing}</h2>
+    					<h2 class="tr {block:IfNotShowFollowing}null {block:IfNotShowFollowing}" style="{block:IfShowFollowing}font-size: 20px; text-align: center; {/block:IfShowFollowing}">
+							{/block:IfShowFollowing}{lang:Following}{/block:IfShowFollowing}
+						</h2>
     				</div>
 					{block:IfShowFollowing}
 						{block:Following}
