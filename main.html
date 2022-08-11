@@ -20,14 +20,15 @@
 		<link href="https://fonts.googleapis.com/css2?family=Oxygen&family=Source+Code+Pro&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="color:Visited Links" content="#373F6B"/>
 		<meta name="color:Page Header Text" content="#fff"/>
 		<meta name="if:Dark Theme" content="0"/>
 		<meta name="if:Show Following" content="0"/>
 		<meta name="if:Show Total Page Count" content="0"/>
 		<meta name="if:Show Blog Members" content="0"/>
-		<meta name="select:Header Style" content="max-" title="Maintain aspect ratio">
-        <meta name="select:Header Style" content="" title="Stretch to fit">
+		<meta name="select:Header Style" content="0" title="Maintain aspect ratio">
+        <meta name="select:Header Style" content="1" title="Stretch to fit">
+        <meta name="select:Header Style" content="2" title="Fill">
+        
 		<style>
 			body {
 				font-size: 14px;
@@ -53,7 +54,7 @@
 			}
 			
 			a:visited {
-			    color: {color:Visited Links};
+			    color: {AccentColor};
 			}
 			
 			p:empty {
@@ -99,10 +100,21 @@
 				padding: 4px;
 			}
 			
-			img.header {
+			img.header0 {
 			    border-radius: 8px;
 			    height: 360px;
-			    {select:Header Style}width: 100%;
+			}
+			
+			img.header1 {
+			    border-radius: 8px;
+			    height: 360px;
+			    width: 100%;
+			}
+			
+			img.header2 {
+			    border-radius: 8px;
+			    height: 100%;
+			    width: 100%;
 			}
 			
 			.theme-source {
@@ -673,7 +685,7 @@
 		<div>
 			<div class="header">
 			    {block:ShowHeaderImage} 
-			        <img class="header" src="{HeaderImage}">
+			        <img class="header{select:Header Style}" src="{HeaderImage}">
 			    {/block:ShowHeaderImage} 
 			</div>
 			<div class="navbar style-text">
@@ -1176,26 +1188,24 @@
 					    {/block:DayPagination}
 					{/block:DayPage}
 				</div>
-				{block:IfShowBlogMembers}
-					{block:GroupMembers} 
-						<div class="following">
+				<div class="following">
+					{block:IfShowBlogMembers}
+						{block:GroupMembers} 
 							<div class="follow-card style text" style="height: 60px;">
 								<h2 class="tr {block:IfNotShowBlogMembers}null {/block:IfNotShowBlogMembers}" style="font-size 20px; text-align: center;">{lang:Group members}</h2>
 							</div>
 							{block:GroupMember}
 								<div class="follow-card style-text">
-										<div class="follow-header">
-											<img class="avatar" style="width: 32px; height: 32px;" src="{GroupMemberPortraitURL-48}"><a class="follow-url" href="{GroupMemberURL}">{GroupMemberName}</a>
-										</div>
-										<div class="card">
-											{GroupMemberTitle}
-										</div>
+									<div class="follow-header">
+										<img class="avatar" style="width: 32px; height: 32px;" src="{GroupMemberPortraitURL-48}"><a class="follow-url" href="{GroupMemberURL}">{GroupMemberName}</a>
 									</div>
+									<div class="card">
+										{GroupMemberTitle}
+									</div>
+								</div>
 							{/block:GroupMember}
-						</div>
-					{/block:GroupMembers} 
-				{block:IfShowBlogMembers}
-				<div class="following">
+						{/block:GroupMembers} 
+					{block:IfShowBlogMembers}
 					<div class="follow-card style-text" style="height: 60px; {block:IfNotShowFollowing}color: rgba(0,0,0,0); border-color: rgba(0,0,0,0); {/block:IfNotShowFollowing}">
     					<h2 class="tr {block:IfNotShowFollowing}null {block:IfNotShowFollowing}" style="{block:IfShowFollowing}font-size: 20px; text-align: center; {/block:IfShowFollowing}">
 							{/block:IfShowFollowing}{lang:Following}{/block:IfShowFollowing}
