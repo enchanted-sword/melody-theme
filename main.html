@@ -25,9 +25,12 @@
 		<meta name="if:Show Following" content="0"/>
 		<meta name="if:Show Total Page Count" content="0"/>
 		<meta name="if:Show Blog Members" content="0"/>
-		<meta name="select:Header Style" content="0" title="Maintain aspect ratio">
-        <meta name="select:Header Style" content="1" title="Stretch to fit">
-        <meta name="select:Header Style" content="2" title="Fill">
+		<meta name="select:Content Size" content="scale-1" title="Standard"/>
+		<meta name="select:Content Size" content="scale-1-25" title="x1.25"/>
+        <meta name="select:Content Size" content="scale-1-5" title="x1.5"/>
+		<meta name="select:Header Style" content="0" title="Maintain aspect ratio"/>
+        <meta name="select:Header Style" content="1" title="Stretch to fit"/>
+        <meta name="select:Header Style" content="2" title="Fill"/>
         
 		<style>
 			body {
@@ -247,13 +250,40 @@
 			    line-height: 32px;
 			}
 			
+			#align {
+				position: static;
+				height: auto;
+				width: auto;
+			}
+			
+			#awawawa {
+				position: absolute;
+				top: 0%;
+				left: 50%;
+                transform: translate(-50%, 0%);
+			}
+			
 			.post-container {
+				height: auto;
+				width: auto;
 				display: flex;
 				justify-content: center;
                 align-content: flex-start;
 				margin: auto;
 				margin-top: 20px;
 				flex-flow: column nowrap;
+			}
+			
+			.post-container.scale-1 {
+				transform: scale(1, 1);
+			}
+			
+			.post-container.scale-1-25 {
+				transform: scale(1.25, 1.25);
+			}
+			
+			.post-container.scale-1-5 {
+				transform: scale(1.5, 1.5);
 			}
 			
 			.reblog-header {
@@ -790,7 +820,7 @@
 			        <b><a style="text-decoration: none;" href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a style="text-decoration: none;" href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
 			    </span>
 				</div>
-				<div class="post-container">
+				<div class="post-container {select:Content Size}"><div id="align"><div id="awawawa">
 				    {block:DayPage}
     				    <div class="post day-header">
                             <h1 class="day-header">{DayOfMonth} {ShortMonth} {Year}</h1>
@@ -840,7 +870,7 @@
 										<div class="post-body photo rb-schrodinger">
 											<div class="post-card photo">
 												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-												{Caption}
+												{Body}
 											</div>
 										</div>
 									{/block:Photo}
@@ -1187,7 +1217,7 @@
 							</div>
 					    {/block:DayPagination}
 					{/block:DayPage}
-				</div>
+				</div></div></div>
 				<div class="following">
 					{block:IfShowBlogMembers}
 						{block:GroupMembers} 
