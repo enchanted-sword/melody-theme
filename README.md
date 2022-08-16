@@ -50,6 +50,12 @@ Scales the entire post container section including text and images
 - Stretch: 360px in height, scaled to full page width:
 - Fill: As large as the page allows
 
+### Capitalization Style
+Changes the capitalization style for localized text
+- lowercase: All lowercase
+- Capitalized: All properly capitalized
+- UPPERCASE: All uppercase
+
 ### Dark Theme
 Enables or disables the dark theme
 
