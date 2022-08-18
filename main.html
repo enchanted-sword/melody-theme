@@ -2,7 +2,7 @@
 <html lang="{block:English}en-US{/block:English}{block:German}de-DE{/block:German}{block:French}fr-FR{/block:French}{block:Italian}it-IT{/block:Italian}{block:Japanese}ja-JP{/block:Japanese}{block:Turkish}tr-TR{/block:Turkish}{block:Spanish}es-ES{/block:Spanish}{block:Russian}ru-RU{/block:Russian}{block:Polish}pl-PL{/block:Polish}{block:PortuguesePT}pt-PT{/block:PortuguesePT}{block:PortugueseBR}pt-BR{/block:PortugueseBR}{block:Dutch}nl-NL{/block:Dutch}{block:Korean}ko-KR{/block:Korean}{block:ChineseSimplified}zh-CN{/block:ChineseSimplified}{block:ChineseTraditional}zh-TW{/block:ChineseTraditional}{block:ChineseHK}zh-HK{/block:ChineseHK}{block:Indonesian}id-ID{/block:Indonesian}{block:Hindi}hi-IN{/block:Hindi}">
 	<head>
 	
-		<!-- THEME
+		<!-- 
 		melody by dragongirlsnout
 		feel free to edit, give credit where due
 		https://github.com/enchanted-sword/melody-theme
@@ -107,6 +107,7 @@
 			
 			.style-text {
 				font-family: 'Source Code Pro', 'Lucida Console', 'Courier New', monospace;
+				text-decoration: none;
 			}
 			
 			.header {
@@ -149,6 +150,7 @@
 			    color: #7dff95;
 			    text-align: center;
 			    font-size: 12px;
+				text-decoration: none;
 			}
 			
 			a.theme-source {
@@ -161,7 +163,7 @@
 				width: auto;
 				padding: 12px;
 				border: solid 3px {TitleColor};
-				border-radius: 12px;
+				border-radius: 8px;
 				text-align: center;
                 margin-bottom: 8px;
 			}
@@ -172,7 +174,7 @@
 				width: 320px;
 				padding: 12px;
 				border: solid 3px {TitleColor};
-				border-radius: 12px;
+				border-radius: 8px;
 				text-align: center;
                 margin-bottom: 8px;
 			}
@@ -237,7 +239,7 @@
 				margin-bottom: 8px;				
 				padding: 12px;
 				border: solid 3px {TitleColor};
-				border-radius: 12px;
+				border-radius: 8px;
 				text-align: center;
 			}
 			
@@ -251,7 +253,7 @@
 			.follow-card {
 				width: 328px;
 				border: solid 3px {TitleColor};
-				border-radius: 12px;
+				border-radius: 8px;
 				margin: 8px 0px 8px 0px;
 				padding: 8px;
 			}
@@ -329,16 +331,12 @@
 				align-items: center;
 				text-align: left;
 				background-color: rgba(0,0,0,0);
-				border-radius: 12px;
+				border-radius: 8px;
 				line-height: 24px;
 				height: 32px;
 				width: 516px;
 				padding: 12px 8px 0px 8px;
 				margin: none auto 8px auto;
-			}
-			
-			.post-header.answerer {
-			padding: 8px 0px 0px 0px;
 			}
 			
 			.day-header {
@@ -375,12 +373,16 @@
 			    justify-content: center;
 				text-align: left;
 				background-color: none;
-				border-radius: 12px;
+				border-radius: 8px;
 				width: 516px;
 				padding: 8px 8px 8px 8px;
 				margin-left: auto;
 				margin-right: auto;
 				margin-bottom: none;
+			}
+			
+			.submitted .post-card{
+				background-color: rgba({RGBBackgroundColor}, 0.2);
 			}
 			
 			.card {
@@ -406,6 +408,12 @@
 				justify-content: center;
 				text-align: center;
 			}
+			
+			.submit-label {
+				display: block;
+				text-align: center;
+				padding-bottom: 4px;
+			}	
 			
 			form.search {
 				display: flex;
@@ -552,7 +560,6 @@
 			}
 			
 			.chat-line {
-				margin-left: 8px;
 				line-height: 20px;
 			}
 			
@@ -594,10 +601,8 @@
 				margin: auto;
 			}
 			
-			.invis {
-			    color: #fcbedc;
-			    text-shadow: 3px 3px 5px black;
-			    background-color: rgba(0,0,0,0);
+			.link .image {
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 			}
 			
 			.ask {
@@ -625,7 +630,7 @@
 				height: auto;
 			    text-align: left;
 				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
-				border-radius: 12px;
+				border-radius: 8px;
 				height: 32px;
 				width: 516px;
 				padding: 8px;
@@ -665,7 +670,7 @@
 			    width: 516px;
 			    height: 100%;
 			    background: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
-			    border-radius: 12px;
+			    border-radius: 8px;
 			}
 			
 			ol.notes {
@@ -849,8 +854,8 @@
 						{/block:PermalinkPagination}
 					{/block:PermalinkPage}
 					<span class="theme-source">
-			        <b><a style="text-decoration: none;" href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a style="text-decoration: none;" href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
-			    </span>
+						<b><a href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
+					</span>
 				</div>
 				<div class="post-container {select:Content Size}"><div id="align"><div id="awawawa">
 				    {block:DayPage}
@@ -870,121 +875,10 @@
 						</div>
 					{/block:SearchPage}
 					{block:Posts}
-						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
+						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Submission}submitted {/block:Submission}">
 						    <a href="https://www.tumblr.com/blog/view/{Name}/{PostID}"><div class="blog-view"></div></a>
-							{block:RebloggedFrom}
-							    <div class="reblog-header">
-									<a href="{ReblogParentURL}" class="style-text" style="text-decoration: none; padding: 0px; margin: 0px; height: 24px;"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M12.8.2c-.4-.4-.8-.2-.8.4v2H2c-2 0-2 2-2 2v5s0 1 1 1 1-1 1-1v-4c0-1 .5-1 1-1h9v2c0 .6.3.7.8.4L17 3.6 12.8.2zM4.2 17.9c.5.4.8.2.8-.3v-2h10c2 0 2-2 2-2v-5s0-1-1-1-1 1-1 1v4c0 1-.5 1-1 1H5v-2c0-.6-.3-.7-.8-.4L0 14.6l4.2 3.3z"></path></svg></a>
-									<a href="{ReblogParentURL}" class="style-text preview-link" style="text-decoration: none; padding-left: 8px;"><b>{ReblogParentName}</b></a>
-									<div class="follow-card style-text hidden popup-card">
-										<div class="follow-header">
-											<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogParentPortraitURL-48}"><a class="follow-url" href="{ReblogParentURL}">{ReblogParentName}</a>
-										</div>
-										<div class="card style-text" style="color: {TitleColor}">
-											{ReblogParentTitle}
-										</div>
-									</div>
-								</div>
-								<div class="post-body rb-schrodinger {block:Reblogs}{block:isOriginalEntry}null {/block:isOriginalEntry}{/block:Reblogs}">
-									{block:Photo}
-										<div class="post-header rb-schrodinger">
-											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" class="portrait"></a>
-											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
-											<div class="follow-card style-text hidden popup-card">
-												<div class="follow-header">
-													<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
-												</div>
-												<div class="card style-text" style="color: {TitleColor}">
-													{ReblogRootTitle}
-												</div>
-											</div>
-										</div>
-										<div class="post-body photo rb-schrodinger">
-											<div class="post-card photo">
-												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-												{Body}
-											</div>
-										</div>
-									{/block:Photo}
-									{block:Panorama}
-										<div class="post-header rb-schrodinger">
-											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" class="portrait"></a>
-											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
-											<div class="follow-card style-text hidden popup-card">
-												<div class="follow-header">
-													<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
-												</div>
-												<div class="card style-text" style="color: {TitleColor}">
-													{ReblogRootTitle}
-												</div>
-											</div>
-										</div>
-										<div class="post-body panorama rb-schrodinger">
-											<div class="post-card panorama rb">
-												<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
-												{block:Caption}{Body}{/block:Caption}
-											</div>
-										</div>
-									{/block:Panorama}
-									{block:Photoset} 
-										<div class="post-header rb-schrodinger">
-											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" class="portrait"></a>
-											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
-											<div class="follow-card style-text hidden popup-card">
-												<div class="follow-header">
-													<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
-												</div>
-												<div class="card style-text" style="color: {TitleColor}">
-													{ReblogRootTitle}
-												</div>
-											</div>
-										</div>
-										<div class="post-body photoset rb-schrodinger">
-											<div class="post-card photoset rb">
-												{Photoset-500}
-												{block:Caption}{Body}{/block:Caption}
-											</div>
-										</div>
-									{/block:Photoset}
-									{block:Answer}
-										<div class="post-body answer rb-scrodinger">
-											<div class="post-card answer rb-scrodinger">
-												<div class="ask">
-													<div class="post-header asker rb-scrodinger">
-														<img class="portrait" src="{AskerPortraitURL-64}"><span class="post-avatar style-text tr" style="text-decoration: none; margin-left: 8px;">{lang:Asker asked 2}:</span>
-													</div>
-													<div class="ask-question">
-														{Question}
-													</div>
-												</div>
-												<div class="ask">
-													<div class="post-header answerer rb-scrodinger">
-														<img class="portrait" src="{ReblogRootPortraitURL-64}">
-														<a href="{ReblogRootURL}" class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;"><b>{ReblogRootName}:</b></a>
-														<div class="follow-card style-text hidden popup-card">
-															<div class="follow-header">
-																<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
-															</div>
-															<div class="card style-text" style="color: {TitleColor}">
-																{ReblogRootTitle}
-															</div>
-														</div>
-													</div>
-													<div class="ask-reply">
-														{Answer}
-													</div>
-												</div>
-											</div>
-										</div>
-									{/block:Answer}
-								</div>
-							{/block:RebloggedFrom}
-							{block:NotReblog}
+							{block:NotReblog}	<!-- Original Posts -->
 								<div class="post-body not-rb">
-									<div class="post-header not-rb {block:Answer}null {/block:Answer}">
-										<a href="{Permalink}" style="text-decoration: none;"><img src="{PortraitURL-64}" class="portrait"></a>
-										<a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
-									</div>
 									{block:Text}
 										<div class="post-card text not-rb">
 											{block:Title}<h1>{Title}</h1>{/block:Title}
@@ -1031,18 +925,15 @@
 										<div class="post-card link not-rb">
 											<a {Target} href="{URL}">
 												{block:Thumbnail}
-													<img src="{Thumbnail-HighRes}">
+													<img class="image" src="{Thumbnail-HighRes}">
 												{/block:Thumbnail}
-												{block:Host}
-													{Host}
-												{/block:Host}
-												{Name}</h2>
+												<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
+														{Host}
+													{/block:Host}
+												</span>
 												{block:Excerpt}
 													{Excerpt}
 												{/block:Excerpt}
-												{block:Author}
-													{Author}
-												{/block:Author}
 											</a>
 											{block:Description}
 												{Description}
@@ -1065,7 +956,7 @@
 									{/block:Chat}
 									{block:Audio}
 										<div class="post-card audio not-rb">
-											<div class="card" style="padding: auto;">{AudioEmbed-500}</div>
+											<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
 											<div class="card">{block:Caption}{Body}{/block:Caption}</div>
 										</div>
 									{/block:Audio}
@@ -1074,7 +965,7 @@
 											<div class="post-card answer not-rb">
 												<div class="ask">
 													<div class="post-header asker not-rb">
-														<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="text-decoration: none; margin-left: 8px;">{lang:Asker asked 2}:</span>
+														<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;">{lang:Asker asked 2}:</span>
 													</div>
 													<div class="ask-question">
 														{Question}
@@ -1083,7 +974,7 @@
 												<div class="ask">
 													<div class="post-header answerer not-rb">
 														<img src="{PortraitURL-64}" class="portrait">
-														<a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
+														<a href="{Permalink}" class="style-text post-avatar" style="margin-left: 8px;"><b>{Name}:</b></a>
 													</div>
 													<div class="ask-reply">
 														{Answer}
@@ -1092,15 +983,159 @@
 											</div>
 										</div>
 									{/block:Answer}
+									{block:Submission}
+										<span class="submit-label tr">
+											<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
+										</span>
+									{/block:Submission}
 								</div>
 							{/block:NotReblog}
+							{block:RebloggedFrom}
+							    <div class="reblog-header">
+									<a href="{ReblogParentURL}" class="style-text" style="padding: 0px; margin: 0px; height: 24px;"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M12.8.2c-.4-.4-.8-.2-.8.4v2H2c-2 0-2 2-2 2v5s0 1 1 1 1-1 1-1v-4c0-1 .5-1 1-1h9v2c0 .6.3.7.8.4L17 3.6 12.8.2zM4.2 17.9c.5.4.8.2.8-.3v-2h10c2 0 2-2 2-2v-5s0-1-1-1-1 1-1 1v4c0 1-.5 1-1 1H5v-2c0-.6-.3-.7-.8-.4L0 14.6l4.2 3.3z"></path></svg></a>
+									<a href="{ReblogParentURL}" class="style-text preview-link" style="padding-left: 8px;"><b>{ReblogParentName}</b></a>
+									<div class="follow-card style-text hidden popup-card">
+										<div class="follow-header">
+											<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogParentPortraitURL-48}"><a class="follow-url" href="{ReblogParentURL}">{ReblogParentName}</a>
+										</div>
+										<div class="card style-text" style="color: {TitleColor}">
+											{ReblogParentTitle}
+										</div>
+									</div>
+								</div>
+								<div class="post-body rb-schrodinger {block:Reblogs}{block:isOriginalEntry}null {/block:isOriginalEntry}{/block:Reblogs}{block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
+									<div class="post-header rb-schrodinger">
+										<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" class="portrait"></a>
+										<a class="style-text post-avatar preview-link" style="margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
+										<div class="follow-card style-text hidden popup-card">
+											<div class="follow-header">
+												<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
+											</div>
+											<div class="card style-text" style="color: {TitleColor}">
+												{ReblogRootTitle}
+											</div>
+										</div>
+									</div>
+									{block:Photo}
+										<div class="post-body photo rb-schrodinger">
+											<div class="post-card photo">
+												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+												{Body}
+											</div>
+										</div>
+									{/block:Photo}
+									{block:Panorama}
+										<div class="post-body panorama rb-schrodinger">
+											<div class="post-card panorama rb">
+												<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+												{block:Caption}{Body}{/block:Caption}
+											</div>
+										</div>
+									{/block:Panorama}
+									{block:Photoset} 
+										<div class="post-body photoset rb-schrodinger">
+											<div class="post-card photoset rb">
+												{Photoset-500}
+												{block:Caption}{Body}{/block:Caption}
+											</div>
+										</div>
+									{/block:Photoset}
+									{block:Text}
+										<div class="post-card text rb-schrodinger">
+											{block:Title}<h1>{Title}</h1>{/block:Title}
+											{Body}
+										</div>
+									{/block:Text}
+									{block:Answer}
+										<div class="post-card answer rb-scrodinger">
+											<div class="ask">
+												<div class="post-header asker rb-scrodinger">
+													<img class="portrait" src="{AskerPortraitURL-64}"><span class="post-avatar style-text tr" style="margin-left: 8px;">{lang:Asker asked 2}:</span>
+												</div>
+												<div class="ask-question">
+													{Question}
+												</div>
+											</div>
+											<div class="ask">
+												<div class="post-header answerer rb-scrodinger">
+													<img class="portrait" src="{ReblogRootPortraitURL-64}">
+													<a href="{ReblogRootURL}" class="style-text post-avatar preview-link" style="margin-left: 8px;"><b>{ReblogRootName}:</b></a>
+													<div class="follow-card style-text hidden popup-card">
+														<div class="follow-header">
+															<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
+														</div>
+														<div class="card style-text" style="color: {TitleColor}">
+															{ReblogRootTitle}
+														</div>
+													</div>
+												</div>
+												<div class="ask-reply">
+													{Answer}
+												</div>
+											</div>
+										</div>
+									{/block:Answer}
+									{block:Quote}
+										<div class="post-card quote rb-schrodinger">
+											<div class="quote-body">
+												<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
+												{block:Source}- {Source}{/block:Source}
+											</div>
+										</div>
+									{/block:Quote}	
+									{block:Link}
+										<div class="post-card link not-rb">
+											<a {Target} href="{URL}">
+												{block:Thumbnail}
+													<img class="image" src="{Thumbnail-HighRes}">
+												{/block:Thumbnail}
+												<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
+														{Host}
+													{/block:Host}
+												</span>
+												{block:Excerpt}
+													{Excerpt}
+												{/block:Excerpt}
+											</a>
+											{block:Description}
+												{Description}
+											{/block:Description}
+										</div>
+									{/block:Link}
+									{block:Chat}
+										<div class="post-card chat rb-schrodinger">
+											{block:Title}
+												<h1>
+													{Title}
+												</h1>
+											{/block:Title}
+											{block:Lines}
+												<span class="chat-line">
+													{block:Label}<b>{Label}</b> {/block:Label}{Line}
+												</span>
+											{/block:Lines}
+										</div>
+									{/block:Chat}
+									{block:Audio}
+										<div class="post-card audio rb-schrodinger">
+											<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
+											<div class="card">{block:Caption}{Body}{/block:Caption}</div>
+										</div>
+									{/block:Audio}
+									{block:Submission}
+										<span class="submit-label tr">
+											<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
+										</span>
+									{/block:Submission}
+								</div>
+							{/block:RebloggedFrom}
 							{block:Reblogs}
 								{block:isOriginalEntry}
 									<div class="post-body rb {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
 										<div class="post-header rb {block:Answer}null {/block:Answer}">
 											{block:IsActive}
 												<a href="{Permalink}" style="text-decoration: none;"><img src="{PortraitURL-64}" class="portrait"></a>
-												<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{Permalink}"><b>{Username}</b></a>
+												<a class="style-text post-avatar preview-link" style="margin-left: 8px;" href="{Permalink}"><b>{Username}</b></a>
 											{/block:IsActive}
 											{block:IsDeactivated}
 												<b>{Username}</b><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">{block:English}deactivated{/block:English}</span></a>
@@ -1146,21 +1181,18 @@
 												</div>
 											{/block:Quote}	
 											{block:Link}
-												<div class="post-card link rb">
+												<div class="post-card link not-rb">
 													<a {Target} href="{URL}">
 														{block:Thumbnail}
-															<img src="{Thumbnail-HighRes}">
+															<img class="image" src="{Thumbnail-HighRes}">
 														{/block:Thumbnail}
-														{block:Host}
-															{Host}
-														{/block:Host}
-														{Name}</h2>
+														<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
+																{Host}
+															{/block:Host}
+														</span>
 														{block:Excerpt}
 															{Excerpt}
 														{/block:Excerpt}
-														{block:Author}
-															{Author}
-														{/block:Author}
 													</a>
 													{block:Description}
 														{Description}
@@ -1168,7 +1200,7 @@
 												</div>
 											{/block:Link}
 											{block:Chat}
-												<div class="post-card chat not-rb">
+												<div class="post-card chat rb">
 													{block:Title}
 														<h1>
 															{Title}
@@ -1191,7 +1223,7 @@
 												<div class="post-card answer rb">
 													<div class="ask">
 														<div class="post-header asker rb">
-															<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="text-decoration: none; margin-left: 8px;">{lang:Asker asked 2}:</span>
+															<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;">{lang:Asker asked 2}:</span>
 														</div>
 														<div class="ask-question">
 															{Question}
@@ -1201,7 +1233,7 @@
 														<div class="ask">
 															<div class="post-header answerer rb" style="padding-left: 0px;">
 																<img src="{AnswererPortraitURL-64}" class="portrait">
-																<span class="post-avatar style-text"><b>{Answerer}</b></span>
+																<span class="post-avatar style-text"><b>{Answerer}:</b></span>
 															</div>
 															<div class="ask-reply">
 																{Answer}
@@ -1210,14 +1242,18 @@
 													{/block:Answerer}
 												</div>
 											{/block:Answer}
+											{block:Submission}
+												<span class="submit-label tr">
+													<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
+												</span>
+											{/block:Submission}
 										</div>
-										<div class="spacer"></div>
 									</div>
 								{/block:isOriginalEntry}
 								<div class="post-body rb {block:isOriginalEntry}null{/block:isOriginalEntry}">
 									<div class="post-header rb">
 										{block:IsActive}
-											<img src="{PortraitURL-64}" class="portrait"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Username}</b></a>
+											<img src="{PortraitURL-64}" class="portrait"><a href="{Permalink}" class="style-text post-avatar" style="margin-left: 8px;"><b>{Username}</b></a>
 										{/block:IsActive}
 										{block:IsDeactivated}
 											<span style="color: {AccentColor}"><b>{Username}</b></span><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">deactivated</span>
