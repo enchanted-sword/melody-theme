@@ -5,13 +5,11 @@ melody is a sleek, simple theme for tumblr that is easily editable to suit your 
 
 ## Features
 - Tag, search, and day pages
-- Content size adjustment
 - Light and Dark modes
 - Blog view link button for ease of editing your posts
 - Following list
 - Blog member list
 - Header size adaptability
-- Reblog header with blog preview
 
 ## Installation
 Simply copy the contents of `main.html` into the custom theme html section on the blog customization page
@@ -39,12 +37,6 @@ Used for:
 ### Page Header Text Color
 The color for the page header text, such as on search and tag pages.
 
-### Content Size
-Scales the entire post container section including text and images
-- Standard: 548px wide
-- 1.25x: 685px wide
-- 1.5x: 822px wide
-
 ### Header Styles
 - Maintain aspect ratio: Keeps original aspect ratio, scaled to 360px in height
 - Stretch: 360px in height, scaled to full page width:
@@ -67,7 +59,3 @@ Shows or hides the number of total post pages in the pagination menus under the 
 
 ### Show Blog Members
 Shows or hides a list of all the members in a group blog
-
-### Redirect Reblogs to Blog View
-When enabled, redirects the reblog button to the blog view of the post, the same as the like button. </br>
-When disabled, it uses the normal tumblr reblog functionality.

@@ -2,7 +2,7 @@
 <html lang="{block:English}en-US{/block:English}{block:German}de-DE{/block:German}{block:French}fr-FR{/block:French}{block:Italian}it-IT{/block:Italian}{block:Japanese}ja-JP{/block:Japanese}{block:Turkish}tr-TR{/block:Turkish}{block:Spanish}es-ES{/block:Spanish}{block:Russian}ru-RU{/block:Russian}{block:Polish}pl-PL{/block:Polish}{block:PortuguesePT}pt-PT{/block:PortuguesePT}{block:PortugueseBR}pt-BR{/block:PortugueseBR}{block:Dutch}nl-NL{/block:Dutch}{block:Korean}ko-KR{/block:Korean}{block:ChineseSimplified}zh-CN{/block:ChineseSimplified}{block:ChineseTraditional}zh-TW{/block:ChineseTraditional}{block:ChineseHK}zh-HK{/block:ChineseHK}{block:Indonesian}id-ID{/block:Indonesian}{block:Hindi}hi-IN{/block:Hindi}">
 	<head>
 	
-		<!-- THEME
+		<!-- 
 		melody by dragongirlsnout
 		feel free to edit, give credit where due
 		https://github.com/enchanted-sword/melody-theme
@@ -18,27 +18,23 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Oxygen&family=Source+Code+Pro&display=swap" rel="stylesheet"> 
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="color:Page Header Text" content="#fff"/>
 		<meta name="if:Dark Theme" content="0"/>
 		<meta name="if:Show Following" content="0"/>
 		<meta name="if:Show Total Page Count" content="0"/>
 		<meta name="if:Show Blog Members" content="0"/>
-		<meta name="select:Content Size" content="scale-1" title="Standard"/>
-		<meta name="select:Content Size" content="scale-1-25" title="x1.25"/>
-        <meta name="select:Content Size" content="scale-1-5" title="x1.5"/>
 		<meta name="select:Header Style" content="0" title="Maintain aspect ratio"/>
         <meta name="select:Header Style" content="1" title="Stretch to fit"/>
         <meta name="select:Header Style" content="2" title="Fill"/>
-        <meta name="if:Redirect Reblogs to Blog View" content="0"/>
         <meta name="select:Capitalization Style" content="lowercase" title="lowercase"/>
         <meta name="select:Capitalization Style" content="capitalize" title="Capitalize"/>
         <meta name="select:Capitalization Style" content="uppercase" title="UPPERCASE"/>
         
 		<style>
 			body {
-				font-size: 14px;
+				font-size: 16px;
 				color: {TitleColor};				
 				font-family: 'Oxygen', 'Helvetica', 'Arial', sans-serif;
 				background-color: {BackgroundColor};
@@ -64,20 +60,28 @@
 			    color: {AccentColor};
 			}
 			
+			.blog-view .material-symbols-rounded {
+				color: {AccentColor};
+				transition: opacity 0.5s;
+				transition-timing-function: linear;
+			}
+			
+			.blog-view .material-symbols-rounded:hover {
+				opacity: 0.6;
+			}
+			
 			a.reblog_button svg {
-			    fill: #00cf35 !important;
+			    fill: {AccentColor} !important;
+				transition: opacity 0.5s;
+				transition-timing-function: linear;
 			}
 			
 			a.reblog_button svg:hover {
-			    fill: #00a735 !important;
+			    opacity: 0.6 !important;
 			}
 			
-			span.like-button {
-			    color: #ff4930;
-			}
-			
-			span.like-button:hover {
-			    color: #d83d29;
+			.post-card a:visited {
+				opacity: 0.6;
 			}
 			
 			p:empty {
@@ -97,7 +101,11 @@
 			    display: none !important;
 			}
 			
-			.material-symbols-outlined {
+			.card iframe {
+				border-radius: 8px;
+			}	
+			
+			.material-symbols-rounded {
 				font-variation-settings:
 				'FILL' 0,
 				'wght' 400,
@@ -107,6 +115,11 @@
 			
 			.style-text {
 				font-family: 'Source Code Pro', 'Lucida Console', 'Courier New', monospace;
+				text-decoration: none;
+			}
+			
+			.style-text a {
+				text-decoration: none;
 			}
 			
 			.header {
@@ -141,19 +154,19 @@
 			}
 			
 			.theme-source {
-			    padding: 8px;
+				line-height: 18px;
 			    margin: 4px;
-			    background-color: #052d41;
+			    background-color: {BackgroundColor};
 			    border-radius: 4px;
 			    opacity: 0.5;
-			    color: #7dff95;
+			    color: {TitleColor};
 			    text-align: center;
 			    font-size: 12px;
 			}
 			
-			a.theme-source {
+			.theme-source a {
 			    text-decoration: none;
-			    color: #67b8f3;
+			    color: {AccentColor};
 			}
 			.navbar {
 			    z-index: 72;
@@ -161,7 +174,7 @@
 				width: auto;
 				padding: 12px;
 				border: solid 3px {TitleColor};
-				border-radius: 12px;
+				border-radius: 8px;
 				text-align: center;
                 margin-bottom: 8px;
 			}
@@ -172,7 +185,7 @@
 				width: 320px;
 				padding: 12px;
 				border: solid 3px {TitleColor};
-				border-radius: 12px;
+				border-radius: 8px;
 				text-align: center;
                 margin-bottom: 8px;
 			}
@@ -237,7 +250,7 @@
 				margin-bottom: 8px;				
 				padding: 12px;
 				border: solid 3px {TitleColor};
-				border-radius: 12px;
+				border-radius: 8px;
 				text-align: center;
 			}
 			
@@ -251,7 +264,7 @@
 			.follow-card {
 				width: 328px;
 				border: solid 3px {TitleColor};
-				border-radius: 12px;
+				border-radius: 8px;
 				margin: 8px 0px 8px 0px;
 				padding: 8px;
 			}
@@ -294,18 +307,6 @@
 				flex-flow: column nowrap;
 			}
 			
-			.post-container.scale-1 {
-				transform: scale(1, 1);
-			}
-			
-			.post-container.scale-1-25 {
-				transform: scale(1.25, 1.25);
-			}
-			
-			.post-container.scale-1-5 {
-				transform: scale(1.5, 1.5);
-			}
-			
 			.reblog-header {
 				display: flex;
 				flex-flow: row nowrap;
@@ -319,7 +320,7 @@
 				padding: 4px 8px 4px 8px;
 				margin-left: auto;
 				margin-right: auto;
-				margin-bottom: 4px;
+				margin-bottom: 8px;
 			}
 			
 			.post-header {
@@ -329,16 +330,12 @@
 				align-items: center;
 				text-align: left;
 				background-color: rgba(0,0,0,0);
-				border-radius: 12px;
+				border-radius: 8px;
 				line-height: 24px;
-				height: 32px;
+				height: autopx;
 				width: 516px;
-				padding: 12px 8px 0px 8px;
+				padding: 8px 8px 0px 8px;
 				margin: none auto 8px auto;
-			}
-			
-			.post-header.answerer {
-			padding: 8px 0px 0px 0px;
 			}
 			
 			.day-header {
@@ -375,12 +372,16 @@
 			    justify-content: center;
 				text-align: left;
 				background-color: none;
-				border-radius: 12px;
+				border-radius: 8px;
 				width: 516px;
 				padding: 8px 8px 8px 8px;
 				margin-left: auto;
 				margin-right: auto;
 				margin-bottom: none;
+			}
+			
+			.submitted .post-card{
+				background-color: rgba({RGBBackgroundColor}, 0.2);
 			}
 			
 			.card {
@@ -396,8 +397,8 @@
 			}
 			
 			.portrait {
-				width: 32px;
-				height: 32px;
+				width: 36px;
+				height: 36px;
 				border-radius: 2px;
 			}
 			
@@ -406,6 +407,12 @@
 				justify-content: center;
 				text-align: center;
 			}
+			
+			.submit-label {
+				display: block;
+				text-align: center;
+				padding-bottom: 4px;
+			}	
 			
 			form.search {
 				display: flex;
@@ -486,11 +493,6 @@
 			    height: 24px;
 			}
 			
-			.post-avatar {
-				text-decoration: none; 
-				margin-left: 8px;
-			}
-			
 			.tmblr-full {
 			    height: auto;
 			    margin: 0px;
@@ -540,20 +542,31 @@
 			    font-style: italic;
 			}
 			
-			.album-art {
-			    position: relative;
-			}
-			
-			img.album-art {
-			    width: 516px;
-			    height: auto;
-			    border-radius: 8px;
-			    
-			}
-			
 			.chat-line {
-				margin-left: 8px;
 				line-height: 20px;
+			}
+			
+			.header-link {
+				display: flex;
+				align-content: center;
+				justify-content: flex-start;
+				flex-flow: row nowrap;
+			}
+			b.reblog-parent {
+				line-height: 24px;
+				margin-left: 4px;
+			}
+			
+			b.reblog-root {
+				line-height: 36px;
+				margin-left: 8px;
+				font-size: 16px;
+			}
+			
+			b.reblog-name {
+				line-height: 36px;
+				margin-left: 8px;
+				font-size: 16px;
 			}
 			
 			.tags {
@@ -563,19 +576,6 @@
 			    background-color: rgba(255, 255, 255, 0.4);
 			    border-radius: 8px;
 			    padding: 4px;
-			}
-			
-			.track-name {
-				font-size: 20px;
-				margin: 6px 0px 6px 0px;
-			}
-			
-			.artist {
-			    margin: 6px 0px 6px 0px;
-			}
-			
-			.album {
-			    margin: 6px 0px 6px 0px;
 			}
 			
 			.audio-player {
@@ -594,12 +594,6 @@
 				margin: auto;
 			}
 			
-			.invis {
-			    color: #fcbedc;
-			    text-shadow: 3px 3px 5px black;
-			    background-color: rgba(0,0,0,0);
-			}
-			
 			.ask {
 			    background-color: rgba({RGBBackgroundColor}, 0.2);
 			    border-radius: 8px;
@@ -608,6 +602,11 @@
 			}
 			
 			.asker {
+				padding: 0px;
+				text-decoration: none;
+			}
+			
+			.answerer {
 				padding: 0px;
 				text-decoration: none;
 			}
@@ -625,7 +624,7 @@
 				height: auto;
 			    text-align: left;
 				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
-				border-radius: 12px;
+				border-radius: 8px;
 				height: 32px;
 				width: 516px;
 				padding: 8px;
@@ -665,7 +664,7 @@
 			    width: 516px;
 			    height: 100%;
 			    background: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
-			    border-radius: 12px;
+			    border-radius: 8px;
 			}
 			
 			ol.notes {
@@ -675,7 +674,7 @@
 			    text-decoration: none;
 			}
 			
-			a.notes {
+			.notes a{
 			    text-decoration: none;
 			}
 			
@@ -700,30 +699,16 @@
 			    text-decoration: none;
 			}
 			
-			.hidden {
-				display: none;
-			}
-			
-			.preview-link:hover + .hidden {
-				display: block;
-			}
-			
 			.hidden:hover {
 				display: block;
 			}
 			
 			.blog-view {
-			    background-color: {AccentColor};
-			    border-radius: 8px;
-			    margin: 0px;
-			    padding: 0px;
-			    min-width: 6px;
-			    min-height: 6px;
-			    position: absolute;
-			    top: 4px;
-			    right: 4px;
-			    font-size: 4px;
-			    color: rgba(0,0,0,0);
+			    text-decoration: none;
+			}
+			
+			.link .blog-view {
+				display: none;
 			}
 			
 			.photoset {
@@ -732,12 +717,6 @@
 			
 			video {
 			    border-radius: 8px;
-			}
-			
-			.popup-card {
-				margin: 48px 0px 0px 8px;
-				z-index: 1440;
-				background-color: {BackgroundColor};
 			}
 			
 			{CustomCSS}
@@ -775,7 +754,7 @@
 							<form class="search" action="/search" method="get">
 								<input class="style-text tr" type="text" name="q" value="{SearchQuery}" placeholder="{lang:Search}..." style="color: {BackgroundColor}; height: 29px;"/>
 								<button name="submit" class="style-text" style="margin-left: 8px; color: {BackgroundColor};" type="submit" value="value">
-									<span class="material-symbols-outlined" style="color: {BackgroundColor};">search</span>
+									<span class="material-symbols-rounded" style="color: {BackgroundColor};">search</span>
 								</button>
 							</form>
 						</div>
@@ -808,9 +787,9 @@
 					{block:Pagination}
 							<div class="nav-sidebar style-text">
 								<ul class="nav">
-									{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-outlined">chevron_left</span></a></li>{/block:PreviousPage}
+									{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-rounded">chevron_left</span></a></li>{/block:PreviousPage}
 									<li class="nav">{CurrentPage}</li>
-									{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextPage}
+									{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextPage}
 								</ul>
 								{block:IfShowTotalPageCount}
 							        <span class="style-text tr" style="font-size: 12px;">{lang:Page CurrentPage of TotalPages}</span>
@@ -821,11 +800,11 @@
 					    {block:DayPagination}
 					        <div class="nav-sidebar style-text">
 								<ul class="nav">
-									{block:PreviousDayPage}<li class="nav"><a href="{PreviousDayPage}"><span class="material-symbols-outlined">chevron_left</span</a></li>{/block:PreviousDayPage}
+									{block:PreviousDayPage}<li class="nav"><a href="{PreviousDayPage}"><span class="material-symbols-rounded">chevron_left</span</a></li>{/block:PreviousDayPage}
 									<li class="nav">
 									    {DayOfMonth} {ShortMonth} {Year}
 									</li>
-									{block:NextDayPage}<li class="nav"><a href="{NextDayPage}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextDayPage}
+									{block:NextDayPage}<li class="nav"><a href="{NextDayPage}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextDayPage}
 								</ul>
 								{block:IfShowTotalPageCount}
 							        <span class="style-text tr" style="font-size: 12px;">{lang:Page CurrentPage of TotalPages}</span>
@@ -837,22 +816,23 @@
 					    {block:PermalinkPagination}
 					        <div class="nav-sidebar style-text">
 							    <ul class="nav">
-							        {block:PreviousPost}<li class="nav"><a href="{PreviousPost}"><span class="material-symbols-outlined">chevron_left</span></a></li>{/block:PreviousPost}
+							        {block:PreviousPost}<li class="nav"><a href="{PreviousPost}"><span class="material-symbols-rounded">chevron_left</span></a></li>{/block:PreviousPost}
 									<li class="nav">
 									    {block:PostSummary}
 									        {PostSummary}
 									    {/block:PostSummary}
 									</li>
-									{block:NextPost}<li class="nav"><a href="{NextPost}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextPost}
+									{block:NextPost}<li class="nav"><a href="{NextPost}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextPost}
 							    </ul>
 					    	</div>
 						{/block:PermalinkPagination}
 					{/block:PermalinkPage}
 					<span class="theme-source">
-			        <b><a style="text-decoration: none;" href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a style="text-decoration: none;" href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
-			    </span>
+						<b style="display: block;"><a href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
+						<b style="display: block;">v1.5</b>
+					</span>
 				</div>
-				<div class="post-container {select:Content Size}"><div id="align"><div id="awawawa">
+				<div class="post-container">
 				    {block:DayPage}
     				    <div class="post day-header">
                             <h1 class="day-header">{DayOfMonth} {ShortMonth} {Year}</h1>
@@ -866,125 +846,14 @@
 					{block:SearchPage}
 						<div class="post day-header">
 							<h1 class="day-header tr">{lang:Found SearchResultCount results for SearchQuery}</h1>
+							<h1 class="day-header tr">{lang:No results for SearchQuery}</h1>
 							<h1 class="day-header tr" style="font-size: 14px;"><a href="{BlogURL}tagged/{SearchQuery}">{lang:Posts} {lang:Tagged} #{SearchQuery}</a></h1>
 						</div>
 					{/block:SearchPage}
 					{block:Posts}
-						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
-						    <a href="https://www.tumblr.com/blog/view/{Name}/{PostID}"><div class="blog-view"></div></a>
-							{block:RebloggedFrom}
-							    <div class="reblog-header">
-									<a href="{ReblogParentURL}" class="style-text" style="text-decoration: none; padding: 0px; margin: 0px; height: 24px;"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M12.8.2c-.4-.4-.8-.2-.8.4v2H2c-2 0-2 2-2 2v5s0 1 1 1 1-1 1-1v-4c0-1 .5-1 1-1h9v2c0 .6.3.7.8.4L17 3.6 12.8.2zM4.2 17.9c.5.4.8.2.8-.3v-2h10c2 0 2-2 2-2v-5s0-1-1-1-1 1-1 1v4c0 1-.5 1-1 1H5v-2c0-.6-.3-.7-.8-.4L0 14.6l4.2 3.3z"></path></svg></a>
-									<a href="{ReblogParentURL}" class="style-text preview-link" style="text-decoration: none; padding-left: 8px;"><b>{ReblogParentName}</b></a>
-									<div class="follow-card style-text hidden popup-card">
-										<div class="follow-header">
-											<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogParentPortraitURL-48}"><a class="follow-url" href="{ReblogParentURL}">{ReblogParentName}</a>
-										</div>
-										<div class="card style-text" style="color: {TitleColor}">
-											{ReblogParentTitle}
-										</div>
-									</div>
-								</div>
-								<div class="post-body rb-schrodinger {block:Reblogs}{block:isOriginalEntry}null {/block:isOriginalEntry}{/block:Reblogs}">
-									{block:Photo}
-										<div class="post-header rb-schrodinger">
-											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" class="portrait"></a>
-											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
-											<div class="follow-card style-text hidden popup-card">
-												<div class="follow-header">
-													<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
-												</div>
-												<div class="card style-text" style="color: {TitleColor}">
-													{ReblogRootTitle}
-												</div>
-											</div>
-										</div>
-										<div class="post-body photo rb-schrodinger">
-											<div class="post-card photo">
-												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-												{Body}
-											</div>
-										</div>
-									{/block:Photo}
-									{block:Panorama}
-										<div class="post-header rb-schrodinger">
-											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" class="portrait"></a>
-											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
-											<div class="follow-card style-text hidden popup-card">
-												<div class="follow-header">
-													<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
-												</div>
-												<div class="card style-text" style="color: {TitleColor}">
-													{ReblogRootTitle}
-												</div>
-											</div>
-										</div>
-										<div class="post-body panorama rb-schrodinger">
-											<div class="post-card panorama rb">
-												<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
-												{block:Caption}{Body}{/block:Caption}
-											</div>
-										</div>
-									{/block:Panorama}
-									{block:Photoset} 
-										<div class="post-header rb-schrodinger">
-											<a href="{ReblogRootURL}" style="text-decoration: none;"><img src="{ReblogRootPortraitURL-64}" class="portrait"></a>
-											<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{ReblogRootURL}"><b>{ReblogRootName}</b></a>
-											<div class="follow-card style-text hidden popup-card">
-												<div class="follow-header">
-													<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
-												</div>
-												<div class="card style-text" style="color: {TitleColor}">
-													{ReblogRootTitle}
-												</div>
-											</div>
-										</div>
-										<div class="post-body photoset rb-schrodinger">
-											<div class="post-card photoset rb">
-												{Photoset-500}
-												{block:Caption}{Body}{/block:Caption}
-											</div>
-										</div>
-									{/block:Photoset}
-									{block:Answer}
-										<div class="post-body answer rb-scrodinger">
-											<div class="post-card answer rb-scrodinger">
-												<div class="ask">
-													<div class="post-header asker rb-scrodinger">
-														<img class="portrait" src="{AskerPortraitURL-64}"><span class="post-avatar style-text tr" style="text-decoration: none; margin-left: 8px;">{lang:Asker asked 2}:</span>
-													</div>
-													<div class="ask-question">
-														{Question}
-													</div>
-												</div>
-												<div class="ask">
-													<div class="post-header answerer rb-scrodinger">
-														<img class="portrait" src="{ReblogRootPortraitURL-64}">
-														<a href="{ReblogRootURL}" class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;"><b>{ReblogRootName}:</b></a>
-														<div class="follow-card style-text hidden popup-card">
-															<div class="follow-header">
-																<img class="avatar" style="width: 32px; height: 32px;" src="{ReblogRootPortraitURL-48}"><a class="follow-url" href="{ReblogRootURL}">{ReblogRootName}</a>
-															</div>
-															<div class="card style-text" style="color: {TitleColor}">
-																{ReblogRootTitle}
-															</div>
-														</div>
-													</div>
-													<div class="ask-reply">
-														{Answer}
-													</div>
-												</div>
-											</div>
-										</div>
-									{/block:Answer}
-								</div>
-							{/block:RebloggedFrom}
+						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Submission}submitted {/block:Submission}">
 							{block:NotReblog}
 								<div class="post-body not-rb">
-									<div class="post-header not-rb {block:Answer}null {/block:Answer}">
-										<a href="{Permalink}" style="text-decoration: none;"><img src="{PortraitURL-64}" class="portrait"></a>
-										<a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
-									</div>
 									{block:Text}
 										<div class="post-card text not-rb">
 											{block:Title}<h1>{Title}</h1>{/block:Title}
@@ -1031,18 +900,15 @@
 										<div class="post-card link not-rb">
 											<a {Target} href="{URL}">
 												{block:Thumbnail}
-													<img src="{Thumbnail-HighRes}">
+													<img class="image" src="{Thumbnail-HighRes}">
 												{/block:Thumbnail}
-												{block:Host}
-													{Host}
-												{/block:Host}
-												{Name}</h2>
+												<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
+														{Host}
+													{/block:Host}
+												</span>
 												{block:Excerpt}
 													{Excerpt}
 												{/block:Excerpt}
-												{block:Author}
-													{Author}
-												{/block:Author}
 											</a>
 											{block:Description}
 												{Description}
@@ -1065,7 +931,7 @@
 									{/block:Chat}
 									{block:Audio}
 										<div class="post-card audio not-rb">
-											<div class="card" style="padding: auto;">{AudioEmbed-500}</div>
+											<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
 											<div class="card">{block:Caption}{Body}{/block:Caption}</div>
 										</div>
 									{/block:Audio}
@@ -1074,33 +940,148 @@
 											<div class="post-card answer not-rb">
 												<div class="ask">
 													<div class="post-header asker not-rb">
-														<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="text-decoration: none; margin-left: 8px;">{lang:Asker asked 2}:</span>
+														<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;">{lang:Asker asked 2}:</span>
 													</div>
 													<div class="ask-question">
 														{Question}
 													</div>
 												</div>
-												<div class="ask">
-													<div class="post-header answerer not-rb">
-														<img src="{PortraitURL-64}" class="portrait">
-														<a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Name}</b></a>
-													</div>
-													<div class="ask-reply">
-														{Answer}
-													</div>
+												<div class="ask-reply">
+													{Answer}
 												</div>
 											</div>
 										</div>
 									{/block:Answer}
+									{block:Submission}
+										<span class="submit-label tr">
+											<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
+										</span>
+									{/block:Submission}
 								</div>
 							{/block:NotReblog}
+							{block:RebloggedFrom}
+							    <div class="reblog-header">
+									<a href="{ReblogParentURL}" class="style-text header-link">
+										<svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M5.01092527,5.99908429 L16.0088498,5.99908429 L16.136,9.508 L20.836,4.752 L16.136,0.083 L16.1360004,3.01110845 L2.09985349,3.01110845 C1.50585349,3.01110845 0.979248041,3.44726568 0.979248041,4.45007306 L0.979248041,10.9999998 L3.98376463,8.30993634 L3.98376463,6.89801007 C3.98376463,6.20867902 4.71892527,5.99908429 5.01092527,5.99908429 Z"></path><path d="M17.1420002,13.2800293 C17.1420002,13.5720293 17.022957,14.0490723 16.730957,14.0490723 L4.92919922,14.0490723 L4.92919922,11 L0.5,15.806 L4.92919922,20.5103758 L5.00469971,16.9990234 L18.9700928,16.9990234 C19.5640928,16.9990234 19.9453125,16.4010001 19.9453125,15.8060001 L19.9453125,9.5324707 L17.142,12.203"></path></svg>
+										<b class="reblog-parent">
+											{ReblogParentName}
+										</b>
+									</a>
+								</div>
+								<div class="post-body rb-schrodinger {block:Reblogs}{block:isOriginalEntry}null {/block:isOriginalEntry}{/block:Reblogs}{block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
+									<div class="post-header rb-schrodinger {block:Answer}null {/block:Answer}">
+										<a href="{ReblogRootURL}" class="style-text header-link"><img src="{ReblogRootPortraitURL-64}" class="portrait"><b class="reblog-root">{ReblogRootName}</b></a>
+									</div>
+									{block:Photo}
+										<div class="post-body photo rb-schrodinger">
+											<div class="post-card photo">
+												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+												{Body}
+											</div>
+										</div>
+									{/block:Photo}
+									{block:Panorama}
+										<div class="post-body panorama rb-schrodinger">
+											<div class="post-card panorama rb">
+												<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+												{block:Caption}{Body}{/block:Caption}
+											</div>
+										</div>
+									{/block:Panorama}
+									{block:Photoset} 
+										<div class="post-body photoset rb-schrodinger">
+											<div class="post-card photoset rb">
+												{Photoset-500}
+												{block:Caption}{Body}{/block:Caption}
+											</div>
+										</div>
+									{/block:Photoset}
+									{block:Text}
+										<div class="post-card text rb-schrodinger">
+											{block:Title}<h1>{Title}</h1>{/block:Title}
+											{Body}
+										</div>
+									{/block:Text}
+									{block:Answer}
+										<div class="post-card answer rb-scrodinger">
+											<div class="ask">
+												<div class="post-header asker rb-scrodinger">
+													<img class="portrait" src="{AskerPortraitURL-64}"><span class="post-avatar style-text tr" style="margin-left: 8px;"><b>{lang:Asker asked 2}:</b></span>
+												</div>
+												<div class="ask-question">
+													<p>{Question}</p>
+												</div>
+											</div>
+											<div class="ask">
+												<div class="post-header answerer rb-scrodinger">
+													<a href="{ReblogRootURL}" class="style-text header-link"><img src="{ReblogRootPortraitURL-64}" class="portrait"><b class="reblog-root">{ReblogRootName}</b></a><b class="style-text">:</b>
+												</div>
+												<div class="ask-reply">
+													{Answer}
+												</div>
+											</div>
+										</div>
+									{/block:Answer}
+									{block:Quote}
+										<div class="post-card quote rb-schrodinger">
+											<div class="quote-body">
+												<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
+												{block:Source}- {Source}{/block:Source}
+											</div>
+										</div>
+									{/block:Quote}	
+									{block:Link}
+										<div class="post-card link not-rb">
+											<a {Target} href="{URL}">
+												{block:Thumbnail}
+													<img class="image" src="{Thumbnail-HighRes}">
+												{/block:Thumbnail}
+												<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
+														{Host}
+													{/block:Host}
+												</span>
+												{block:Excerpt}
+													{Excerpt}
+												{/block:Excerpt}
+											</a>
+											{block:Description}
+												{Description}
+											{/block:Description}
+										</div>
+									{/block:Link}
+									{block:Chat}
+										<div class="post-card chat rb-schrodinger">
+											{block:Title}
+												<h1>
+													{Title}
+												</h1>
+											{/block:Title}
+											{block:Lines}
+												<span class="chat-line">
+													{block:Label}<b>{Label}</b> {/block:Label}{Line}
+												</span>
+											{/block:Lines}
+										</div>
+									{/block:Chat}
+									{block:Audio}
+										<div class="post-card audio rb-schrodinger">
+											<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
+											<div class="card">{block:Caption}{Body}{/block:Caption}</div>
+										</div>
+									{/block:Audio}
+									{block:Submission}
+										<span class="submit-label tr">
+											<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
+										</span>
+									{/block:Submission}
+								</div>
+							{/block:RebloggedFrom}
 							{block:Reblogs}
 								{block:isOriginalEntry}
 									<div class="post-body rb {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
 										<div class="post-header rb {block:Answer}null {/block:Answer}">
 											{block:IsActive}
-												<a href="{Permalink}" style="text-decoration: none;"><img src="{PortraitURL-64}" class="portrait"></a>
-												<a class="style-text post-avatar preview-link" style="text-decoration: none; margin-left: 8px;" href="{Permalink}"><b>{Username}</b></a>
+												<a href="{Permalink}" class="style-text header-link"><img src="{PortraitURL-64}" class="portrait"><b class="reblog-name">{Username}</b></a>
 											{/block:IsActive}
 											{block:IsDeactivated}
 												<b>{Username}</b><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">{block:English}deactivated{/block:English}</span></a>
@@ -1146,21 +1127,18 @@
 												</div>
 											{/block:Quote}	
 											{block:Link}
-												<div class="post-card link rb">
+												<div class="post-card link not-rb">
 													<a {Target} href="{URL}">
 														{block:Thumbnail}
-															<img src="{Thumbnail-HighRes}">
+															<img class="image" src="{Thumbnail-HighRes}">
 														{/block:Thumbnail}
-														{block:Host}
-															{Host}
-														{/block:Host}
-														{Name}</h2>
+														<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
+																{Host}
+															{/block:Host}
+														</span>
 														{block:Excerpt}
 															{Excerpt}
 														{/block:Excerpt}
-														{block:Author}
-															{Author}
-														{/block:Author}
 													</a>
 													{block:Description}
 														{Description}
@@ -1168,7 +1146,7 @@
 												</div>
 											{/block:Link}
 											{block:Chat}
-												<div class="post-card chat not-rb">
+												<div class="post-card chat rb">
 													{block:Title}
 														<h1>
 															{Title}
@@ -1191,7 +1169,7 @@
 												<div class="post-card answer rb">
 													<div class="ask">
 														<div class="post-header asker rb">
-															<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="text-decoration: none; margin-left: 8px;">{lang:Asker asked 2}:</span>
+															<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;"><b>{lang:Asker asked 2}:</b></span>
 														</div>
 														<div class="ask-question">
 															{Question}
@@ -1201,7 +1179,7 @@
 														<div class="ask">
 															<div class="post-header answerer rb" style="padding-left: 0px;">
 																<img src="{AnswererPortraitURL-64}" class="portrait">
-																<span class="post-avatar style-text"><b>{Answerer}</b></span>
+																<span class="post-avatar style-text"><b>{Answerer}:</b></span>
 															</div>
 															<div class="ask-reply">
 																{Answer}
@@ -1210,14 +1188,18 @@
 													{/block:Answerer}
 												</div>
 											{/block:Answer}
+											{block:Submission}
+												<span class="submit-label tr">
+													<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
+												</span>
+											{/block:Submission}
 										</div>
-										<div class="spacer"></div>
 									</div>
 								{/block:isOriginalEntry}
 								<div class="post-body rb {block:isOriginalEntry}null{/block:isOriginalEntry}">
 									<div class="post-header rb">
 										{block:IsActive}
-											<img src="{PortraitURL-64}" class="portrait"><a href="{Permalink}" class="style-text post-avatar" style="text-decoration: none; margin-left: 8px;"><b>{Username}</b></a>
+											<a href="{Permalink}" class="style-text header-link"><img src="{PortraitURL-64}" class="portrait"><b class="reblog-name">{Username}</b></a>
 										{/block:IsActive}
 										{block:IsDeactivated}
 											<span style="color: {AccentColor}"><b>{Username}</b></span><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">deactivated</span>
@@ -1228,51 +1210,49 @@
 									</div>
 								</div>
 							{/block:Reblogs}
-							<div class="footer" style="height: auto;" {block:Chat}style="display: none;"{/block:Chat}>
-								<div class="footer-card">
-									{block:NoteCount}
-										<span class="style-text note-count" style="color: {AccentColor}">
-											<span class="note-count">
-												<a href="{Permalink}" style="text-decoration: none;"><b>{NoteCountWithLabel}</b></a>
+							{block:IndexPage}
+    							<div class="footer" style="height: auto;">
+    								<div class="footer-card">
+    										<span class="style-text note-count" style="color: {AccentColor}">
+    											<span class="note-count">
+    												<a href="{Permalink}" style="text-decoration: none;"><b>{NoteCountWithLabel}</b></a>
+    											</span>
+    										</span>
+    									<div class="footer-content">
+    										{block:PinnedPostLabel} 
+    											<span class="material-symbols-rounded" style="color: {AccentColor}; margin-right: 12px;">push_pin</span> 
+    										{/block:PinnedPostLabel}
+    									    {block:Date}
+        									    <span class="date-time">
+        									        {24HourWithZero}:{Minutes} | <a class="date-time" href="{BlogURL}day/{Year}/{MonthNumberWithZero}/{DayOfMonthWithZero}">{DayOfMonth} {ShortMonth} {Year}</a>
+        									    </span>
+    									    {/block:Date}
+											<span class="like-rb">
+												<a class="blog-view" href="https://www.tumblr.com/blog/view/{Name}/{PostID}">
+													<span class="material-symbols-rounded">open_in_browser</span>
+												</a>
 											</span>
-										</span>
-									{/block:NoteCount}
-									<div class="footer-content">
-										{block:PinnedPostLabel} 
-											<span class="material-symbols-outlined" style="color: {AccentColor}; margin-right: 12px;">push_pin</span> 
-										{/block:PinnedPostLabel}
-									    {block:Date}
-    									    <span class="date-time">
-    									        {24HourWithZero}:{Minutes} | <a class="date-time" href="{BlogURL}day/{Year}/{MonthNumberWithZero}/{DayOfMonthWithZero}">{DayOfMonth} {ShortMonth} {Year}</a>
-    									    </span>
-									    {/block:Date}
-										<span class="like-rb">
-											{block:IfNotRedirectReblogsToBlogView}{ReblogButton size="24"}{/block:IfNotRedirectReblogsToBlogView}
-											{block:IfRedirectReblogsToBlogView}
-											    <a class="reblog_button" href="https://www.tumblr.com/blog/view/{Name}/{PostID}">
-												    <svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#00cf35"><path d="M12.8.2c-.4-.4-.8-.2-.8.4v2H2c-2 0-2 2-2 2v5s0 1 1 1 1-1 1-1v-4c0-1 .5-1 1-1h9v2c0 .6.3.7.8.4L17 3.6 12.8.2zM4.2 17.9c.5.4.8.2.8-.3v-2h10c2 0 2-2 2-2v-5s0-1-1-1-1 1-1 1v4c0 1-.5 1-1 1H5v-2c0-.6-.3-.7-.8-.4L0 14.6l4.2 3.3z"></path></svg>
-											    </a>
-											{/block:IfRedirectReblogsToBlogView}
-										</span>  
-										<span class="like-rb">
-											<a href="https://www.tumblr.com/blog/view/{Name}/{PostID}">
-												<span class="like-button material-symbols-outlined">favorite</span>
-											</a>
-										</span>
-									</div>
-								</div>
-								{block:HasTags}
-									<div class="tag-card">
-										<ul class="tag">
-											{block:Tags}
-												<li class="tag">
-													<a class="tag" style="color: #a0a0a0;" href="{TagURL}">#{Tag}</a>
-												</li>
-											{/block:Tags}
-										</ul>
-									</div>
-								{/block:HasTags}
-							</div>
+    										<span class="like-rb">
+    											{ReblogButton size="24"}
+    										</span>  
+    										<span class="like-rb">
+    											{LikeButton size="24" color="grey"}
+    										</span>
+    									</div>
+    								</div>
+    								{block:HasTags}
+    									<div class="tag-card">
+    										<ul class="tag">
+    											{block:Tags}
+    												<li class="tag">
+    													<a class="tag" style="color: #a0a0a0;" href="{TagURL}">#{Tag}</a>
+    												</li>
+    											{/block:Tags}
+    										</ul>
+    									</div>
+    								{/block:HasTags}
+    							</div>
+    						{/block:IndexPage}
 							{block:PostNotes}
 							    <div class="post-notes">
 							        {PostNotes-64}
@@ -1283,9 +1263,9 @@
 					{block:Pagination}
 							<div class="nav-sidebar style-text" style="margin: 0px auto 8px auto;">
 								<ul class="nav">
-									{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-outlined">chevron_left</span></a></li>{/block:PreviousPage}
+									{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-rounded">chevron_left</span></a></li>{/block:PreviousPage}
 									<li class="nav">{CurrentPage}</li>
-									{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextPage}
+									{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextPage}
 								</ul>
 								{block:IfShowTotalPageCount}
 							        <span class="style-text" style="font-size: 12px;">page {CurrentPage} of {TotalPages}</span>
@@ -1296,11 +1276,11 @@
 					    {block:DayPagination}
 					        <div class="nav-sidebar style-text" style="margin: 0px auto 8px auto;">
 								<ul class="nav">
-									{block:PreviousDayPage}<li class="nav"><a href="{PreviousDayPage}"><span class="material-symbols-outlined">chevron_left</span</a></li>{/block:PreviousDayPage}
+									{block:PreviousDayPage}<li class="nav"><a href="{PreviousDayPage}"><span class="material-symbols-rounded">chevron_left</span</a></li>{/block:PreviousDayPage}
 									<li class="nav">
 									    {DayOfMonth} {ShortMonth} {Year}
                                     </li>
-									{block:NextDayPage}<li class="nav"><a href="{NextDayPage}"><span class="material-symbols-outlined">chevron_right</span></a></li>{/block:NextDayPage}
+									{block:NextDayPage}<li class="nav"><a href="{NextDayPage}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextDayPage}
 								</ul>
 								{block:IfShowTotalPageCount}
 							        <span class="style-text tr" style="font-size: 12px;">{lang:Page CurrentPage of TotalPages}</span>
@@ -1308,7 +1288,7 @@
 							</div>
 					    {/block:DayPagination}
 					{/block:DayPage}
-				</div></div></div>
+				</div>
 				<div class="following">
 					{block:IfShowBlogMembers}
 						{block:GroupMembers} 
