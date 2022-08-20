@@ -118,10 +118,6 @@
 				text-decoration: none;
 			}
 			
-			.style-text a {
-				text-decoration: none;
-			}
-			
 			.header {
 			    z-index: 69;
 			    display: flex;
@@ -563,12 +559,6 @@
 				font-size: 16px;
 			}
 			
-			b.reblog-name {
-				line-height: 36px;
-				margin-left: 8px;
-				font-size: 16px;
-			}
-			
 			.tags {
 				position: absolute;
 				top: 8px;
@@ -698,19 +688,7 @@
 			a.date-time {
 			    text-decoration: none;
 			}
-			
-			.hidden:hover {
-				display: block;
-			}
-			
-			.blog-view {
-			    text-decoration: none;
-			}
-			
-			.link .blog-view {
-				display: none;
-			}
-			
+		    
 			.photoset {
 			    border-radius: 8px;
 			}
@@ -851,355 +829,141 @@
 						</div>
 					{/block:SearchPage}
 					{block:Posts}
-						<div class="post {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Chat}chat {/block:Chat}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Submission}submitted {/block:Submission}">
-							{block:NotReblog}
-								<div class="post-body not-rb">
-									{block:Text}
-										<div class="post-card text not-rb">
-											{block:Title}<h1>{Title}</h1>{/block:Title}
-											{Body}
-										</div>
-									{/block:Text}
-									{block:Photo}
-										<div class="post-body photo not-rb">
-											<div class="post-card photo">
-												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-												{block:Caption}{Caption}{/block:Caption}
-											</div>
-										</div>
-									{/block:Photo}
-									{block:Video}
-										<div class="post-card video not-rb">
-											<div class="video-card">{Video-500}</div>
-											{block:Caption}{Caption}{/block:Caption}
-										</div>
-									{/block:Video}
-									{block:Panorama}
-										<div class="post-card panorama not-rb">
-											<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
-											{block:Caption}{Caption}{/block:Caption}
-										</div>
-									{/block:Panorama}
-									{block:Photoset} 
-										<div class="post-card photoset not-rb">
-											{block:Photos}
-												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-												{block:Caption}{Caption}{/block:Caption}
-											{/block:Photos}
-										</div>
-									{/block:Photoset}
-									{block:Quote}
-										<div class="post-card quote not-rb">
-											<div class="quote-body">
-												<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
-												{block:Source}- {Source}{/block:Source}
-											</div>
-										</div>
-									{/block:Quote}	
-									{block:Link}
-										<div class="post-card link not-rb">
-											<a {Target} href="{URL}">
-												{block:Thumbnail}
-													<img class="image" src="{Thumbnail-HighRes}">
-												{/block:Thumbnail}
-												<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
-														{Host}
-													{/block:Host}
-												</span>
-												{block:Excerpt}
-													{Excerpt}
-												{/block:Excerpt}
-											</a>
-											{block:Description}
-												{Description}
-											{/block:Description}
-										</div>
-									{/block:Link}
-									{block:Chat}
-										<div class="post-card chat not-rb">
-											{block:Title}
-												<h1>
-													{Title}
-												</h1>
-											{/block:Title}
-											{block:Lines}
-												<span class="chat-line">
-													{block:Label}<b>{Label}</b> {/block:Label}{Line}
-												</span>
-											{/block:Lines}
-										</div>
-									{/block:Chat}
-									{block:Audio}
-										<div class="post-card audio not-rb">
-											<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
-											<div class="card">{block:Caption}{Body}{/block:Caption}</div>
-										</div>
-									{/block:Audio}
-									{block:Answer}
-										<div class="post-body answer not-rb">
-											<div class="post-card answer not-rb">
-												<div class="ask">
-													<div class="post-header asker not-rb">
-														<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;">{lang:Asker asked 2}:</span>
-													</div>
-													<div class="ask-question">
-														{Question}
-													</div>
-												</div>
-												<div class="ask-reply">
-													{Answer}
-												</div>
-											</div>
-										</div>
-									{/block:Answer}
-									{block:Submission}
-										<span class="submit-label tr">
-											<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
-										</span>
-									{/block:Submission}
-								</div>
-							{/block:NotReblog}
+						<div class="post {PostType} {block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Submission}submitted {/block:Submission}">
 							{block:RebloggedFrom}
 							    <div class="reblog-header">
-									<a href="{ReblogParentURL}" class="style-text header-link">
-										<svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M5.01092527,5.99908429 L16.0088498,5.99908429 L16.136,9.508 L20.836,4.752 L16.136,0.083 L16.1360004,3.01110845 L2.09985349,3.01110845 C1.50585349,3.01110845 0.979248041,3.44726568 0.979248041,4.45007306 L0.979248041,10.9999998 L3.98376463,8.30993634 L3.98376463,6.89801007 C3.98376463,6.20867902 4.71892527,5.99908429 5.01092527,5.99908429 Z"></path><path d="M17.1420002,13.2800293 C17.1420002,13.5720293 17.022957,14.0490723 16.730957,14.0490723 L4.92919922,14.0490723 L4.92919922,11 L0.5,15.806 L4.92919922,20.5103758 L5.00469971,16.9990234 L18.9700928,16.9990234 C19.5640928,16.9990234 19.9453125,16.4010001 19.9453125,15.8060001 L19.9453125,9.5324707 L17.142,12.203"></path></svg>
-										<b class="reblog-parent">
-											{ReblogParentName}
-										</b>
-									</a>
-								</div>
-								<div class="post-body rb-schrodinger {block:Reblogs}{block:isOriginalEntry}null {/block:isOriginalEntry}{/block:Reblogs}{block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
-									<div class="post-header rb-schrodinger {block:Answer}null {/block:Answer}">
-										<a href="{ReblogRootURL}" class="style-text header-link"><img src="{ReblogRootPortraitURL-64}" class="portrait"><b class="reblog-root">{ReblogRootName}</b></a>
-									</div>
-									{block:Photo}
-										<div class="post-body photo rb-schrodinger">
-											<div class="post-card photo">
-												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-												{Body}
-											</div>
-										</div>
-									{/block:Photo}
-									{block:Panorama}
-										<div class="post-body panorama rb-schrodinger">
-											<div class="post-card panorama rb">
-												<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
-												{block:Caption}{Body}{/block:Caption}
-											</div>
-										</div>
-									{/block:Panorama}
-									{block:Photoset} 
-										<div class="post-body photoset rb-schrodinger">
-											<div class="post-card photoset rb">
-												{Photoset-500}
-												{block:Caption}{Body}{/block:Caption}
-											</div>
-										</div>
-									{/block:Photoset}
-									{block:Text}
-										<div class="post-card text rb-schrodinger">
-											{block:Title}<h1>{Title}</h1>{/block:Title}
-											{Body}
-										</div>
-									{/block:Text}
-									{block:Answer}
-										<div class="post-card answer rb-scrodinger">
-											<div class="ask">
-												<div class="post-header asker rb-scrodinger">
-													<img class="portrait" src="{AskerPortraitURL-64}"><span class="post-avatar style-text tr" style="margin-left: 8px;"><b>{lang:Asker asked 2}:</b></span>
-												</div>
-												<div class="ask-question">
-													<p>{Question}</p>
-												</div>
-											</div>
-											<div class="ask">
-												<div class="post-header answerer rb-scrodinger">
-													<a href="{ReblogRootURL}" class="style-text header-link"><img src="{ReblogRootPortraitURL-64}" class="portrait"><b class="reblog-root">{ReblogRootName}</b></a><b class="style-text">:</b>
-												</div>
-												<div class="ask-reply">
-													{Answer}
-												</div>
-											</div>
-										</div>
-									{/block:Answer}
-									{block:Quote}
-										<div class="post-card quote rb-schrodinger">
-											<div class="quote-body">
-												<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
-												{block:Source}- {Source}{/block:Source}
-											</div>
-										</div>
-									{/block:Quote}	
-									{block:Link}
-										<div class="post-card link not-rb">
-											<a {Target} href="{URL}">
-												{block:Thumbnail}
-													<img class="image" src="{Thumbnail-HighRes}">
-												{/block:Thumbnail}
-												<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
-														{Host}
-													{/block:Host}
-												</span>
-												{block:Excerpt}
-													{Excerpt}
-												{/block:Excerpt}
-											</a>
-											{block:Description}
-												{Description}
-											{/block:Description}
-										</div>
-									{/block:Link}
-									{block:Chat}
-										<div class="post-card chat rb-schrodinger">
-											{block:Title}
-												<h1>
-													{Title}
-												</h1>
-											{/block:Title}
-											{block:Lines}
-												<span class="chat-line">
-													{block:Label}<b>{Label}</b> {/block:Label}{Line}
-												</span>
-											{/block:Lines}
-										</div>
-									{/block:Chat}
-									{block:Audio}
-										<div class="post-card audio rb-schrodinger">
-											<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
-											<div class="card">{block:Caption}{Body}{/block:Caption}</div>
-										</div>
-									{/block:Audio}
-									{block:Submission}
-										<span class="submit-label tr">
-											<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
-										</span>
-									{/block:Submission}
+									<a href="{ReblogParentURL}" class="style-text header-link"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M5.01092527,5.99908429 L16.0088498,5.99908429 L16.136,9.508 L20.836,4.752 L16.136,0.083 L16.1360004,3.01110845 L2.09985349,3.01110845 C1.50585349,3.01110845 0.979248041,3.44726568 0.979248041,4.45007306 L0.979248041,10.9999998 L3.98376463,8.30993634 L3.98376463,6.89801007 C3.98376463,6.20867902 4.71892527,5.99908429 5.01092527,5.99908429 Z"></path><path d="M17.1420002,13.2800293 C17.1420002,13.5720293 17.022957,14.0490723 16.730957,14.0490723 L4.92919922,14.0490723 L4.92919922,11 L0.5,15.806 L4.92919922,20.5103758 L5.00469971,16.9990234 L18.9700928,16.9990234 C19.5640928,16.9990234 19.9453125,16.4010001 19.9453125,15.8060001 L19.9453125,9.5324707 L17.142,12.203"></path></svg><b class="reblog-parent">{ReblogParentName}</b></a>
 								</div>
 							{/block:RebloggedFrom}
-							{block:Reblogs}
-								{block:isOriginalEntry}
-									<div class="post-body rb {block:Text}text {/block:Text}{block:Photoset}photoset {/block:Photoset}{block:Photo}photo {/block:Photo}{block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Quote}quote {/block:Quote}{block:Link}link {/block:Link}{block:Audio}audio {/block:Audio}{block:Video}video {/block:Video}{block:Answer}answer {/block:Answer}">
-										<div class="post-header rb {block:Answer}null {/block:Answer}">
-											{block:IsActive}
-												<a href="{Permalink}" class="style-text header-link"><img src="{PortraitURL-64}" class="portrait"><b class="reblog-name">{Username}</b></a>
-											{/block:IsActive}
-											{block:IsDeactivated}
-												<b>{Username}</b><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">{block:English}deactivated{/block:English}</span></a>
-											{/block:IsDeactivated}
-										</div>
-										<div class="card rb">
-											{block:Text}
-												<div class="post-card text rb">
-													{block:Title}<h1>{Title}</h1>{/block:Title}
-													{Body}
-												</div>
-											{/block:Text}
-											{block:Photo}
-												<div class="post-card photo rb">
-													<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-													{block:Caption}{Body}{/block:Caption}
-												</div>
-											{/block:Photo}
-											{block:Video}
-												<div class="post-card video rb">
-													<div class="video-card">{Video-500}</div>
-													{block:Caption}{Body}{/block:Caption}
-												</div>
-											{/block:Video}
-											{block:Panorama}
-												<div class="post-card panorama rb">
-													<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
-													{block:Caption}{Body}{/block:Caption}
-												</div>
-											{/block:Panorama}
-											{block:Photoset} 
-												<div class="post-card photoset rb">
-													{Photoset-500}
-													{block:Caption}{Body}{/block:Caption}
-												</div>
-											{/block:Photoset}
-											{block:Quote}
-												<div class="post-card quote rb">
-													<div class="quote-body">
-														<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
-														{block:Source}- {Source}{/block:Source}
-													</div>
-												</div>
-											{/block:Quote}	
-											{block:Link}
-												<div class="post-card link not-rb">
-													<a {Target} href="{URL}">
-														{block:Thumbnail}
-															<img class="image" src="{Thumbnail-HighRes}">
-														{/block:Thumbnail}
-														<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
-																{Host}
-															{/block:Host}
-														</span>
-														{block:Excerpt}
-															{Excerpt}
-														{/block:Excerpt}
-													</a>
-													{block:Description}
-														{Description}
-													{/block:Description}
-												</div>
-											{/block:Link}
-											{block:Chat}
-												<div class="post-card chat rb">
-													{block:Title}
-														<h1>
-															{Title}
-														</h1>
-													{/block:Title}
-													{block:Lines}
-														<span class="chat-line">
-															{block:Label}<b>{Label}</b> {/block:Label}{Line}
-														</span>
-													{/block:Lines}
-												</div>
-											{/block:Chat}
-											{block:Audio}
-												<div class="post-card audio rb">
-													<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
-													<div class="card">{block:Caption}{Body}{/block:Caption}</div>
-												</div>
-											{/block:Audio}
-											{block:Answer}
-												<div class="post-card answer rb">
-													<div class="ask">
-														<div class="post-header asker rb">
-															<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;"><b>{lang:Asker asked 2}:</b></span>
-														</div>
-														<div class="ask-question">
-															{Question}
-														</div>
-													</div>
-													{block:Answerer}
-														<div class="ask">
-															<div class="post-header answerer rb" style="padding-left: 0px;">
-																<img src="{AnswererPortraitURL-64}" class="portrait">
-																<span class="post-avatar style-text"><b>{Answerer}:</b></span>
-															</div>
-															<div class="ask-reply">
-																{Answer}
-															</div>
-														</div>
-													{/block:Answerer}
-												</div>
-											{/block:Answer}
-											{block:Submission}
-												<span class="submit-label tr">
-													<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
-												</span>
-											{/block:Submission}
+							<div class="post-body">
+								{block:RebloggedFrom}
+									<div class="post-header rb {block:Answer}null {/block:Answer}">
+										<a href="{ReblogRootURL}" class="style-text header-link"><img src="{ReblogRootPortraitURL-64}" class="portrait"><b class="reblog-root">{ReblogRootName}</b></a>
+									</div>
+								{/block:RebloggedFrom}
+								{block:NotReblog}
+								    {block:Text}
+        								<div class="post-card text">
+        									{block:Title}<h1>{Title}</h1>{/block:Title}
+        									{Body}
+        								</div>
+    								{/block:Text}
+								{/block:NotReblog}
+								{block:Reblogs}
+							        {block:isOriginalEntry}
+        								<div class="card rb">
+        									{block:Text}
+        										<div class="post-card text rb">
+        											{block:Title}<h1>{Title}</h1>{/block:Title}
+        											{Body}
+        										</div>
+        									{/block:Text}
+        								</div>
+        							{/block:isOriginalEntry}
+                                {/block:Reblogs}
+								{block:Photo}
+									<div class="post-body photo">
+										<div class="post-card photo">
+											<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+											{block:Caption}{Body}{/block:Caption}
 										</div>
 									</div>
-								{/block:isOriginalEntry}
+								{/block:Photo}
+								{block:Video}
+									<div class="post-card video">
+										<div class="video-card">{Video-500}</div>
+										{block:Caption}{Body}{/block:Caption}
+									</div>
+								{/block:Video}
+								{block:Panorama}
+									<div class="post-card panorama">
+										<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+										{block:Caption}{Body}{/block:Caption}
+									</div>
+								{/block:Panorama}
+								{block:Photoset} 
+									<div class="post-card photoset">
+										{block:Photos}
+											<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+											{block:Caption}{Body}{/block:Caption}
+										{/block:Photos}
+									</div>
+								{/block:Photoset}
+								{block:Quote}
+									<div class="post-card quote">
+										<div class="quote-body">
+											<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
+											{block:Source}- {Source}{/block:Source}
+										</div>
+									</div>
+								{/block:Quote}	
+								{block:Link}
+									<div class="post-card link">
+										<a {Target} href="{URL}">
+											{block:Thumbnail}
+												<img class="image" src="{Thumbnail-HighRes}">
+											{/block:Thumbnail}
+											<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
+													{Host}
+												{/block:Host}
+											</span>
+											{block:Excerpt}
+												{Excerpt}
+											{/block:Excerpt}
+										</a>
+										{block:Description}
+											{Description}
+										{/block:Description}
+									</div>
+								{/block:Link}
+								{block:Chat}
+									<div class="post-card chat">
+										{block:Title}
+											<h1>
+												{Title}
+											</h1>
+										{/block:Title}
+										{block:Lines}
+											<span class="chat-line">
+												{block:Label}<b>{Label}</b> {/block:Label}{Line}
+											</span>
+										{/block:Lines}
+									</div>
+								{/block:Chat}
+								{block:Audio}
+									<div class="post-card audio">
+										<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
+										<div class="card">{block:Caption}{Body}{/block:Caption}</div>
+									</div>
+								{/block:Audio}
+								{block:Answer}
+									<div class="post-body answer">
+										<div class="post-card answer">
+											<div class="ask">
+												<div class="post-header asker">
+													<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;">{lang:Asker asked 2}:</span>
+												</div>
+												<div class="ask-question">
+													{Question}
+												</div>
+											</div>
+											<div class="ask-reply">
+												{Answer}
+											</div>
+										</div>
+									</div>
+								{/block:Answer}
+								{block:Submission}
+									<span class="submit-label tr">
+										<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
+									</span>
+								{/block:Submission}
+							</div>
+							{block:Reblogs}
 								<div class="post-body rb {block:isOriginalEntry}null{/block:isOriginalEntry}">
 									<div class="post-header rb">
 										{block:IsActive}
-											<a href="{Permalink}" class="style-text header-link"><img src="{PortraitURL-64}" class="portrait"><b class="reblog-name">{Username}</b></a>
+											<a href="{Permalink}" class="style-text header-link"><img src="{PortraitURL-64}" class="portrait"><b class="reblog-root">{Username}</b></a>
 										{/block:IsActive}
 										{block:IsDeactivated}
 											<span style="color: {AccentColor}"><b>{Username}</b></span><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">deactivated</span>
@@ -1252,7 +1016,7 @@
     									</div>
     								{/block:HasTags}
     							</div>
-    						{/block:IndexPage}
+							{/block:IndexPage}
 							{block:PostNotes}
 							    <div class="post-notes">
 							        {PostNotes-64}
