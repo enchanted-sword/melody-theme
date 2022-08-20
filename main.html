@@ -118,6 +118,10 @@
 				text-decoration: none;
 			}
 			
+			.style-text a {
+				text-decoration: none;
+			}
+			
 			.header {
 			    z-index: 69;
 			    display: flex;
@@ -807,7 +811,7 @@
 					{/block:PermalinkPage}
 					<span class="theme-source">
 						<b style="display: block;"><a href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
-						<b style="display: block;">v1.5</b>
+						<b style="display: block;">v1.6</b>
 					</span>
 				</div>
 				<div class="post-container">
@@ -947,6 +951,11 @@
 													{Question}
 												</div>
 											</div>
+											{block:RebloggedFrom}
+												<div class="post-header answerer rb">
+													<a href="{ReblogRootURL}" class="style-text header-link"><img src="{ReblogRootPortraitURL-64}" class="portrait"><b class="reblog-root">{ReblogRootName}</b></a><b class="style-text">:</b>
+												</div>
+											{/block:RebloggedFrom}
 											<div class="ask-reply">
 												{Answer}
 											</div>
