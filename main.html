@@ -884,8 +884,15 @@
 								{block:Photo}
 									<div class="post-body photo">
 										<div class="post-card photo">
-											<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
-											{block:Caption}{Body}{/block:Caption}
+										    {LinkOpenTag}
+    											<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+    										{LinkCloseTag}
+    										{block:Caption}{Body}{/block:Caption}
+											{block:Reblogs}
+												{block:isOriginalEntry}
+													{Body}
+												{/block:isOriginalEntry}
+											{/block:Reblogs}
 										</div>
 									</div>
 								{/block:Photo}
@@ -897,7 +904,9 @@
 								{/block:Video}
 								{block:Panorama}
 									<div class="post-card panorama">
-										<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+										{LinkOpenTag}
+											<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+										{LinkCloseTag}
 										{block:Caption}{Body}{/block:Caption}
 									</div>
 								{/block:Panorama}
