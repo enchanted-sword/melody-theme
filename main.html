@@ -20,6 +20,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=Oxygen&family=Source+Code+Pro&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="{MetaDescription}"/>
 		<meta name="color:Page Header Text" content="#fff"/>
 		<meta name="if:Dark Theme" content="0"/>
 		<meta name="if:Show Following" content="0"/>
@@ -115,10 +116,6 @@
 			
 			.style-text {
 				font-family: 'Source Code Pro', 'Lucida Console', 'Courier New', monospace;
-				text-decoration: none;
-			}
-			
-			.style-text a {
 				text-decoration: none;
 			}
 			
@@ -441,7 +438,8 @@
 			button.style-text {
 				text-align: left;
 				font-size: 20px;
-				width: auto;
+				width: 36px;
+				height: 36px;
 				margin: auto;
 				margin-bottom: 12px;
 				padding: 4px 8px 4px 8px;
@@ -734,7 +732,7 @@
 					<div class="user-card style-text">
 						<div id="search">
 							<form class="search" action="/search" method="get">
-								<input class="style-text tr" type="text" name="q" value="{SearchQuery}" placeholder="{lang:Search}..." style="color: {BackgroundColor}; height: 29px;"/>
+								<input class="style-text tr" type="text" name="q" value="{SearchQuery}" placeholder="{lang:Search}..." style="color: {BackgroundColor}; height: 28px;"/>
 								<button name="submit" class="style-text" style="margin-left: 8px; color: {BackgroundColor};" type="submit" value="value">
 									<span class="material-symbols-rounded" style="color: {BackgroundColor};">search</span>
 								</button>
@@ -811,7 +809,8 @@
 					{/block:PermalinkPage}
 					<span class="theme-source">
 						<b style="display: block;"><a href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
-						<b style="display: block;">v1.6</b>
+						<b style="display: block;">v1.5</b>
+						<b style="display: none;">{CopyrightYears}</b>
 					</span>
 				</div>
 				<div class="post-container">
@@ -951,11 +950,6 @@
 													{Question}
 												</div>
 											</div>
-											{block:RebloggedFrom}
-												<div class="post-header answerer rb">
-													<a href="{ReblogRootURL}" class="style-text header-link"><img src="{ReblogRootPortraitURL-64}" class="portrait"><b class="reblog-root">{ReblogRootName}</b></a><b class="style-text">:</b>
-												</div>
-											{/block:RebloggedFrom}
 											<div class="ask-reply">
 												{Answer}
 											</div>
