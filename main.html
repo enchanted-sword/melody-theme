@@ -61,6 +61,12 @@
 			    color: {AccentColor};
 			}
 			
+			iframe.like-frame {
+				width: 24px;
+				height: 24px;
+				border: none;
+			}
+			
 			.blog-view .material-symbols-rounded {
 				color: {AccentColor};
 				transition: opacity 0.5s;
@@ -109,7 +115,7 @@
 			.material-symbols-rounded {
 				font-variation-settings:
 				'FILL' 0,
-				'wght' 400,
+				'wght' 600,
 				'GRAD' 0,
 				'opsz' 48
 			}
@@ -650,6 +656,17 @@
 			    padding: 0px 4px 0px 4px;
 			}
 			
+			span.like-button	{
+				color: {AccentColor};
+				cursor: pointer;
+				transition: color 0.5s, opacity 0.5s;
+				transition-timing-function: linear;
+			}
+			
+			span.like-button:hover {
+				opacity: 0.6;
+			}
+			
 			.post-notes {
 			    padding:8px;
 			    margin-top: 8px;
@@ -809,7 +826,7 @@
 					{/block:PermalinkPage}
 					<span class="theme-source">
 						<b style="display: block;"><a href="https://github.com/enchanted-sword/melody-theme">melody</a> by <a href="https://dragongirlsnout.tumblr.com">dragongirlsnout</a></b>
-						<b style="display: block;">v1.5</b>
+						<b style="display: block;">v1.6</b>
 						<b style="display: none;">{CopyrightYears}</b>
 					</span>
 				</div>
@@ -1003,7 +1020,9 @@
     											{ReblogButton size="24"}
     										</span>  
     										<span class="like-rb">
-    											{LikeButton size="24" color="grey"}
+    											<span style="" id="like-button-{PostID}" class="material-symbols-rounded like-button" onclick="this.style = 'color: #ff1938;'">
+													favorite
+												</span>
     										</span>
     									</div>
     								</div>
