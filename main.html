@@ -477,6 +477,14 @@
 			    width: 516px;
 			}
 			
+			style-text a {
+				text-decoration: none;
+			}
+
+			.url-hide + p {
+				display: none;
+			}
+			
 			.img {
 			    border-radius: 8px;
 			}
@@ -1029,15 +1037,29 @@
 										<div class="post-card answer">
 											<div class="ask">
 												<div class="post-header asker">
-													<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;">{lang:Asker asked 2}:</span>
+													<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;"><b>{lang:Asker asked 2}:</b></span>
 												</div>
 												<div class="ask-question">
 													{Question}
 												</div>
 											</div>
-											<div class="ask-reply">
-												{Answer}
-											</div>
+											{block:RebloggedFrom}
+												<div class="ask">
+													<div class="post-header answerer rb" style="padding-left: 0px;">
+														<img src="{AnswererPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
+														<span class="post-avatar style-text"><b class="reblog-root">{Answerer}</b></span>
+													</div>
+													<div class="ask-reply">
+														<p class="url-hide"></p>
+														{Answer}
+													</div>
+												</div>
+											{/block:RebloggedFrom}
+											{block:NotReblog}
+												<div class="ask-reply">
+													{Answer}
+												</div>
+											{/block:NotReblog}
 										</div>
 									</div>
 								{/block:Answer}
