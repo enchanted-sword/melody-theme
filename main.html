@@ -46,6 +46,7 @@
         <meta name="if:Show Discord Tag" content="0"/>
         <meta name="text:Discord Tag" content=""/>
         <meta name="if:Show Twitter" content="0"/>
+        <meta name="if:NSFW Blog" content="0"/>
 		<style>
 			body {
 				font-size: 16px;
@@ -104,6 +105,10 @@
 				opacity: 0.6;
 			}
 			
+			figure {
+			    margin: 0px;
+			}
+			
 			p:empty {
 				margin: 0px;
 			}
@@ -115,6 +120,7 @@
 			.post_media_photo {
 				margin-top: 8px;
 				border-radius: 8px;
+				width: 516px !important;
 			}
 			
 			.tmblr-iframe--unified-controls, .tmblr-iframe--follow-teaser{
@@ -585,7 +591,7 @@
 			b.reblog-root {
 				line-height: 36px;
 				margin-left: 8px;
-				font-size: 16px;
+				font-size: 18px;
 			}
 			
 			.tags {
@@ -736,9 +742,6 @@
 			video {
 			    border-radius: 8px;
 			}
-			
-            .social-media {
-            }
 
 			#discord-logo {
 			    transform: scale(0.5, 0.5);
@@ -801,6 +804,9 @@
 							    <img class="{AvatarShape}" src="{PortraitURL-128}">
 					    	</div>
 						{/block:ShowAvatar}
+						{block:ifNSFWBlog}
+						    <span class="material-symbols-rounded" style="color: #ff1938; margin-top: 8px; font-size: 60px;">18_up_rating</span>
+						{/block:ifNSFWBlog}
 						{block:ShowTitle}<h1>{Title}</h1>{/block:ShowTitle}
 						{block:ShowDescription}<h2>{Description}</h2>{/block:ShowDescription}
                         {block:ifShowDiscordTag}
