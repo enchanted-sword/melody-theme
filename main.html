@@ -282,10 +282,10 @@
 			}
 			
 			.following {
-				display: grid;
-			    justify-content: center;
+			    height: fit-content;
 				width: auto;
-				max-height: 6400px;
+				max-height: 4800px;
+				overflow-y: scroll;
 			}
 			
 			.follow-card {
@@ -297,6 +297,7 @@
 			}
 			
 			.follow-header {
+				height: fit-content;
 				display: flex;
 				flex-flow: row wrap;
 				justify-content: flex-start;
@@ -1084,7 +1085,7 @@
 						<b style="display: none;">{CopyrightYears}</b>
 					</span>
 				</div>
-				<div class="post-container">
+				<div id="post-container" class="post-container">
 				    {block:DayPage}
     				    <div class="post day-header">
                             <h1 class="day-header">{DayOfMonth} {ShortMonth} {Year}</h1>
@@ -2022,44 +2023,49 @@
 					    {/block:DayPagination}
 					{/block:DayPage}
 				</div>
-				<div class="following">
-					{block:IfShowBlogMembers}
-						{block:GroupMembers} 
-							<div class="follow-card style text" style="height: 60px;">
-								<h2 class="tr {block:IfNotShowBlogMembers}null {/block:IfNotShowBlogMembers}" style="font-size 20px; text-align: center;">{lang:Group members}</h2>
-							</div>
-							{block:GroupMember}
-								<div class="follow-card style-text">
-									<div class="follow-header">
-										<img class="avatar" style="width: 32px; height: 32px;" src="{GroupMemberPortraitURL-48}"><a class="follow-url" href="{GroupMemberURL}">{GroupMemberName}</a>
-									</div>
-									<div class="card">
-										{GroupMemberTitle}
-									</div>
+				{block:IndexPage}
+					<div id="following" class="following">
+						<script>
+							document.getElementById("following").maxHeight = document.getElementById("post-container").getBoundingClientRect().height;
+						</script>
+						{block:IfShowBlogMembers}
+							{block:GroupMembers} 
+								<div class="follow-card style text" style="height: 60px;">
+									<h2 class="tr {block:IfNotShowBlogMembers}null {/block:IfNotShowBlogMembers}" style="font-size 20px; text-align: center;">{lang:Group members}</h2>
 								</div>
-							{/block:GroupMember}
-						{/block:GroupMembers} 
-					{block:IfShowBlogMembers}
-					<div class="follow-card style-text" style="height: 60px; {block:IfNotShowFollowing}color: rgba(0,0,0,0); border-color: rgba(0,0,0,0); {/block:IfNotShowFollowing}">
-    					<h2 class="tr {block:IfNotShowFollowing}null {block:IfNotShowFollowing}" style="{block:IfShowFollowing}font-size: 20px; text-align: center; {/block:IfShowFollowing}">
-							{/block:IfShowFollowing}{lang:Following}{/block:IfShowFollowing}
-						</h2>
-    				</div>
-					{block:IfShowFollowing}
-						{block:Following}
-    						{block:Followed}
-    							<div class="follow-card style-text">
-    								<div class="follow-header">
-    									<img class="avatar" style="width: 32px; height: 32px;" src="{FollowedPortraitURL-48}"><a class="follow-url" href="{FollowedURL}">{FollowedName}</a>
-    								</div>
-    								<div class="card">
-    									{FollowedTitle}
-    								</div>
-    							</div>
-    						{/block:Followed}	
-						{/block:Following}
-					{/block:IfShowFollowing}
-				</div>
+								{block:GroupMember}
+									<div class="follow-card style-text">
+										<div class="follow-header">
+											<img class="avatar" style="width: 32px; height: 32px;" src="{GroupMemberPortraitURL-48}"><a class="follow-url" href="{GroupMemberURL}">{GroupMemberName}</a>
+										</div>
+										<div class="card">
+											{GroupMemberTitle}
+										</div>
+									</div>
+								{/block:GroupMember}
+							{/block:GroupMembers} 
+						{block:IfShowBlogMembers}
+						<div class="follow-card style-text {block:IfNotShowFollowing}null {/block:IfNotShowFollowing}" style="height: 60px;">
+							<h2 class="tr {block:IfNotShowFollowing}null {block:IfNotShowFollowing}" style="{block:IfShowFollowing}font-size: 20px; text-align: center; {/block:IfShowFollowing}">
+								{/block:IfShowFollowing}{lang:Following}{/block:IfShowFollowing}
+							</h2>
+						</div>
+						{block:IfShowFollowing}
+							{block:Following}
+								{block:Followed}
+									<div class="follow-card style-text">
+										<div class="follow-header">
+											<img class="avatar" style="width: 32px; height: 32px;" src="{FollowedPortraitURL-48}"><a class="follow-url" href="{FollowedURL}">{FollowedName}</a>
+										</div>
+										<div class="card">
+											{FollowedTitle}
+										</div>
+									</div>
+								{/block:Followed}	
+							{/block:Following}
+						{/block:IfShowFollowing}
+					</div>
+				{/block:IndexPage}
 			</div>
 		</div>
 	</body>
