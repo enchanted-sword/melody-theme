@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang=en>
+	<head>
+		<title>test</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div id="test-div>
+      <img height="256" width="256" src="https://64.media.tumblr.com/28b3620fa674ea3b301ca18bf89c399e/8f5fdd993012c0d6-19/s128x128u_c1/e255dfe20942d05c023061aaae004770fbb5782f.png">
+    </div>
+	</body>
+</html>
