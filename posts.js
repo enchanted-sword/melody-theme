@@ -1,4 +1,4 @@
-export function blogObject (blog, id) {
+function blogObject (blog, id) {
     let $blogCard = $("<div>", {id: id, class: "blog-card"});
     $blogCard.css("background-color", blog.theme.background_color);
     let $blogHeader = $("<img>", {src: blog.theme.header_image, width: "256px", height: Math.floor(blog.theme.header_full_height / (blog.theme.header_full_width / 256)), class: "blog-header"});
@@ -29,7 +29,7 @@ export function blogObject (blog, id) {
     return $blogCard
 }
 
-export function formatEncode(content) {
+function formatEncode(content) {
     let obj = [];
     let string = "";
     for (let x of content.text) {
@@ -74,9 +74,11 @@ export function formatEncode(content) {
     return string
 }
 
-export function renderPost(npf, id) {
-    let postid = `#post${id}`;
-    let $post = $(postid);
+var $script = $('script').last();
+var id = $script.attr("idf");
+var npf = $script.attr("npf");
+$(document).ready(function() {
+    let $post = $(`#post${id}`);
     console.log(npf);
     if (npf.trail.length > 0) {
         for (let z of npf.trail) {
@@ -469,4 +471,4 @@ export function renderPost(npf, id) {
             }
         }
     }
-}
+});
