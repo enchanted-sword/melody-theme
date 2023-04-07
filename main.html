@@ -10,7 +10,7 @@
 		
 		<title>{block:ShowTitle}{Title}{/block:ShowTitle}{block:HideTitle}{Name}{/block:HideTitle} {block:PermalinkPage}{block:PostSummary}- {PostSummary}{/block:PostSummary}{/block:PermalinkPage}{block:DayPage}- {DayOfMonth} {ShortMonth} {Year}{/block:DayPage}</title>
 		<link rel="shortcut icon" href="{Favicon}">
-		<link rel ="stylesheet" href="http://cdn.jsdelivr.net/gh/enchanted-sword/melody-theme/stylesheet.css">
+		<link rel ="stylesheet" href="https://cdn.jsdelivr.net/gh/enchanted-sword/melody-theme/stylesheet.css">
         <link rel="apple-touch-icon-precomposed" href="{PortraitURL-128}">
         <link rel="alternate" type="application/rss+xml" href="{RSS}">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,9 +31,6 @@
                 });
 	        });
         </script>
-		<script type="text/javascript">
-			import { renderPost, blogObject, formatEncode } from "http://cdn.jsdelivr.net/gh/enchanted-sword/melody-theme/posts.js"
-		</script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="{MetaDescription}"/>
@@ -225,9 +222,7 @@
 									<a href="{ReblogParentURL}" class="style-text header-link"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M5.01092527,5.99908429 L16.0088498,5.99908429 L16.136,9.508 L20.836,4.752 L16.136,0.083 L16.1360004,3.01110845 L2.09985349,3.01110845 C1.50585349,3.01110845 0.979248041,3.44726568 0.979248041,4.45007306 L0.979248041,10.9999998 L3.98376463,8.30993634 L3.98376463,6.89801007 C3.98376463,6.20867902 4.71892527,5.99908429 5.01092527,5.99908429 Z"></path><path d="M17.1420002,13.2800293 C17.1420002,13.5720293 17.022957,14.0490723 16.730957,14.0490723 L4.92919922,14.0490723 L4.92919922,11 L0.5,15.806 L4.92919922,20.5103758 L5.00469971,16.9990234 L18.9700928,16.9990234 C19.5640928,16.9990234 19.9453125,16.4010001 19.9453125,15.8060001 L19.9453125,9.5324707 L17.142,12.203"></path></svg><b class="reblog-parent">{ReblogParentName}</b></a>
 								</div>
 							{/block:RebloggedFrom}
-							<script>
-								$(document).ready(renderPost({NPF}, "{PostID}"));
-							</script>
+							<script id="script{PostID}" npf="{NPF}" idf="{PostID}" type="text/javascript" src="https://cdn.jsdelivr.net/gh/enchanted-sword/melody-theme/posts.js"></script>
 							<div id="f{PostID}" class="footer" style="height: auto;">
 								<div class="footer-card">
 									<span class="style-text note-count" style="color: {AccentColor}">
