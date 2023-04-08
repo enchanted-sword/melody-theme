@@ -77,10 +77,8 @@ function formatEncode(content) {
 var $script = $("script").last();
 var id = $script.attr("idf");
 var sNum = $script.attr("id");
-sNum = "#c" + sNum.split("s")[1];
-console.log(sNum);
-console.log($(sNum).text());
-var npf = $(`#${sNum}`).text();
+sNum = `#c${sNum.split("s")[1]}`;
+var npf = JSON.parse($(sNum).text());
 $(document).ready(function() {
     let $post = $(`#post${id}`);
     console.log(npf);
