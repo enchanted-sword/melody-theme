@@ -20,8 +20,8 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Oxygen&family=Source+Code+Pro&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="https://static.tumblr.com/mxjv2kt/3drrhsi2j/jquery.textfill.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/jquery-textfill/jquery-textfill/source/jquery.textfill.min.js"></script>
         <script type="text/javascript">
             $(function($){
                 $('.textfill').textfill({
@@ -54,6 +54,256 @@
 			let blogName = blogURL.split("/")[2].split(".")[0];
 		</script>
 		<style>
+			body {
+				font-size: 16px;
+				color: {TitleColor};				
+				font-family: 'Oxygen', 'Helvetica', 'Arial', sans-serif;
+				background-color: {BackgroundColor};
+			}
+
+			.tmblr-iframe {
+				display: none;
+			}
+
+			.tr {
+				text-transform: {select:Capitalization Style};
+			}
+
+			a:link {
+				color: {AccentColor};
+			}
+
+			a:visited {
+				color: {AccentColor};
+			}
+
+			a.reblog_button svg {
+				fill: {AccentColor} !important;
+				transition: opacity 0.5s;
+				transition-timing-function: linear;
+			}
+
+			.theme-source {
+				line-height: 18px;
+				margin: 4px;
+				background-color: {BackgroundColor};
+				border-radius: 4px;
+				opacity: 0.5;
+				color: {TitleColor};
+				text-align: center;
+				font-size: 12px;
+			}
+
+			.theme-source a {
+				text-decoration: none;
+				color: {AccentColor};
+			}
+			.navbar {
+				z-index: 72;
+				font-size: 20px;
+				width: auto;
+				padding: 12px;
+				border: solid 3px {TitleColor};
+				border-radius: 8px;
+				text-align: center;
+				margin-bottom: 8px;
+			}
+
+			.nav-sidebar {
+				z-index: 72;
+				font-size: 20px;
+				width: 320px;
+				padding: 12px;
+				border: solid 3px {TitleColor};
+				border-radius: 8px;
+				text-align: center;
+				margin-bottom: 8px;
+			}
+
+			.user-card {
+				width: 320px;
+				margin-top: 20px;
+				margin-bottom: 8px;				
+				padding: 12px;
+				border: solid 3px {TitleColor};
+				border-radius: 8px;
+				text-align: center;
+			}
+
+			.follow-card {
+				width: 328px;
+				border: solid 3px {TitleColor};
+				border-radius: 8px;
+				margin: 8px 0px 8px 0px;
+				padding: 8px;
+			}
+
+			.reblog-header {
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: flex-start;
+				align-items: center;
+				text-align: left;
+				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
+				border-radius: 8px;
+				height: 32px;
+				width: 516px;
+				padding: 4px 8px 4px 8px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-bottom: 8px;
+			}
+
+			.post {
+				position: relative;
+				text-align: left;
+				color: {block:IfDarkTheme}#d8d4cf{/block:IfDarkTheme}{block:IfNotDarkTheme}black{/block:IfNotDarkTheme};
+				border-radius: 8px;
+				background: {block:IfDarkTheme}rgba(24, 26, 27, 0.4){/block:IfDarkTheme}{block:IfNotDarkTheme}rgba(255, 255, 255, 0.2){/block:IfNotDarkTheme};
+				width: 532px;
+				padding: 8px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-bottom: 32px;
+			}
+
+			.post-body {
+				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
+				border-radius: 8px;
+				padding: 0px;
+				margin-bottom: 2px;
+				width: 532px;
+			}
+
+			.day-header {
+				text-align: center;
+				font-size: 24px;
+				color: {color:Page Header Text};
+			}
+
+			input.style-text {
+				text-align: left;
+				font-size: 20px;
+				width: auto;
+				margin: auto;
+				margin-bottom: 12px;
+				padding: 4px 8px 4px 8px;
+				border: none;
+				background-color: rgba({RGBTitleColor},0.4);
+				border-radius: 8px;
+				transition: background-color 1s;
+				transition-timing-function: linear;
+			}
+
+			input.style-text:focus {
+				background-color: rgba({RGBTitleColor},0.8);
+				border: none;
+			}
+
+			button.style-text {
+				text-align: left;
+				font-size: 20px;
+				width: 36px;
+				height: 36px;
+				margin: auto;
+				margin-bottom: 12px;
+				padding: 4px 8px 4px 8px;
+				border: none;
+				background-color: rgba({RGBTitleColor},0.4);
+				border-radius: 8px;
+				transition: background-color 1s;
+				transition-timing-function: linear;
+			}
+
+			button.style-text:hover {
+				background-color: rgba({RGBTitleColor},0.8);
+			}
+
+			.pfp {
+				margin: auto;
+				width: 128px;
+				height: 128px;
+				border: solid 3px {TitleColor};
+			}
+
+			.ask {
+				background-color: rgba({RGBBackgroundColor}, 0.2);
+				border-radius: 8px;
+				padding: 8px;
+				margin-bottom: 4px;
+			}
+
+			.footer {
+				display: flex;
+				flex-flow: column nowrap;
+				justify-content: flex-start;
+				align-content: cemter;
+				width: 516px;
+				height: auto;
+				text-align: left;
+				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
+				border-radius: 8px;
+				height: 32px;
+				width: 516px;
+				padding: 8px;
+				margin: none auto 8px auto;
+				vertical-align: middle;
+			}
+
+			span.like-button	{
+				color: {AccentColor};
+				cursor: pointer;
+				transition: color 0.5s, opacity 0.5s;
+				transition-timing-function: linear;
+			}
+
+			.post-notes {
+				padding:8px;
+				margin-top: 8px;
+				width: 516px;
+				height: 100%;
+				background: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
+				border-radius: 8px;
+			}
+
+			.attr {
+				color: {block:IfDarkTheme}#484e51{/block:IfDarkTheme}{block:IfNotDarkTheme}#aebdc4{/block:IfNotDarkTheme} !important;
+				text-decoration: none;
+				transition: text-decoration 0.75s;
+			}
+
+			div.link {
+				border: solid 1px {AccentColor};
+				padding: 8px;
+				border-radius: 8px;
+			}
+
+			span.poster {
+				opacity: 0.5;
+				position: absolute;
+				bottom: 16px;
+				left: 8px;
+				width: 484px;
+				color: {block:IfDarkTheme}#d8d4cf{/block:IfDarkTheme}{block:IfNotDarkTheme}black{/block:IfNotDarkTheme} !important;
+				background: {block:IfDarkTheme}rgba(24, 26, 27, 0.75){/block:IfDarkTheme}{block:IfNotDarkTheme}rgba(255, 255, 255, 0.75){/block:IfNotDarkTheme};
+				border-radius: 8px;
+				padding: 4px 8px 8px 8px;
+				transition: opacity 0.75s;
+			}
+
+			.audio-wrapper {
+				width: 516px;
+				position: relative;
+				border-radius: 8px;
+				background-color: {AccentColor};
+			}
+
+			.track-title {
+				color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
+				margin: 0px 0px 8px 4px;
+				max-width: 384px;
+			}
+			
 			{CustomCSS}
 		</style>
 	</head>
@@ -152,7 +402,10 @@
 							<div class="nav-sidebar style-text">
 								<ul class="nav">
 									{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-rounded">chevron_left</span></a></li>{/block:PreviousPage}
-									<li class="nav">{CurrentPage}</li>
+									{block:JumpPagination length="5"} 
+										<li class="nav">{CurrentPage}</li>
+										{block:JumpPage}<li class="nav"><a href="{URL}">{PageNumber}</a></li>{/block:JumpPage}
+									{/block:JumpPagination} 
 									{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextPage}
 								</ul>
 								{block:IfShowTotalPageCount}
@@ -222,7 +475,7 @@
 									<a href="{ReblogParentURL}" class="style-text header-link"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M5.01092527,5.99908429 L16.0088498,5.99908429 L16.136,9.508 L20.836,4.752 L16.136,0.083 L16.1360004,3.01110845 L2.09985349,3.01110845 C1.50585349,3.01110845 0.979248041,3.44726568 0.979248041,4.45007306 L0.979248041,10.9999998 L3.98376463,8.30993634 L3.98376463,6.89801007 C3.98376463,6.20867902 4.71892527,5.99908429 5.01092527,5.99908429 Z"></path><path d="M17.1420002,13.2800293 C17.1420002,13.5720293 17.022957,14.0490723 16.730957,14.0490723 L4.92919922,14.0490723 L4.92919922,11 L0.5,15.806 L4.92919922,20.5103758 L5.00469971,16.9990234 L18.9700928,16.9990234 C19.5640928,16.9990234 19.9453125,16.4010001 19.9453125,15.8060001 L19.9453125,9.5324707 L17.142,12.203"></path></svg><b class="reblog-parent">{ReblogParentName}</b></a>
 								</div>
 							{/block:RebloggedFrom}
-							<script id="script{PostID}" npf="{NPF}" idf="{PostID}" type="text/javascript" src="https://cdn.jsdelivr.net/gh/enchanted-sword/melody-theme/posts.js"></script>
+							<script npf="npf" idf="{PostID}" type="text/javascript" src="https://cdn.jsdelivr.net/gh/enchanted-sword/melody-theme/posts.js">{NPF}</script>
 							<div id="f{PostID}" class="footer" style="height: auto;">
 								<div class="footer-card">
 									<span class="style-text note-count" style="color: {AccentColor}">
@@ -275,7 +528,10 @@
 						<div class="nav-sidebar style-text" style="margin: 0px auto 8px auto;">
 							<ul class="nav">
 								{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-rounded">chevron_left</span></a></li>{/block:PreviousPage}
-								<li class="nav">{CurrentPage}</li>
+								{block:JumpPagination length="5"} 
+									<li class="nav">{CurrentPage}</li>
+									{block:JumpPage}<li class="nav"><a href="{URL}">{PageNumber}</a></li>{/block:JumpPage}
+								{/block:JumpPagination}
 								{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextPage}
 							</ul>
 							{block:IfShowTotalPageCount}
