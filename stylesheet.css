@@ -532,10 +532,7 @@ img.poster {
     margin: 8px;
     width: 256px;
     height: auto;
-    opacity: 0;
     z-index: 69;
-    visibility: hidden;
-    transition: opacity 0.25s;
     hyphens: auto;
 }
 
