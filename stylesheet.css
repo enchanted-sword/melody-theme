@@ -586,3 +586,9 @@ img.poster {
 #f {
     display: none;
 }
+
+#submit-frame {
+    width: 516px;
+    background-color: transparent;
+    height: 368px;
+}
