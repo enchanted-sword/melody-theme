@@ -74,9 +74,11 @@ function formatEncode(content) {
     return string
 }
 
-var $script = $('script').last();
+var $script = $("script").last();
 var id = $script.attr("idf");
-var npf = $script.attr("npf");
+var sNum = $script.attr("id");
+sNum = "c" + sNum.split("s")[1];
+var npf = $(`#${sNum}`).text();
 $(document).ready(function() {
     let $post = $(`#post${id}`);
     console.log(npf);
