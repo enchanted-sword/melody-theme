@@ -292,6 +292,20 @@ iframe.video {
     width: 516px;
 }
 
+.tumblr_audio_player {
+    height: 85px;
+    width: 516px;
+    border-radius: 8px;
+}
+
+.ask .tumblr_audio_player {
+    width: 500px;
+}
+
+.tmblr-iframe {
+    display: none;
+}
+
 .header-link {
     display: flex;
     align-content: center;
