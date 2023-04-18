@@ -3,7 +3,7 @@ function blogObject (blog, id) {
     $blogCard.css("background-color", blog.theme.background_color);
     let $blogHeader = $("<img>", {src: blog.theme.header_image, width: "256px", height: Math.floor(blog.theme.header_full_height / (blog.theme.header_full_width / 256)), class: "blog-header"});
     $blogCard.append($blogHeader);
-    let pSrc
+    let pSrc;
     if (blog.avatar) {pSrc = blog.avatar[2].url;}
     else {pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
     let $blogAvatar = $("<img>", {src: pSrc, class: "blog-avatar"});
@@ -30,6 +30,196 @@ function blogObject (blog, id) {
         $(`#${id}`).hide("slow");
     });
     return $blogCard
+}
+
+function headerObject (npf, id, context, z) {
+    let $header = $("<div>", {class: "post-header"});
+    let $wrapper = $("<span>");
+    $header.append($wrapper);
+    let $headerText = $("<b>", {class: "reblog-root"});
+    let $headerLink = "";
+    let $portrait = "";
+    let blog = {};
+    let pSrc = "";
+    let idf = "";
+    let $blogCard = "";
+    if (context === "ask") {
+        $header.addClass("asker");
+        if (npf.layout[0].attribution && npf.layout[0].attribution.blog) {
+            blog = npf.layout[0].attribution.blog;
+            if ("active" in blog) {
+                if (blog.active) {
+                    $wrapper.addClass("blog");
+                    idf = `askerBlog${id}`;
+                    $headerLink = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
+                    $wrapper.append($headerLink)
+                    if (blog.avatar) {pSrc = blog.avatar[2].url;}
+                    else {pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
+                    $portrait = $("<img>", {class: "portrait", src: pSrc});
+                    $headerLink.append($portrait);
+                    $headerText.text(`${blog.name} asked:`);
+                    $headerLink.append($headerText);
+                    $blogCard = blogObject(blog, idf);
+                    $wrapper.append($blogCard);
+                    $wrapper.mouseenter(function() {
+                        $blogCard.show("slow");
+                    });
+                }
+                else {
+                    $wrapper.append($headerText);
+                    $headerText.text(`${blog.name} asked:`);
+                    let $dc = $("<span>deactivated</span>");
+                    $dc.css({"color": "#a0a0a0", "font-size": "12px", "margin-left": "8px", "line-height": "12px"});
+                    $headerText.append($dc);
+                }
+            }
+            else {
+                $wrapper.addClass("blog");
+                idf = `askerBlog${id}`;
+                $headerLink = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
+                $wrapper.append($headerLink)
+                if (blog.avatar) {pSrc = blog.avatar[2].url;}
+                else {pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
+                $portrait = $("<img>", {class: "portrait", src: pSrc});
+                $headerLink.append($portrait);
+                $headerText.text(`${blog.name} asked:`);
+                $headerLink.append($headerText);
+                $blogCard = blogObject(blog, idf);
+                $wrapper.append($blogCard);
+                $wrapper.mouseenter(function() {
+                    $blogCard.show("slow");
+                });
+            }
+        }
+        else {
+            $headerText.text("Anonymous asked:");
+            $wrapper.append($headerText);
+        }
+    }
+    else if (context === "ans") {
+        $header.addClass("answerer");
+        if (npf.blog) {
+            blog = npf.blog;
+            if ("active" in blog) {
+                if (blog.active) {
+                    $wrapper.addClass("blog");
+                    idf = `answererBlog${id}`;
+                    $headerLink = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
+                    $wrapper.append($headerLink)
+                    if (blog.avatar) {pSrc = blog.avatar[2].url;}
+                    else {pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
+                    $portrait = $("<img>", {class: "portrait", src: pSrc});
+                    $headerLink.append($portrait);
+                    $headerText.text(blog.name);
+                    $headerLink.append($headerText);
+                    $blogCard = blogObject(blog, idf);
+                    $wrapper.append($blogCard);
+                    $wrapper.mouseenter(function() {
+                        $blogCard.show("slow");
+                    });
+                }
+                else {
+                    $wrapper.append($headerText);
+                    $headerText.text(blog.name);
+                    let $dc = $("<span>deactivated</span>");
+                    $dc.css({"color": "#a0a0a0", "font-size": "12px", "margin-left": "8px", "line-height": "12px"});
+                    $headerText.append($dc);
+                }
+            }
+            else {
+                $wrapper.addClass("blog");
+                idf = `answererBlog${id}`;
+                $headerLink = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
+                $wrapper.append($headerLink)
+                if (blog.avatar) {pSrc = blog.avatar[2].url;}
+                else {pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
+                $portrait = $("<img>", {class: "portrait", src: pSrc});
+                $headerLink.append($portrait);
+                $headerText.text(blog.name);
+                $headerLink.append($headerText);
+                $blogCard = blogObject(blog, idf);
+                $wrapper.append($blogCard);
+                $wrapper.mouseenter(function() {
+                    $blogCard.show("slow");
+                });
+            }
+        }
+        else if (npf.broken_blog_name) {
+            $wrapper.append($headerText)
+            $headerText.text(npf.broken_blog_name);
+        }
+        else throw "missing answerer blog name"
+    }
+    else if (context === "rb") {
+        if (npf.blog) {
+            blog = npf.blog;
+            if ("active" in blog) {
+                if (blog.active) {
+                    $wrapper.addClass("blog");
+                    idf = `blog${z}${id}`;
+                    $headerLink = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
+                    $wrapper.append($headerLink)
+                    if (blog.avatar) {pSrc = blog.avatar[2].url;}
+                    else {pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
+                    $portrait = $("<img>", {class: "portrait", src: pSrc});
+                    $headerLink.append($portrait);
+                    $headerText.text(blog.name);
+                    $headerLink.append($headerText);
+                    $blogCard = blogObject(blog, idf);
+                    $wrapper.append($blogCard);
+                    $wrapper.mouseenter(function() {
+                        $blogCard.show("slow");
+                    });
+                }
+                else {
+                    $wrapper.append($headerText);
+                    $headerText.text(blog.name);
+                    let $dc = $("<span>deactivated</span>");
+                    $dc.css({"color": "#a0a0a0", "font-size": "12px", "margin-left": "8px", "line-height": "12px"});
+                    $headerText.append($dc);
+                }
+            }
+            else {
+                $wrapper.addClass("blog");
+                idf = `blog${z}${id}`;
+                $headerLink = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
+                $wrapper.append($headerLink)
+                if (blog.avatar) {pSrc = blog.avatar[2].url;}
+                else {pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
+                $portrait = $("<img>", {class: "portrait", src: pSrc});
+                $headerLink.append($portrait);
+                $headerText.text(blog.name);
+                $headerLink.append($headerText);
+                $blogCard = blogObject(blog, idf);
+                $wrapper.append($blogCard);
+                $wrapper.mouseenter(function() {
+                    $blogCard.show("slow");
+                });
+            }
+        }
+        else if (npf.broken_blog_name) {
+            $wrapper.append($headerText)
+            $headerText.text(npf.broken_blog_name);
+        }
+        else throw "missing blog name"
+    }
+    else if (context === "oc") {
+        $wrapper.addClass("blog");
+        idf = `ocBlog${id}`
+        $headerLink = $("<a>", {class: "style-text header-link", href: `https://${blogName}/post/${id}`});
+        $wrapper.append($headerLink);
+        $portrait = $("<img>", {class: "portrait", src: `https://api.tumblr.com/v2/blog/${blogName}/avatar/96`});
+        $headerLink.append($portrait);
+        $headerText.text(blogName);
+        $headerLink.append($headerText);
+        $blogCard = ocBlog(idf);
+        $wrapper.append($blogCard);
+        $wrapper.mouseenter(function() {
+            $blogCard.show("slow");
+        });
+    }
+    else throw "invalid header context"
+    return $header
 }
 
 function formatEncode(content) {
@@ -228,94 +418,17 @@ function renderPost() {
             $post.append($body);
             if (npf.trail[z].layout[0] && npf.trail[z].layout[0].type === "ask") {
                 var $ask = $("<div>", {class: "ask"});
-                var $askHeader = $("<div>", {class: "post-header asker"});
+                var $askHeader = headerObject(npf.trail[z], id, "ask", z);
                 $ask.append($askHeader);
-                var $c = $("<span>", {class: "post-avatar style-text tr"});
-                $askHeader.append($c); 
-                var $b = $("<b>");
-                if (npf.trail[z].layout[0].attribution && npf.trail[z].layout[0].attribution.blog) {
-                    $c.addClass("blog");
-                    $c.css("margin-left", "8px");
-                    var blog = npf.trail[z].layout[0].attribution.blog;
-                    var idf = `askerBlog${id}`;
-                    $c.append(blogObject(blog, idf));
-                    $c.mouseenter(function() {
-                        $(`#${idf}`).show("slow");
-                    });
-                    if (blog.avatar) {var pSrc = blog.avatar[2].url;}
-                    else {var pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
-                    var $portrait = $("<img>", {class: "portrait", src: pSrc});
-                    $askHeader.prepend($portrait);
-                    $b.text(`${blog.name} asked:`);
-                }
-                else {$b.text("Anonymous asked:");}
-                $c.append($b);
                 var $card = $("<div>", {id: `ct${z}${id}`, class: "post-card"});
                 $body.append($card);
                 $card.append($ask);
-                var $header = $("<div>", {class: "post-header answerer"});
+                var $header = headerObject(npf.trail[z], id, "ans", z);
                 $card.append($header);
-                var $d = $("<span>", {class: "post-avatar style-text"});
-                $header.append($d);
-                var $e = $("<b>", {class: "reblog-root"});
-                if (npf.trail[z].blog) {
-                    $d.addClass("blog");
-                    blog = npf.trail[z].blog;
-                    var $a = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
-                    $d.append($a);
-                    idf = `answererBlog${id}`;
-                    if (blog.avatar) {var pSrc = blog.avatar[2].url;}
-                    else {var pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
-                    var $portrait = $("<img>", {class: "portrait", src: pSrc});
-                    $a.append($portrait);
-                    $e.text(blog.name);
-                    $a.append($e);
-                    $d.append(blogObject(blog, idf));
-                    $d.mouseenter(function() {
-                        $(`#${idf}`).show("slow");
-                    });
-                }
-                else {
-                    console.log("Error: missing answerer blog object");
-                }
             }
             else {
-                var $header = $("<div>", {class: "post-header"});
+                var $header = headerObject(npf.trail[z], id, "rb", z);
                 $body.append($header);
-                var $s = $("<span>");
-                $header.append($s);
-                var $b = $("<b>", {class: "reblog-root"});
-                if (npf.trail[z].blog) {
-                    var blog = npf.trail[z].blog;
-                    if (npf.trail[z].blog.active) {
-                        $s.addClass("blog");
-                        var idf = `blog${z}${id}`;
-                        var $a = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
-                        $s.append($a);
-                        if (blog.avatar) {var pSrc = blog.avatar[2].url;}
-                        else {var pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
-                        var $portrait = $("<img>", {class: "portrait", src: pSrc});
-                        $a.append($portrait);
-                        $b.text(blog.name);
-                        $a.append($b);
-                        $s.append(blogObject(blog, idf));
-                        $s.mouseenter(function() {
-                            $(`#${idf}`).show("slow");
-                        });
-                    }
-                    else {
-                        $s.append($b);
-                        $b.text(blog.name);
-                        var $dc = $("<span>deactivated</span>");
-                        $dc.css({"color": "#a0a0a0", "font-size": "12px", "margin-left": "8px", "line-height": "12px"});
-                        $b.append($dc);
-                    }
-                }
-                else if (npf.trail[z].broken_blog_name) {
-                    $s.append($b)
-                    $b.text(npf.trail[z].broken_blog_name);
-                }
-                else {console.log("Error: missing blog name")}
             }
             for (let i = 0; i < npf.trail[z].content.length; ++i) {
                 if (npf.trail[z].layout[0] && npf.trail[z].layout[0].type === "ask" && npf.trail[z].layout[0].blocks[i] === i) {
@@ -335,51 +448,17 @@ function renderPost() {
     if (npf.content.length > 0) {
         var $body = $("<div>", {class: "post-body"});
         $post.append($body);
-        if (npf.trail.length > 0) {
-            var $header = $("<div>", {class: "post-header"});
-                $body.append($header);
-                var $s = $("<span>");
-                $header.append($s);
-                var $b = $("<b>", {class: "reblog-root"});
-                var $a = $("<a>", {class: "style-text header-link", href: `https://${blogName}/post/${id}`});
-                $s.append($a);
-                var $portrait = $("<img>", {class: "portrait", src: `https://api.tumblr.com/v2/blog/${blogName}/avatar/96`});
-                $a.append($portrait);
-                $b.text(blogName);
-                $a.append($b);
-        }
         if (npf.layout[0] && npf.layout[0].type === "ask") {
             var $ask = $("<div>", {class: "ask"});
-            var $askHeader = $("<div>", {class: "post-header asker"});
+            var $askHeader = headerObject(npf, id, "ask", 0);
             $ask.append($askHeader);
-            var $c = $("<span>", {class: "post-avatar style-text tr"});
-            $c.css("margin-left", "8px");
-            $askHeader.append($c); 
-            var $b = $("<b>");
-            if (npf.layout[0].attribution && npf.layout[0].attribution.blog) {
-                $c.addClass("blog");
-                var blog = npf.layout[0].attribution.blog;
-                var $a = $("<a>", {class: "style-text header-link", href: `${blog.url}/post/${id}`});
-                var idf = `askerBlog${id}`;
-                $c.append($a);
-                $c.append(blogObject(blog, idf));
-                $c.mouseenter(function() {
-                    $(`#${idf}`).show("slow");
-                });
-                if (blog.avatar) {var pSrc = blog.avatar[2].url;}
-                else {var pSrc = `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;}
-                var $portrait = $("<img>", {class: "portrait", src: pSrc});
-                $a.append($portrait);
-                $b.text(`${blog.name} asked:`);
-                $a.append($b);
-            }
-            else {
-                $b.text("Anonymous asked:");
-                $c.append($b);
-            }
             var $card = $("<div>", {id: `cc${id}`, class: "post-card"});
             $body.append($card);
             $card.append($ask);
+        }
+        if (npf.trail.length > 0) {
+            var $header = headerObject("npf", id, "oc", 0);
+            $body.append($header);
         }
         for (let i = 0; i < npf.content.length; ++i) {
             if (npf.layout[0] && npf.layout[0].type === "ask" && npf.layout[0].blocks[i] === i) {
