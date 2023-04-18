@@ -12,12 +12,6 @@ iframe.like-frame {
     border: none;
 }
 
-.blog-view .material-symbols-rounded {
-    color: {AccentColor};
-    transition: opacity 0.5s;
-    transition-timing-function: linear;
-}
-
 .blog-view .material-symbols-rounded:hover {
     opacity: 0.6;
 }
@@ -534,6 +528,7 @@ img.poster {
     height: auto;
     z-index: 69;
     hyphens: auto;
+    display: none;
 }
 
 .blog-header {
@@ -591,4 +586,8 @@ img.poster {
     width: 516px;
     background-color: transparent;
     height: 368px;
+}
+
+@media screen and (max-width: 1280px) {
+    
 }
