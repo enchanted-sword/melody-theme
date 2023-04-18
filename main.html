@@ -134,7 +134,7 @@
 				width: 328px;
 				border: solid 3px {TitleColor};
 				border-radius: 8px;
-				margin: 8px 0px 8px 0px;
+				margin: 20px 0px 8px 0px;
 				padding: 8px;
 			}
 
@@ -250,6 +250,12 @@
 				vertical-align: middle;
 			}
 
+			.blog-view .material-symbols-rounded {
+				color: {AccentColor};
+				transition: opacity 0.5s;
+				transition-timing-function: linear;
+			}
+
 			span.like-button	{
 				color: {AccentColor};
 				cursor: pointer;
@@ -303,6 +309,21 @@
 				margin: 0px 0px 8px 4px;
 				max-width: 384px;
 			}
+
+			#sidebar-button {
+				width: 128px;
+				height: 128px;
+				background-image: url({Favicon});
+				position: fixed;
+				top: 16px;
+				left: 16px;
+				border-radius: 50%;
+				z-index: 69;
+			}
+
+			.toggle-sidebar {
+				background-color: {BackgroundColor};
+			}
 			
 			{CustomCSS}
 		</style>
@@ -311,9 +332,41 @@
 		<div>
 			<div class="header">
 			    {block:ShowHeaderImage} 
-			        <img class="header{select:Header Style}" src="{HeaderImage}">
+			        <img id="pageHeader" class="header{select:Header Style}" src="{HeaderImage}">
 			    {/block:ShowHeaderImage} 
 			</div>
+			<script>
+				function ocBlog(id) {
+				let $blogCard = $("<div>", {id: id, class: "blog-card"});
+				$blogCard.css("background-color", "{BackgroundColor}");
+				let $blogHeader = $("<img>", {src: "{HeaderImage}", width: "256px", height: Math.floor($("#pageHeader").height() / ($("#pageHeader").width() / 256)), class: "blog-header"});
+				$blogCard.append($blogHeader);
+				let pSrc = "{PortraitURL-96}";
+				let $blogAvatar = $("<img>", {src: pSrc, class: "blog-avatar"});
+				if ("{AvatarShape}" === "circle") {$blogAvatar.css("border-radius", "50%")}
+				$blogAvatar.css("top", $blogHeader.height() - 60 + "px");
+				$blogCard.append($blogAvatar);
+				let $blogDescription = $("<div>", {class: "blog-description"});
+				$blogDescription.css({"top": $blogHeader.height() + "px", "color": "{TitleColor}"});
+				let $a = $("<b>");
+				$a.css({"color": "{AccentColor}", "text-decoration": "none", "font-size": "24px"});
+				$a.text(blogName);
+				$blogDescription.append($a);
+				let $b = $("<p>");
+				$b.css({"font-size": "20px", "margin": "8px 0px 8px 0px", "font-weight": "bold", "hyphens": "auto"});
+				$b.text("{Title}");
+				$blogDescription.append($b);
+				let $c = $("<p>");
+				$c.css("margin", "8px 0px 8px 0px");
+				$c.text("{Description}");
+				$blogDescription.append($c);
+				$blogCard.append($blogDescription);
+				$blogCard.mouseleave(function() {
+					$blogCard.hide("slow");
+    			});
+				return $blogCard
+			}
+			</script>
 			<div class="navbar style-text">
 				<ul class="nav">	
 					<li class="nav tr"><a href="/">{lang:Home}</a></li>
@@ -333,7 +386,7 @@
 				</ul>
 			</div>
 			<div class="main-body">
-				<div class="sidebar">
+				<div id="sidebar" class="sidebar">
 					<div class="user-card style-text">
 						<div id="search">
 							<form class="search" action="/search" method="get">
@@ -403,7 +456,7 @@
 								<ul class="nav">
 									{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-rounded">chevron_left</span></a></li>{/block:PreviousPage}
 									{block:JumpPagination length="5"} 
-										<li class="nav">{CurrentPage}</li>
+										{block:CurrentPage}<li class="nav">{CurrentPage}</li>{/block:CurrentPage}
 										{block:JumpPage}<li class="nav"><a href="{URL}">{PageNumber}</a></li>{/block:JumpPage}
 									{/block:JumpPagination} 
 									{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextPage}
@@ -476,6 +529,170 @@
 								</div>
 							{/block:RebloggedFrom}
 							<script npf="npf" idf="{PostID}" type="text/javascript" src="https://cdn.jsdelivr.net/gh/enchanted-sword/melody-theme/posts.js">{NPF}</script>
+							<noscript>
+								<div class="post-body">
+									{block:RebloggedFrom}
+										<div class="post-header rb {block:Answer}null {/block:Answer}">
+											<a href="{ReblogRootURL}" class="style-text header-link"><img src="{ReblogRootPortraitURL-64}" class="portrait"><b class="reblog-root">{ReblogRootName}</b></a>
+										</div>
+									{/block:RebloggedFrom}
+									{block:NotReblog}
+										{block:Text}
+											<div class="post-card text">
+												{block:Title}<h1>{Title}</h1>{/block:Title}
+												{Body}
+											</div>
+										{/block:Text}
+									{/block:NotReblog}
+									{block:Reblogs}
+										{block:isOriginalEntry}
+											<div class="card rb">
+												{block:Text}
+													<div class="post-card text rb">
+														{block:Title}<h1>{Title}</h1>{/block:Title}
+														{Body}
+													</div>
+												{/block:Text}
+											</div>
+										{/block:isOriginalEntry}
+									{/block:Reblogs}
+									{block:Photo}
+										<div class="post-body photo">
+											<div class="post-card photo">
+												{LinkOpenTag}
+													<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+												{LinkCloseTag}
+												{block:Caption}{Body}{/block:Caption}
+												{block:Reblogs}
+													{block:isOriginalEntry}
+														{Body}
+													{/block:isOriginalEntry}
+												{/block:Reblogs}
+											</div>
+										</div>
+									{/block:Photo}
+									{block:Video}
+										<div class="post-card video">
+											<div class="video-card">{Video-500}</div>
+											{block:Caption}{Body}{/block:Caption}
+										</div>
+									{/block:Video}
+									{block:Panorama}
+										<div class="post-card panorama">
+											{LinkOpenTag}
+												<img class="image" src="{PhotoURL-Panorama}" alt="{PhotoAlt}">
+											{LinkCloseTag}
+											{block:Caption}{Body}{/block:Caption}
+										</div>
+									{/block:Panorama}
+									{block:Photoset} 
+										<div class="post-card photoset">
+											{block:Photos}
+												<img class="image" src="{PhotoURL-500}" alt="{PhotoAlt}">
+												{block:Caption}{Body}{/block:Caption}
+											{/block:Photos}
+										</div>
+									{/block:Photoset}
+									{block:Quote}
+										<div class="post-card quote">
+											<div class="quote-body">
+												<span style="display: block; margin: 0px 20px 0px 20px;"><b>"{Quote}"</b></span></br>
+												{block:Source}- {Source}{/block:Source}
+											</div>
+										</div>
+									{/block:Quote}	
+									{block:Link}
+										<div class="post-card link">
+											<a {Target} href="{URL}">
+												{block:Thumbnail}
+													<img class="image" src="{Thumbnail-HighRes}">
+												{/block:Thumbnail}
+												<span class="style-text" style="font-size: 18px; margin: 8px 0px 8px 0px; color: {AccentColor}; text-align: center; display: block;">
+														{Host}
+													{/block:Host}
+												</span>
+												{block:Excerpt}
+													{Excerpt}
+												{/block:Excerpt}
+											</a>
+											{block:Description}
+												{Description}
+											{/block:Description}
+										</div>
+									{/block:Link}
+									{block:Chat}
+										<div class="post-card chat">
+											{block:Title}
+												<h1>
+													{Title}
+												</h1>
+											{/block:Title}
+											{block:Lines}
+												<span class="chat-line">
+													{block:Label}<b>{Label}</b> {/block:Label}{Line}
+												</span>
+											{/block:Lines}
+										</div>
+									{/block:Chat}
+									{block:Audio}
+										<div class="post-card audio">
+											<div class="card" style="text-align: center;">{AudioEmbed-500}</div>
+											<div class="card">{block:Caption}{Body}{/block:Caption}</div>
+										</div>
+									{/block:Audio}
+									{block:Answer}
+										<div class="post-body answer">
+											<div class="post-card answer">
+												<div class="ask">
+													<div class="post-header asker">
+														<img src="{AskerPortraitURL-64}" class="portrait"><span class="post-avatar style-text tr" style="margin-left: 8px;"><b>{lang:Asker asked 2}:</b></span>
+													</div>
+													<div class="ask-question">
+														{Question}
+													</div>
+												</div>
+												{block:RebloggedFrom}
+													<div class="ask">
+														<div class="post-header answerer rb" style="padding-left: 0px;">
+															<img src="{AnswererPortraitURL-64}" style="width: 32px; height: 32px; border-radius: 2px;">
+															<span class="post-avatar style-text"><b class="reblog-root">{Answerer}</b></span>
+														</div>
+														<div class="ask-reply">
+															<p class="url-hide"></p>
+															{Answer}
+														</div>
+													</div>
+												{/block:RebloggedFrom}
+												{block:NotReblog}
+													<div class="ask-reply">
+														{Answer}
+													</div>
+												{/block:NotReblog}
+											</div>
+										</div>
+									{/block:Answer}
+									{block:Submission}
+										<span class="submit-label tr">
+											<b><a class="style-text" href="{SubmitterURL}">{lang:Submitted By}</a></b>
+										</span>
+									{/block:Submission}
+								</div>
+								{block:Reblogs}
+									<div class="post-body rb {block:isOriginalEntry}null{/block:isOriginalEntry}">
+										<div class="post-header rb">
+											{block:IsActive}
+												<a href="{Permalink}" class="style-text header-link"><img src="{PortraitURL-64}" class="portrait"><b class="reblog-root">{Username}</b></a>
+											{/block:IsActive}
+											{block:IsDeactivated}
+												<span style="color: {AccentColor}"><b>{Username}</b></span><span style="color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px;">deactivated</span>
+											{/block:IsDeactivated}
+										</div>
+										<div class="post-card rb">
+											<div class="card">{Body}</div>
+										</div>
+									</div>
+								{/block:Reblogs}	
+							</noscript>
 							<div id="f{PostID}" class="footer" style="height: auto;">
 								<div class="footer-card">
 									<span class="style-text note-count" style="color: {AccentColor}">
@@ -529,7 +746,7 @@
 							<ul class="nav">
 								{block:PreviousPage}<li class="nav"><a href="{PreviousPage}"><span class="material-symbols-rounded">chevron_left</span></a></li>{/block:PreviousPage}
 								{block:JumpPagination length="5"} 
-									<li class="nav">{CurrentPage}</li>
+									{block:CurrentPage}<li class="nav">{CurrentPage}</li>{/block:CurrentPage}
 									{block:JumpPage}<li class="nav"><a href="{URL}">{PageNumber}</a></li>{/block:JumpPage}
 								{/block:JumpPagination}
 								{block:NextPage}<li class="nav"><a href="{NextPage}"><span class="material-symbols-rounded">chevron_right</span></a></li>{/block:NextPage}
