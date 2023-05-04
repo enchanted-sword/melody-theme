@@ -236,17 +236,18 @@ function formatEncode(content) {
             bold: "b",
             italic: "i",
             strikethrough: "s",
-            small: "small"
+            small: "small",
+            color: "span"
         }[formatting.type] || "a";
         let startTag = "";
-        if (formatting.type === "link") {
+        if (formatting.type === "link" || formatting.type === "mention") {
             startTag = `<a href="${formatting.url}">`;
         }
-        else if (formatting.type === "mention") {
-            startTag = `<a href="${formatting.url}">`;
+        else if (formatting.type === "color") {
+            startTag = `<span style="color: ${formatting.hex};">`;
         }
         else {startTag = `<${format}>`;}
-        let endTag = `<${format}>`;
+        let endTag = `</${format}>`;
         if (n === 0) {start = formatting.start}
         else {
             for (let i of content.formatting) {
@@ -261,7 +262,7 @@ function formatEncode(content) {
         }
         end += formatting.end;
         obj.splice(start, 0, startTag);
-        obj.splice(start, 0, endTag);
+        obj.splice(end, 0, endTag);
     }
     for (let z of obj) {string += z;}
     return string
