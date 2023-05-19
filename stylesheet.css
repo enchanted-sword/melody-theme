@@ -40,6 +40,10 @@ p:empty {
     'opsz' 48
 }
 
+.community-label-cover__wrapper {
+    display: none !important;
+}
+
 .style-text {
     font-family: 'Source Code Pro', 'Lucida Console', 'Courier New', monospace;
     text-decoration: none;
