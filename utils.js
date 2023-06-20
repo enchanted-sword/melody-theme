@@ -446,9 +446,11 @@ function constructPost(content, id, $card, i, z, contentWidth, baseContent) {
         }
         else {
             var $video = $("<video>", {class: "video-player", width: contentWidth, controls: ""});
+            var $source = "";
             $div.append($video);
             $div.addClass("video-wrapper");
-            var $source = $("<source>", {src: content.url});
+            if (content.media) {$source = $("<source>", {src: content.media.url});}
+            else {var $source = $("<source>", {src: content.url});}
             $video.append($source);
         }
     }
