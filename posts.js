@@ -23,10 +23,22 @@ const newPopover = (blog, id) => {
 
   return popover;
 };
+const attribute = (blog, id, wrapper) => {
+  wrapper.addClass("blog");
+  const attributionLink = wrapper.append($( "<a>", {class: "styleText attributionLink", href: blog.url} ));
+  const avatarSrc = blog.avatar[2].url || `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;
+  attributionLink.append($( "<img>", {class: "avatar", src: avatarSrc} ));
+  wrapper.append(newPopover(blog, id));
+  wrapper.mouseenter(() => $( `#${id}` ).show("slow"));
+  return attributionLink;
+};
+const deactivated = () => $( "<span>deactivated</span>", {class: "deactivated"} );
+//add color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px to .deactivated css
 const newHeader = (block, id, type, index) => {
   const header = $( "<header>", {class: "postHeader"} );
   const wrapper = header.append($( "<span>" ));
-  const attribution = $( "<b>", {class: "attribution"} );
+  const attribution = wrapper.append($( "<b>", {class: "attribution"} ));
+  let blog;
   let attributionLink;
   let idStr;
   if (type === "ask") {
@@ -34,21 +46,37 @@ const newHeader = (block, id, type, index) => {
     if (block.layout[0]?.attribution?.blog) {
       blog = block.layout[0].attribution.blog;
       if (!("active" in blog) || blog.active) {
-        wrapper.addClass("blog");
         idStr = `popover-ask-${id}`;
-        attributionLink = wrapper.append($( "<a>", {class: "styleText attributionLink", href: blog.url} ));
-        const avatarSrc = blog.avatar[2].url || `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;
-        attributionLink.append($( "<img>", {class: "avatar", src: avatarSrc} ));
-        attribution.text(`${blog.name} asked:`);
+        attributionLink = attribute(blog, idStr, wrapper);
         attributionLink.append(attribution);
-        wrapper.append(newPopover(blog, idStr));
-        wrapper.mouseenter(() => $( `#${idStr}` ).show("slow"));
-      } else {
-        wrapper.append(attribution);
         attribution.text(`${blog.name} asked:`);
-        //deactivated string func
+      } else {
+        attribution.text(`${blog.name} asked:`);
+        attribution.append(deactivated());
       }
+    } else {
+      wrapper.append(attribution);
+      attribution.text("Anonymous asked:");
     }
+  } else if (type === "answer" || type === "reblog") {
+    header.addClass("answerer");
+    if (block.blog) {
+      blog = block.blog;
+      if (!("active" in blog) || blog.active) {
+        idStr = `popover-${index}-${id}`;
+        attributionLink = attribute(blog, idStr, wrapper);
+        attributionLink.append(attribution);
+        attribution.text(blog.name);
+      } else {
+        attribution.text(blog.name);
+        attribution.append(deactivated());
+      }
+    } else if (block.broken_blog_name) {
+      attribution.text(block.broken_blog_name);
+    } else console.error("missing blog name");
+  } else if (type === "original content") {
+    idStr = `popover-${id}`;
+    attributionLink;
   }
   return header;
 }
