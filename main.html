@@ -135,22 +135,6 @@
 				padding: 8px;
 			}
 
-			.reblog-header {
-				display: flex;
-				flex-flow: row nowrap;
-				justify-content: flex-start;
-				align-items: center;
-				text-align: left;
-				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
-				border-radius: 8px;
-				height: 32px;
-				width: 516px;
-				padding: 4px 8px 4px 8px;
-				margin-left: auto;
-				margin-right: auto;
-				margin-bottom: 8px;
-			}
-
 			.day-header {
 				text-align: center;
 				font-size: 24px;
@@ -798,7 +782,7 @@
       /* PROCESSED CSS*/
 
 
-
+      figure { all: unset; }
 
       .post {
 				position: relative;
@@ -808,10 +792,25 @@
 				background: {block:IfDarkTheme}rgba(24, 26, 27, 0.4){/block:IfDarkTheme}{block:IfNotDarkTheme}rgba(255, 255, 255, 0.2){/block:IfNotDarkTheme};
 				width: 532px;
 				padding: 8px;
-				margin-left: auto;
-				margin-right: auto;
 				margin-bottom: 32px;
 			}
+      .reblogHeader {
+				text-align: left;
+				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
+				border-radius: 8px;
+				height: 32px;
+				width: 516px;
+				padding: 4px 8px 4px 8px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-bottom: 8px;
+			}
+      .parentAttribution {
+        display: flex;
+        align-items: center;
+        height: 32px;
+      }
+      .parentAttribution b { margin-left: 8px; }
 			.postBlock {
 				background-color: {block:IfDarkTheme}#181a1b{/block:IfDarkTheme}{block:IfNotDarkTheme}#ffffff{/block:IfNotDarkTheme};
 				border-radius: 8px;
@@ -846,13 +845,7 @@
           padding: 8px 8px 0 8px;
           margin: 0 auto 8px auto;
       }
-      .blog {
-          position: relative;
-      }
-      .parentAttribution {
-          line-height: 24px;
-          margin-left: 4px;
-      }
+      .blog { position: relative; }
       .attribution {
           line-height: 36px;
           margin-left: 8px;
@@ -863,25 +856,24 @@
           align-content: center;
           justify-content: flex-start;
           flex-flow: row nowrap;
+          text-decoration: none;
       }
       .avatar {
           width: 36px;
           height: 36px;
-          border-radius: 2px;
-          margin-right: 8px;
+          border-radius: 3px;
       }
 
       .popoverCustom {
-          cursor: pointer !important;
-          border-radius: 8px !important;
-          position: absolute !important;
+          cursor: pointer;
+          border-radius: 8px;
+          position: absolute;
           top: 8px;
           left: 12px;
           margin: 8px;
           width: 256px;
           height: auto;
           z-index: 69;
-          hyphens: auto;
           display: none;
       }
       .popoverHeader {
@@ -907,16 +899,49 @@
           left: 0;
           width: 248px;
           text-align: center;
-          border-radius: 0 8px;
+          border-radius: 0 0 8px 8px;
           padding: 24px 4px 4px 4px;
-          margin: 8px 0;
       }
       .popoverUrl {
+        font-size: 20px;
         margin: 8px 0;
         hyphens: auto;
       }
-      .popoverTitle {
-        font-size: 24px;
+      .popoverTitle { font-size: 24px; }
+      .popoverDescription { margin: 8px 0; }
+
+      .pollQuestion { font-size: 24px; }
+      .answerWrapper {
+        margin: 0;
+        padding: 0;
+      }
+      .answerWrapper li { list-style-type: none; }
+      .pollAnswer {
+        height: 48px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        margin: 8px;
+        z-index: 1;
+        position: relative;
+        align-items: center;
+        border-radius: 8px;
+        background-color: rgba({RGBAccentColor}, 0.4);
+      }
+      .voteBar {
+        position: absolute;
+        height: 48px;
+        background-color: {AccentColor};
+        z-index: -1;
+        border-radius: 8px 0 0 8px;
+      }
+      .pollAnswerText { margin-left: 16px; }
+      .voteCount {
+        margin-right: 16px;
+      }
+      .totalVotes {
+        color: #a0a0a0;
+        text-align: center;
       }
 			
 			{CustomCSS}
@@ -1086,8 +1111,13 @@
 					{block:Posts}
 						<article id="post-{PostID}" class="post {PostType} {block:RebloggedFrom}reblogged {/block:RebloggedFrom}{block:Submission}submitted {/block:Submission}">
 							{block:RebloggedFrom}
-							    <div class="reblog-header">
-									<a href="{ReblogParentURL}" class="style-text header-link"><svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}"><path d="M5.01092527,5.99908429 L16.0088498,5.99908429 L16.136,9.508 L20.836,4.752 L16.136,0.083 L16.1360004,3.01110845 L2.09985349,3.01110845 C1.50585349,3.01110845 0.979248041,3.44726568 0.979248041,4.45007306 L0.979248041,10.9999998 L3.98376463,8.30993634 L3.98376463,6.89801007 C3.98376463,6.20867902 4.71892527,5.99908429 5.01092527,5.99908429 Z"></path><path d="M17.1420002,13.2800293 C17.1420002,13.5720293 17.022957,14.0490723 16.730957,14.0490723 L4.92919922,14.0490723 L4.92919922,11 L0.5,15.806 L4.92919922,20.5103758 L5.00469971,16.9990234 L18.9700928,16.9990234 C19.5640928,16.9990234 19.9453125,16.4010001 19.9453125,15.8060001 L19.9453125,9.5324707 L17.142,12.203"></path></svg><b class="parentAttribution">{ReblogParentName}</b></a>
+							    <div class="reblogHeader">
+									<a href="{ReblogParentURL}" class="style-text parentAttribution">
+                    <svg width="24px" height="24px" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="{AccentColor}">
+                      <path d="M5.01092527,5.99908429 L16.0088498,5.99908429 L16.136,9.508 L20.836,4.752 L16.136,0.083 L16.1360004,3.01110845 L2.09985349,3.01110845 C1.50585349,3.01110845 0.979248041,3.44726568 0.979248041,4.45007306 L0.979248041,10.9999998 L3.98376463,8.30993634 L3.98376463,6.89801007 C3.98376463,6.20867902 4.71892527,5.99908429 5.01092527,5.99908429 Z"></path><path d="M17.1420002,13.2800293 C17.1420002,13.5720293 17.022957,14.0490723 16.730957,14.0490723 L4.92919922,14.0490723 L4.92919922,11 L0.5,15.806 L4.92919922,20.5103758 L5.00469971,16.9990234 L18.9700928,16.9990234 C19.5640928,16.9990234 19.9453125,16.4010001 19.9453125,15.8060001 L19.9453125,9.5324707 L17.142,12.203"></path>
+                    </svg>
+                    <b>{ReblogParentName}</b>
+                  </a>
 								</div>
 							{/block:RebloggedFrom}
 							<figure><script rootid="{PostID}" type="text/javascript" src="">{NPF}</script></figure>
@@ -1216,6 +1246,6 @@
 				{/block:IndexPage}
 			</div>
 		</div>
-		<script src="https://static.tumblr.com/mxjv2kt/4lKs2sppd/posts.js"></script>
+		<script src="https://static.tumblr.com/mxjv2kt/lYIs2ufqm/posts.js"></script>
 	</body>
 </html>

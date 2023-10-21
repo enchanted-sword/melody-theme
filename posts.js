@@ -1,29 +1,32 @@
 const ownerBlog = JSON.parse($( "meta[name='ownerBlog']" ).attr("content"));
 ownerBlog.name = ownerBlog.url.split("/")[2].split(".")[0];
-const newPopover = (blog, id) => {
-  const popover = $( "<div>", {id: id, class: "popoverCustom"} );
-  popover.css("background-color", blog.theme.background_color);
-  const header = $( "<img>", {src: blog.theme.header_image, width: "256px", height: Math.floor(blog.theme.header_full_height / (blog.theme.header_full_width / 256)), class: "popoverHeader"} );
-  popover.append(header);
+const whenLoaded = (blog, popover, header) => {
+  const headerHeight = Math.floor(header[0].height / (header[0].width / 256));
   const avatarSrc = blog.avatar ? blog.avatar[2].url : `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;
   const avatar = $( "<img>", {src: avatarSrc, class: "popoverAvatar"} );
   popover.append(avatar);
+  avatar.css({"top": `${headerHeight - 60}px`});
   if (blog.theme.avatar_shape === "circle") avatar.css("border-radius", "50%");
   const about = $( "<div>", {class: "popoverAbout"} );
   popover.append(about);
-  about.css({"top": `${header.height() - 60}px`});
-  const url = $( "<b>", {class: "popoverUrl"} );
-  about.append(url);
-  //add font-size: 20px; margin: 8px 0; hyphens: auto to .popoverUrl css
-  url.css("color", blog.theme.link_color);
-  url.text(blog.name);
+  about.css({"top": `${headerHeight}px`, "color": blog.theme.link_color});
+  const popoverUrl = $( "<b>", {class: "popoverUrl"} );
+  about.append(popoverUrl);
+  about.css("color", blog.theme.link_color);
+  popoverUrl.text(blog.name);
   const title = $( "<p>", {class: "popoverTitle"} );
   about.append(title);
-  //add font-size: 24px to .popoverTitle css
   title.text(blog.title);
-  const description = about.append($( "<p>", {class: "popoverDescription"} ));
-  //add margin: 8px 0 to .popoverDescription css
+  const description = $( "<p>", {class: "popoverDescription"} );
+  about.append(description);
   description.text(blog.description);
+};
+const newPopover = (blog, id) => {
+  const popover = $( "<div>", {id: id, class: "popoverCustom"} );
+  popover.css("background-color", blog.theme.background_color);
+  const header = $( "<img>", {src: blog.theme.header_image, class: "popoverHeader"} );
+  popover.append(header);
+  header.on("load", whenLoaded(blog, popover, header));
 
   popover.click(() => {window.open(blog.url)});
   popover.mouseleave(() => $( `#${id}` ).hide("slow"));
@@ -104,38 +107,38 @@ const parseFormatting = block => {
     color: "span"
   };
   block.formatting.forEach((formatting, index, formattingArray) => {
-    let start = 0;
-    let end = 0;
+    let start = formatting.start;
+    let end = formatting.end;
     let startTag;
     const type = formatting.type;
     const format = formatKey[type] || "a";
-    const endTag = `<${format}>`;
+    const endTag = `</${format}>`;
     switch (type) {
       case "link" || "mention":
         startTag = `<a href="${formatting.url}">`
         break;
       case "color":
-        startTag = `<span style="color: ${formatting.hex}">`;
+        startTag = `<span style="color: ${formatting.hex};">`;
         break;
       default: 
         startTag = `<${format}>`;
     }
-    if (index === 0) start = formatting.start;
-    else {
-      for (const obj of formattingArray) {
-        if ((obj.start < formatting.start)
-        || (obj.end < formatting.start)) ++start;
-        if ((obj.start < formatting.end)
-        || (obj.end < formatting.end)) ++end;
+    formattingArray.forEach((obj, superIndex) => {
+      if (index === 0) start = formatting.start;
+      else {
+        if (obj.start < formatting.start) ++start;
+        if (obj.end < formatting.start) ++start;
+        if (obj.type === type && obj.end === formatting.start) ++start
       }
-      start += formatting.start;
-      end += formatting.end;
-      arr.splice(start, 0, startTag);
-      arr.splice(end, 0, endTag);
-    }
-    return arr.join("");
+      if (obj.start < formatting.end && index >= superIndex) ++end;
+      if (obj.end < formatting.end) ++end;
+    });
+    console.log(start, end, startTag);
+    arr.splice(start, 0, startTag);
+    arr.splice(end, 0, endTag);
   });
 
+  return arr.join("");
 };
 class ListMap {
   constructor(content, id) {
@@ -168,11 +171,12 @@ class pollResults {
   constructor(json, poll) {
     this.answers = [];
     this.votes = 0;
-    for (const num in json.response.results) {
-      this.votes += num;
+    const results = json.response.results;
+    for (const key in results) {
+      this.votes += results[key];
     }
     poll.answers.forEach((answer) => {
-      const count = json.response.results[answer.client_id];
+      const count = results[answer.client_id];
       this.answers.push({
         text: answer.answer_text,
         votes: count,
@@ -184,17 +188,17 @@ class pollResults {
 const parsePollResults = (json, poll, id) => {
   const answerWrapper = $( `#${id}` );
   const results = new pollResults(json, poll);
-  for (const data of results.answer) {
+  for (const data of results.answers) {
     answerWrapper.append($( `
     <li class="pollAnswer">
       <span class="voteBar" style="width: ${data.percent}%"></span>
       <span class="pollAnswerText">${data.text}</span>
-      <span class="votePercent">${data.percent}%</span>
-      <span class="voteCount">${data.votes}</span>
+      <span class="votePercent">${data.percent.toString().match(/\d+\D\d/)}%</span>
+      <span class="voteCount">${data.votes} votes</span>
     </li>
     ` ));
   }
-  answerWrapper.append($( `<li>${results.votes}</li>`, {class: "totalVotes"} ));
+  answerWrapper.append($( `<li class="totalVotes">${results.votes} votes</li>` ));
 };
 const constructContent = (content, id, card, isAsk = false) => {
   content.forEach((block, index, parentContent) => {
@@ -312,7 +316,7 @@ const constructContent = (content, id, card, isAsk = false) => {
         const answerWrapper = $( "<ul>", {id: `poll-${id}`, class: "answerWrapper"} );
         pollWrapper.append(answerWrapper);
         $.ajax({
-          url: `https://tumblr.com/api/v2/polls/${ownerBlog.name}/${id}/${block.client_id}/results`,
+          url: `https://api.tumblr.com/v2/polls/${ownerBlog.name}/${id}/${block.client_id}/results`,
           method: "GET",
           dataType: "json",
           success: function (json) {parsePollResults(json, block, answerWrapper.attr("id"))}
