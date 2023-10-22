@@ -1,15 +1,23 @@
 const ownerBlog = JSON.parse($( "meta[name='ownerBlog']" ).attr("content"));
 ownerBlog.name = ownerBlog.url.split("/")[2].split(".")[0];
-const whenLoaded = (blog, popover, header) => {
-  const headerHeight = Math.floor(header[0].height / (header[0].width / 256));
+const whenHeaderLoaded = (e, avatar, about) => {
+  const headerHeight = Math.floor(e.target.height / (e.target.width / 256));
+  avatar.css("top", `${headerHeight - 60}px`);
+  about.css("top", `${headerHeight}px`)
+}
+const newPopover = (blog, id, wrapper) => {
+  const popover = $( "<div>", {id: id, class: "popoverCustom"} );
+  wrapper.append(popover);
+  popover.css("background-color", blog.theme.background_color);
+  const header = $( "<img>", {src: blog.theme.header_image, class: "popoverHeader"} );
+  popover.append(header);
   const avatarSrc = blog.avatar ? blog.avatar[2].url : `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;
   const avatar = $( "<img>", {src: avatarSrc, class: "popoverAvatar"} );
   popover.append(avatar);
-  avatar.css({"top": `${headerHeight - 60}px`});
   if (blog.theme.avatar_shape === "circle") avatar.css("border-radius", "50%");
   const about = $( "<div>", {class: "popoverAbout"} );
   popover.append(about);
-  about.css({"top": `${headerHeight}px`, "color": blog.theme.link_color});
+  about.css("color", blog.theme.link_color);
   const popoverUrl = $( "<b>", {class: "popoverUrl"} );
   about.append(popoverUrl);
   about.css("color", blog.theme.link_color);
@@ -19,15 +27,9 @@ const whenLoaded = (blog, popover, header) => {
   title.text(blog.title);
   const description = $( "<p>", {class: "popoverDescription"} );
   about.append(description);
-  description.text(blog.description);
-};
-const newPopover = (blog, id) => {
-  const popover = $( "<div>", {id: id, class: "popoverCustom"} );
-  popover.css("background-color", blog.theme.background_color);
-  const header = $( "<img>", {src: blog.theme.header_image, class: "popoverHeader"} );
-  popover.append(header);
-  header.on("load", whenLoaded(blog, popover, header));
-
+  description.html(blog.description);
+  
+  header.on("load", (e) => whenHeaderLoaded(e, avatar, about));
   popover.click(() => {window.open(blog.url)});
   popover.mouseleave(() => $( `#${id}` ).hide("slow"));
 
@@ -39,12 +41,13 @@ const attribute = (blog, id, wrapper) => {
   wrapper.append(attributionLink);
   const avatarSrc = blog.avatar ? blog.avatar[2].url : `https://api.tumblr.com/v2/blog/${blog.name}/avatar/96`;
   attributionLink.append($( "<img>", {class: "avatar", src: avatarSrc} ));
-  wrapper.append(newPopover(blog, id));
+  wrapper.append(newPopover(blog, id, wrapper));
+
   wrapper.mouseenter(() => $( `#${id}` ).show("slow"));
+
   return attributionLink;
 };
-const deactivated = () => $( "<span>deactivated</span>", {class: "deactivated"} );
-//add color: #a0a0a0; font-size: 12px; margin-left: 8px; line-height: 12px to .deactivated css
+const deactivated = () => $( "<span class='deactivated'>deactivated</span>" );
 const newHeader = (block, id, type, index) => {
   const header = $( "<header>", {class: "postHeader"} );
   const wrapper = $( "<span>" );
@@ -98,7 +101,8 @@ const newHeader = (block, id, type, index) => {
   return header;
 };
 const parseFormatting = block => {
-  const arr = [...block.text];
+  const textArray = [...block.text];
+  const formattedArray = [];
   const formatKey = {
     bold: "b",
     italic: "i",
@@ -106,47 +110,45 @@ const parseFormatting = block => {
     small: "small",
     color: "span"
   };
-  block.formatting.forEach((formatting, index, formattingArray) => {
-    let start = formatting.start;
-    let end = formatting.end;
-    let startTag;
+  block.formatting.forEach(formatting => {
     const type = formatting.type;
     const format = formatKey[type] || "a";
-    const endTag = `</${format}>`;
     switch (type) {
-      case "link" || "mention":
-        startTag = `<a href="${formatting.url}">`
+      case "link":
+        formatting.startTag = `<a href="${formatting.url}">`
+        break;
+      case "mention":
+        formatting.startTag = `<a href="${formatting.blog.url}">`
         break;
       case "color":
-        startTag = `<span style="color: ${formatting.hex};">`;
+        formatting.startTag = `<span style="color: ${formatting.hex};">`;
         break;
       default: 
-        startTag = `<${format}>`;
+        formatting.startTag = `<${format}>`;
     }
-    formattingArray.forEach((obj, superIndex) => {
-      if (index === 0) start = formatting.start;
-      else {
-        if (obj.start < formatting.start) ++start;
-        if (obj.end < formatting.start) ++start;
-        if (obj.type === type && obj.end === formatting.start) ++start
+    formatting.endTag = `</${format}>`;
+  });
+  textArray.forEach((char, index) => {
+    block.formatting.forEach(formatting => {
+      if (formatting.end === index) {
+        formattedArray.push(formatting.endTag);
+      } else if (formatting.start === index) {
+        formattedArray.push(formatting.startTag);
       }
-      if (obj.start < formatting.end && index >= superIndex) ++end;
-      if (obj.end < formatting.end) ++end;
     });
-    console.log(start, end, startTag);
-    arr.splice(start, 0, startTag);
-    arr.splice(end, 0, endTag);
+    formattedArray.push(char);
   });
 
-  return arr.join("");
+  return formattedArray.join("");
 };
 class ListMap {
   constructor(content, id) {
     let index = 0;
+    const listType = ["unordered-list-item", "ordered-list-item"]
     this.map = [];
     this.id = `map-${id}`;
     content.forEach((block, n, content) => {
-      if (block.subtype) {
+      if (block.subtype && listType.includes(block.subtype)) {
         if (!content[n - 1] || content[n - 1].subtype !== block.subtype) {
           this.map.push({start: n, end: n + 1, type: `${block.subtype.slice(0, 1)}l`, id: `${id}-${index}`});
         } else if (!content[n + 1] || content[n + 1].subtype !== block.subtype) {
@@ -200,11 +202,13 @@ const parsePollResults = (json, poll, id) => {
   }
   answerWrapper.append($( `<li class="totalVotes">${results.votes} votes</li>` ));
 };
-const constructContent = (content, id, card, isAsk = false) => {
+const constructContent = (content, id, postCard, layoutBlocks = [], ask = false,) => {
   content.forEach((block, index, parentContent) => {
     let contentWidth = 516;
-    if (index === 0 && isAsk) {
+    let card = postCard;
+    if (ask && layoutBlocks[index] === index) {
       contentWidth = 500;
+      card = ask;
     }
     switch (block.type) {
       case "text":
@@ -213,7 +217,6 @@ const constructContent = (content, id, card, isAsk = false) => {
         card.append(textWrapper);
         if (block.formatting) textWrapper.append(parseFormatting(block));
         else textWrapper.text(block.text);
-        //handle general subtypes through css
         if (subtype === "unordered-list-item" || subtype === "ordered-list-item") {
           let map = new ListMap(parentContent, id);
           map = map.index(index);
@@ -252,26 +255,24 @@ const constructContent = (content, id, card, isAsk = false) => {
         break;
       case "link":
         const link = $( "<a>", {class: "link", target: "_blank", href: block.url} );
+        let title;
         card.append(link);
         if (block.title) {
-          const title = $( `<span><b class="linkTitle">${block.title}</b></span>`, {class: "linkInfo"} );
+          title = $( `<div class="linkInfo"><b class="linkTitle">${block.title}</b></div>` );
           link.append(title);
-          //set margin: 8px 0; font-size: 20px? in .linkTitle css
           if (block.description) {
-            title.append($( `<span>${block.description}</span><br>` ));
+            title.append($( `<p>${block.description}</p>` ));
           }
           if (block.site_name) {
-            title.append($( `<span>${block.site_name}</span>`, {class: "linkAttribution"} ));
+            title.append($( `<p class="linkSiteName">${block.site_name}</p>` ));
           }
         }
         if (block.poster) {
           const poster = $( "<div>", {class: "linkPoster"} );
+          poster.append($( `<div class="imageWrapper"><img src="${block.poster[0].url}"><div>` ));
           link.append(poster);
-          poster.css("background-image", `url(${block.poster[0].url})`);
-          if (title) {
-            poster.append(title);
-          }
-        } else 
+          if (title) poster.append(title);
+        }
         break;
       case "audio":
         const audioWrapper = $( "<div>", {class: "audioWrapper"} );
@@ -285,26 +286,30 @@ const constructContent = (content, id, card, isAsk = false) => {
           block.title ??= "No Album Provided";
           const info = $( "<div>", {class: "audioInfo"} );
           audioWrapper.append(info);
-          //set padding: 4px in .audioInfo css
-          audioWrapper.append($( `<audio><source src="${block.url}"></audio>`, {class: "audioPlayer", controls: ""} ));
-          if (block.poster) {
-            info.append($( "<img>", {class: "audioPoster", src: content.poster[0].url} ));
+          const audioPlayer = $( "<audio>", {class: "audioPlayer", controls: "", width: "100%"} );
+          audioPlayer.append($( "<source>", {src: block.media ? block.media.url : block.url, type: block.media ? block.media.type : "audio/mpeg"} ));
+          audioWrapper.append(audioPlayer);
+          if (block.poster[0]) {
+            info.append($( "<img>", {class: "audioPoster", src: block.poster[0].url} ));
           }
           info.append($( `
-            <b class="trackTitle">${block.title}</b>
-            <p>${block.artist}</p>
-            <p>${block.album}</p>
+            <h2 class="trackTitle">
+              <b>${block.title}</b>
+            </h2>
+            <p class="trackTitle">${block.artist}</p>
+            <p class="trackTitle">${block.album}</p>
           ` ));
-          //set padding-top: 8px; font-size: 20?px in trackTitle.css
           }
         break;
       case "video":
-        const videoWrapper = $( "<div>" );
+        const videoWrapper = $( "<div>", {class: "videoWrapper"} );
         card.append(videoWrapper);
         if (block.embed_iframe) {
           videoWrapper.append($( "<iframe>", {class: "videoFrame", width: contentWidth, height: (contentWidth / block.embed_iframe.width) * block.embed_iframe.height, src: block.embed_iframe.url} ));
         } else {
-          videoWrapper.append($( `<video><source src="${block.media?.url || block.url}"></video>`, {class: "videoPlayer", width: contentWidth, controls: ""} ));
+          videoPlayer = $( `<video>`, {class: "videoPlayer", width: contentWidth, controls: ""} );
+          videoPlayer.append($( `<source src="${block.media?.url || block.url}">` ));
+          videoWrapper.append(videoPlayer);
         }
         break;
       case "poll":
@@ -327,9 +332,9 @@ const constructContent = (content, id, card, isAsk = false) => {
 };
 const renderPost = post => {
   post = $( post );
-  const source = post.find("script");
+  const source = post.find("data");
   const postId = source.attr("rootid");
-  const npf = JSON.parse(source.html());
+  const npf = JSON.parse(source.text());
   console.info(npf);
   post.html("");
   npf.trail.forEach((block, index) => {
@@ -337,12 +342,12 @@ const renderPost = post => {
     post.append(body);
     const card = $( "<div>", {id: `post-${postId}-trail-${index}`, class: "postCard"});
     body.append(card);
-    if (block.layout[0] === "ask") {
+    if (block.layout[0] && block.layout[0].type === "ask") {
       const ask = $( "<div>", {class: "ask"} );
       card.append(ask);
-      ask.append(newHeader(block, postId, "asker", index));
+      ask.append(newHeader(block, postId, "ask", index));
       card.append(newHeader(block, postId, "answer", index));
-      constructContent(block.content, postId, ask, true);
+      constructContent(block.content, postId, card, block.layout[0].blocks, ask);
     } else {
       body.prepend(newHeader(block, postId, "reblog", index));
       constructContent(block.content, postId, card);
@@ -353,16 +358,28 @@ const renderPost = post => {
     post.append(body);
     const card = $( "<div>", {id: `post-${postId}-content`, class: "postCard"});
     body.append(card);
-    if (npf.layout[0] === "ask") {
+    if (npf.layout[0] && npf.layout[0].type === "ask") {
       const ask = $( "<div>", {class: "ask"} );
       card.append(ask);
-      ask.append(newHeader(npf, postId, "asker", 0));
-      constructContent(npf.content, postId, ask, true);
+      ask.append(newHeader(npf, postId, "ask", 0));
+      constructContent(npf.content, postId, card, npf.layout[0].blocks, ask);
     } else {
       if (npf.trail.length) body.prepend(newHeader(npf, postId, "original content", 0));
       constructContent(npf.content, postId, card);
     }
   }
+
+  if (window.location.pathname === "/ask" || window.location.pathname === "/submit") {
+    submit = $( "<iframe>", {id: "submit", frameborder: 0, src: `https://tumblr.com/${window.location.pathname.split("/")[1]}_form/${ownerBlog.name}.tumblr.com`} );
+    post.find(".postCard").append(submit);
+  }
 };
 
-for (const post of $( ".post figure" )) renderPost(post);
+for (const post of $( ".post figure" )) {
+  try {
+    renderPost(post);
+  } catch (e) {
+    console.error("An error occurred while rendering a post");
+    console.error(e);
+  }
+}
