@@ -67,6 +67,7 @@
 				color: rgb(var(--titleColor));				
 				font-family: 'Oxygen', 'Helvetica', 'Arial', sans-serif;
 				background-color: rgb(var(--backgroundColor));
+        transition-timing-function: linear;
 			}
       img, video {
         border-radius: 8px;
@@ -121,6 +122,7 @@
         display: flex;
         flex-flow: row nowrap;
         justify-content: center;
+        padding-top: 20px;
       }
 
       nav {
@@ -155,12 +157,12 @@
         top: 0;
       }
 
-      #search {
+      .search {
         display: flex;
         align-content: center;
         color: rgb(var(--backgroundColor));
       }
-      #search input, #search button { 
+      .search input, .search button { 
         height: 28px;
         text-align: left;
 				font-size: 20px;
@@ -172,13 +174,12 @@
 				background-color: rgba(var(--titleColor),0.4);
 				border-radius: 8px;
 				transition: background-color 0.5s;
-				transition-timing-function: linear;
       }
-      #search input:focus, #search button:hover {
+      .search input:focus, .search button:hover {
         background-color: rgba(var(--titleColor),0.8);
         border: none;
       }
-      #search button {
+      .search button {
         margin-left: 8px;
         height: 36px;
         width: 36px;
@@ -187,7 +188,6 @@
 
       aside nav, #userInfo {
 				width: 320px;
-				margin-top: 20px;
 				margin-bottom: 8px;				
 				padding: 12px;
 				border: solid 3px rgb(var(--titleColor));
@@ -204,6 +204,7 @@
       .circle { border-radius: 50%; }
 
       [role="nsfwIcon"] {
+        display: block;
         color: #ff1938;
         margin-top: 8px;
         font-size: 60px;
@@ -569,12 +570,12 @@
       a.reblog_button svg {
 				fill: rgb(var(--accentColor)) !important;
 				transition: opacity 0.5s;
-				transition-timing-function: linear;
 			}
       a.reblog_button svg:hover { opacity: 0.6 !important; }
       [role="likeButton"]	{
 				color: rgb(var(--accentColor));
 				cursor: pointer;
+        transition: color 0.5s;
 			}
       ul.tag {
         display: flex;
@@ -603,6 +604,11 @@
         width: 516px;
         background-color: transparent;
         height: 368px;
+      }
+
+      .scrollMarker {
+        visibility: hidden;
+        height: 0;
       }
     </style>
   </head>
@@ -634,12 +640,14 @@
       <main id="body">
         <aside id="sidebar">
           <div id="userInfo">
-            <form id="search" action="/search" method="get">
-              <input class="styleText tr" type="text" name="search" value="{SearchQuery}" placeholder="{lang:Search}..."/>
-              <button name="submit" class="styleText" type="submit" value="value">
-                <span role="search" class="material-symbols-rounded">search</span>
-              </button>
-            </form>
+            <div id="search">
+              <form class="search" action="/search" method="get">
+                <input class="styleText tr" type="text" name="search" value="{SearchQuery}" placeholder="{lang:Search}..."/>
+                <button name="submit" class="styleText" type="submit" value="value">
+                  <span role="search" class="material-symbols-rounded">search</span>
+                </button>
+              </form>
+            </div>
             {block:ShowAvatar}
               <img class="userAvatar {AvatarShape}" src="{PortraitURL-128}">
 						{/block:ShowAvatar}
@@ -667,9 +675,62 @@
               {/block:HasPages}
             </ul>
           </nav>
+          {block:Pagination}
+            <nav class="styleText">
+              <ul>
+                {block:PreviousPage}
+                  <li>
+                    <a href="{PreviousPage}">
+                      <span class="material-symbols-rounded">chevron_left</span>
+                    </a>
+                  </li>
+                {/block:PreviousPage}
+                {block:JumpPagination length="5"} 
+                  {block:CurrentPage}<li>{CurrentPage}</li>{/block:CurrentPage}
+                  {block:JumpPage}<li><a href="{URL}">{PageNumber}</a></li>{/block:JumpPage}
+                {/block:JumpPagination} 
+                {block:NextPage}
+                  <li class="nav">
+                    <a href="{NextPage}">
+                      <span class="material-symbols-rounded">chevron_right</span>
+                    </a>
+                  </li>
+                {/block:NextPage}
+              </ul>
+              {block:IfShowTotalPageCount}
+                <span class="styleText tr" style="font-size: 12px;">{lang:Page CurrentPage of TotalPages}</span>
+              {/block:IfShowTotalPageCount}
+            </nav>
+          {/block:Pagination}
+          {block:DayPage}
+            {block:DayPagination}
+              <nav class="styleText">
+                <ul>
+                  {block:PreviousDayPage}
+                    <li class="nav">
+                      <a href="{PreviousDayPage}">
+                        <span class="material-symbols-rounded">chevron_left</span>
+                      </a>
+                    </li>
+                  {/block:PreviousDayPage}
+                  <li>{DayOfMonth} {ShortMonth} {Year}</li>
+                  {block:NextDayPage}
+                    <li>
+                      <a href="{NextDayPage}">
+                        <span class="material-symbols-rounded">chevron_right</span>
+                      </a>
+                    </li>
+                  {/block:NextDayPage}
+                </ul>
+                {block:IfShowTotalPageCount}
+                  <span class="styleText tr" style="font-size: 12px;">{lang:Page CurrentPage of TotalPages}</span>
+                {/block:IfShowTotalPageCount}
+              </nav>
+            {/block:DayPagination}
+          {/block:DayPage}
           {block:PermalinkPage}
             {block:PermalinkPagination}
-                <nav class="styleText">
+              <nav class="styleText">
                 <ul>
                   {block:PreviousPost}
                     <li>
@@ -691,7 +752,7 @@
                     </li>
                   {/block:NextPost}
                 </ul>
-              </div>
+              </nav>
 						{/block:PermalinkPagination}
 					{/block:PermalinkPage}
           <span class="themeSource">
@@ -777,9 +838,14 @@
 							{/block:PostNotes}
             </article>
 					{/block:Posts}
+          <div class="scrollMarker">
+            {block:Pagination}{block:NextPage}{NextPage}{/block:NextPage}{/block:Pagination}
+            {block:DayPagination}{block:NextDayPage}{NextDayPage}{/block:NextDayPage}{/block:DayPagination}
+            {block:PermalinkPagination}{block:NextPost}{NextPost}{/block:NextPost}{/block:PermalinkPagination}
+          </div>
         </div>
       </main>
     </div>
-    <script src="https://static.tumblr.com/mxjv2kt/k1Hs2xw82/posts.js"></script>
+    <script src="https://static.tumblr.com/mxjv2kt/18es3vluy/posts.js"></script>
   </body>
 </html>

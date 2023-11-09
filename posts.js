@@ -324,7 +324,7 @@ const constructContent = (content, id, postCard, layoutBlocks = [], ask = false,
           url: `https://api.tumblr.com/v2/polls/${ownerBlog.name}/${id}/${block.client_id}/results`,
           method: "GET",
           dataType: "json",
-          success: function (json) {parsePollResults(json, block, answerWrapper.attr("id"))}
+          success: function (data) {parsePollResults(data, block, answerWrapper.attr("id"))}
         });
         break;
     }
@@ -333,6 +333,7 @@ const constructContent = (content, id, postCard, layoutBlocks = [], ask = false,
 const renderPost = post => {
   post = $( post );
   const source = post.find("data");
+  if (source.length === 0) return;
   const postId = source.attr("rootid");
   const npf = JSON.parse(source.text());
   console.info(npf);
@@ -374,12 +375,46 @@ const renderPost = post => {
     post.find(".postCard").append(submit);
   }
 };
-
-for (const post of $( ".post figure" )) {
-  try {
-    renderPost(post);
-  } catch (e) {
-    console.error("An error occurred while rendering a post");
-    console.error(e);
+const offset = element => {
+  if (element.length) return element[0].getBoundingClientRect().top - $( window ).height();
+  else return 1001;
+}
+const loadNextPage = data => {
+  data = $( data );
+  $( "#container" ).append(data.find("article"));
+  $( "#container" ).append(data.find(".scrollMarker:not([active='false'])"));
+  render();
+};
+const paginate = async function (next) {
+  if (next === "") return;
+  const fetchUrl = ownerBlog.url.replace(/\/$/, "").concat(next)
+  console.info(`loading next page from ${fetchUrl}`);
+  $.ajax({
+    url: fetchUrl,
+    method: "GET",
+    dataType: "html",
+    success: function (data) {loadNextPage(data)}
+  });
+};
+const render = () => {
+  for (const post of $( ".post figure" )) {
+    try {
+      renderPost(post);
+    } catch (e) {
+      console.error("An error occurred while rendering a post");
+      console.error(e);
+    }
   }
 }
+
+render();
+
+$( window ).on("scroll", function () {
+  if (offset($( ".scrollMarker:not([active='false'])" ).eq(-1)) <= 1000) {
+    const marker = $( ".scrollMarker" ).eq(-1);
+    marker.eq(-1).attr("active", "false");
+    paginate(marker.text().replace(/\s/g, ""));
+  }
+});
+
+
